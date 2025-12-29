@@ -19,8 +19,8 @@ export default function Projects() {
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold mb-4 text-center">Projets</h2>
-        <p className="text-gray-600 text-center mb-8">
+        <h2 className="text-4xl font-bold mb-4 text-center text-gray-900 dark:text-white">Projets</h2>
+        <p className="text-gray-600 dark:text-gray-400 text-center mb-8">
           Une sélection de mes réalisations professionnelles, personnelles et académiques
         </p>
 
@@ -32,7 +32,7 @@ export default function Projects() {
               className={`px-6 py-2 rounded-full font-semibold transition ${
                 projectFilter === filter.id
                   ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
               }`}
             >
               {filter.label}
@@ -42,22 +42,22 @@ export default function Projects() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project, idx) => (
-            <div key={idx} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition">
+            <div key={idx} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:shadow-lg dark:hover:shadow-blue-900/10 transition duration-300">
               <div className="flex items-start justify-between mb-4">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  {project.category === 'pro' && <Briefcase className="w-6 h-6 text-blue-600" />}
-                  {project.category === 'perso' && <Wrench className="w-6 h-6 text-blue-600" />}
-                  {project.category === 'formation' && <GraduationCap className="w-6 h-6 text-blue-600" />}
+                <div className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+                  {project.category === 'pro' && <Briefcase className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+                  {project.category === 'perso' && <Wrench className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+                  {project.category === 'formation' && <GraduationCap className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
                 </div>
-                <span className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded">
+                <span className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">
                   {project.status}
                 </span>
               </div>
-              <h3 className="text-xl font-bold mb-3">{project.title}</h3>
-              <p className="text-gray-600 mb-4">{project.description}</p>
+              <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">{project.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {project.tech.map((tech, i) => (
-                  <span key={i} className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-sm">
+                  <span key={i} className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded text-sm">
                     {tech}
                   </span>
                 ))}
