@@ -9,6 +9,3 @@ jobs:
     uses: skuskusku13/devops/.github/workflows/reusable-create-branch.yml@main
     secrets:
       CREATE_BRANCH_TOKEN: ${{ secrets.CREATE_BRANCH_TOKEN }}
-    permissions:
-      contents: write
-      issues: write
