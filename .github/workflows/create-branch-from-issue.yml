@@ -2,7 +2,7 @@ name: Create Branch from Issue
 
 on:
   issues:
-    types: [opened, assigned]
+    types: [opened]
 
 permissions:
   contents: write
