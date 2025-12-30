@@ -1,4 +1,5 @@
 name: Create Branch from Issue
+
 on:
   issues:
     types: [opened, assigned]
@@ -9,4 +10,3 @@ jobs:
     permissions:
       contents: write
       issues: write
-      pull-requests: write
