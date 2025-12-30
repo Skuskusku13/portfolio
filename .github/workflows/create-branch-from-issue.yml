@@ -6,7 +6,7 @@ on:
 
 jobs:
   call-create-branch:
-    uses: Skuskusku13/devops/.github/workflows/reusable-create-branch.yml@main
+    uses: Skuskusku13/devops/blob/main/.github/workflows/reusable-create-branch.yml@main
     permissions:
       contents: write
       issues: write
