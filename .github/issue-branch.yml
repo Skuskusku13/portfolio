@@ -1,5 +1,5 @@
 mode: immediate
-branchName: 'issue-${issue.number}-${issue.title}'
+branchName: '${issue.number}-${issue.title}'
 branches:
   - label: bug
     prefix: bugfix/
@@ -10,5 +10,6 @@ branches:
   - label: devops
     prefix: devops/
   - label: '*'
+    prefix: '*-'
 autoCloseIssue: false
 commentMessage: '✅ Branche créée : `${branchName}`'
