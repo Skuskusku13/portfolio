@@ -7,3 +7,5 @@ on:
 jobs:
   call-create-branch:
     uses: skuskusku13/devops/.github/workflows/reusable-create-branch.yml@main
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
