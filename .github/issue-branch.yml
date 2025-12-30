@@ -1,0 +1,14 @@
+branchName: 'issue-${issue.number}-${issue.title}'
+branches:
+  - label: bug
+    prefix: bugfix/
+  - label: enhancement
+    prefix: feature/
+  - label: documentation
+    prefix: docs/
+  - label: devops
+    prefix: devops/
+  - label: '*'
+    prefix: issue-
+autoCloseIssue: false
+commentMessage: '✅ Branche créée : `${branchName}`'
