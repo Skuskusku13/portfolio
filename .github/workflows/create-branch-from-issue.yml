@@ -1,11 +1,25 @@
 name: Create Branch from Issue
+
 on:
   issues:
-    types: [opened]
+    types: [opened, assigned]
+
+permissions:
+  contents: write
+  issues: write
 
 jobs:
-  call-create-branch:
-    uses: Skuskusku13/devops/.github/workflows/reusable-create-branch.yml@main
-    permissions:
-      contents: write
-      issues: write
+  create_issue_branch_job:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout du repo
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Crée la branche automatiquement
+      - name: Create Issue Branch
+        uses: robvanderleek/create-issue-branch@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
