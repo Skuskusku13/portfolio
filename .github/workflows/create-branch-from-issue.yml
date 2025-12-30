@@ -7,4 +7,3 @@ on:
 jobs:
   call-create-branch:
     uses: skuskusku13/devops/.github/workflows/reusable-create-branch.yml@main
-    secrets: inherit
