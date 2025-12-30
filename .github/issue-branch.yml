@@ -10,6 +10,5 @@ branches:
   - label: devops
     prefix: devops/
   - label: '*'
-    prefix: issue-
 autoCloseIssue: false
 commentMessage: '✅ Branche créée : `${branchName}`'
