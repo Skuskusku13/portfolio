@@ -7,7 +7,8 @@ export default function Projects() {
 
   const filteredProjects = projectFilter === 'all'
     ? projects
-    : projects.filter(p => p.category === projectFilter);
+    // @ts-expect-error: category is now an array, checking inclusion
+    : projects.filter(p => p.category.includes(projectFilter));
 
   const filters = [
     { id: 'all', label: 'Tous' },
@@ -44,10 +45,14 @@ export default function Projects() {
           {filteredProjects.map((project, idx) => (
             <div key={idx} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:shadow-lg dark:hover:shadow-blue-900/10 transition duration-300">
               <div className="flex items-start justify-between mb-4">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
-                  {project.category === 'pro' && <Briefcase className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
-                  {project.category === 'perso' && <Wrench className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
-                  {project.category === 'formation' && <GraduationCap className="w-6 h-6 text-blue-600 dark:text-blue-400" />}
+                <div className="flex gap-2">
+                  {project.category.map((cat, i) => (
+                    <div key={i} className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg" title={cat}>
+                      {cat === 'pro' && <Briefcase className="w-5 h-5 text-blue-600 dark:text-blue-400" />}
+                      {cat === 'perso' && <Wrench className="w-5 h-5 text-blue-600 dark:text-blue-400" />}
+                      {cat === 'formation' && <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400" />}
+                    </div>
+                  ))}
                 </div>
                 <span className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">
                   {project.status}

@@ -63,53 +63,95 @@ export const skills: Skills = {
   self_hosted: ["Joplin", "Cloudflared", "Pi-hole"],
   network_security: ["WireGuard", "Nginx", "SSL / TLS"],
   os: ["MacOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Kali", "Raspberry Pi OS"],
-  frontend: ["TypeScript", "JavaScript", "AngularJS", "ReactJS", "Vite", "Twig", "HTML", "CSS", "SCSS", "Bootstrap",],
+  frontend: ["TypeScript", "JavaScript", "Android (Java)", "AngularJS", "ReactJS", "Vite", "Twig", "HTML", "CSS", "SCSS", "Bootstrap",],
   project_management: ["Agile / Scrum", "Kanban", "Jira", "UML (Séquence)", "Merise (MCD, MLD)", "Architecture Technique"],
   // data_ai: ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "PySpark"],
 };
 
 export const projects: Project[] = [
   {
+    title: "Portfolio & Portail",
+    category: ["perso"],
+    description: "CV informatique et interface centralisée pour l'accès aux services auto-hébergés (Joplin, Portainer, n8n) avec gestion d'accessibilité par IP.",
+    tech: ["ReactJS", "Vite", "Tailwind CSS", "Docker"],
+    status: "En production"
+  },
+  {
+    title: "Infrastructure Microservices",
+    category: ["perso", "pro"],
+    description: "Architecture complète de services conteneurisés avec reverse proxy, gestion SSL et réseau privé.",
+    tech: ["Docker Compose", "Nginx Proxy", "Cloudflared", "MariaDB", "LetsEncrypt", "Logrotate"],
+    status: "En production"
+  },
+  {
     title: "Système de messagerie asynchrone",
-    category: "pro",
-    description: "Implémentation d'un système de file d'attente avec RabbitMQ pour le traitement asynchrone des demandes",
+    category: ["pro"],
+    description: "Implémentation d'un système de file d'attente avec RabbitMQ et le protocol amqps pour le traitement asynchrone des demandes.",
     tech: ["RabbitMQ", "PHP", "Symfony"],
     status: "En production"
   },
   {
     title: "Pipeline CI/CD",
-    category: "pro",
-    description: "Automatisation du déploiement avec tests et validation continue",
-    tech: ["Docker", "GitLab CI", "Bash"],
+    category: ["perso", "pro"],
+    description: "Automatisation des déploiements via des pipelines CI / CD pour garantir des mises en production rapides et fiables.",
+    tech: ["Docker", "Reusable Workflows", "Github CI / CD", "Bash"],
     status: "En production"
   },
   {
+    title: "Stack Monitoring & Observabilité",
+    category: ["perso", "pro"],
+    description: "Mise en place d'une surveillance complète de l'infrastructure avec collecte de métriques et dashboards.",
+    tech: ["Prometheus", "Grafana", "Node Exporter", "Datadog", "Docker"],
+    status: "En cours"
+  },
+  {
     title: "API REST avec Spring Boot",
-    category: "formation",
-    description: "Développement d'une API complète avec authentification et gestion de données",
+    category: ["pro", "formation"],
+    description: "Développement d'une API complète avec authentification jwt et gestion de données",
     tech: ["Java", "Spring Boot", "MariaDB"],
     status: "Terminé"
   },
   {
-    title: "Dashboard Analytics",
-    category: "perso",
-    description: "Tableau de bord pour visualiser des métriques personnelles",
-    tech: ["Python", "Node.js", "Docker"],
-    status: "En développement"
+    title: "Bateau de Thibaut",
+    category: ["formation"],
+    description: "Développement d'une application mobile pour un magasin. Gestion de stock, promos, indisponibilités des articles, articles de saisons, prix d'achat, prrix de revente.",
+    tech: ["Angular", "Ionic", "TypeScript", "API REST"],
+    status: "Terminé"
+  },
+  {
+    title: "Bunker",
+    category: ["formation"],
+    description: "Filevault pour notes sécurisées enregistrement des mdp et email pour des sites.",
+    tech: ["NestJS", "AngularJS", "MariaDB"],
+    status: "Terminé"
+  },
+  {
+    title: "Applications Mobile Android",
+    category: ["formation"],
+    description: "Application native Android pour la consultation de données parlementaires (Open Data).",
+    tech: ["Java", "Android SDK", "Gradle"],
+    status: "Terminé"
+  },
+  {
+    title: "Analyse Big Data",
+    category: ["formation"],
+    description: "Traitement et analyse de grands jeux de données (DataFrames) pour l'extraction de statistiques.",
+    tech: ["Python", "Pandas", "NumPy"],
+    status: "Terminé"
+  },
+  {
+    title: "API de Machine Learning",
+    category: ["formation"],
+    description: "Développement d'une API Flask exposant un modèle d'IA entraîné avec TensorFlow / Keras pour la classification.",
+    tech: ["Python", "Flask", "TensorFlow", "Keras"],
+    status: "Terminé"
   },
   {
     title: "Site vitrine avec CMS",
-    category: "pro",
+    category: ["formation", "pro"],
     description: "Développement de sites web avec WordPress et personnalisation avancée",
-    tech: ["WordPress", "PHP", "JavaScript", "CSS"],
+    tech: ["WordPress", "PHP", "JavaScript", "CSS", "HTML"],
     status: "Plusieurs projets livrés"
-  },
-  {
-    title: "Serveur home lab",
-    category: "perso",
-    description: "Configuration d'un serveur personnel sur Raspberry Pi avec services Docker",
-    tech: ["Raspberry Pi", "Docker", "Nginx", "Debian"],
-    status: "En production"
   }
 ];
 

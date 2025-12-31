@@ -16,7 +16,7 @@ export interface Formation {
 
 export interface Project {
   title: string;
-  category: 'pro' | 'perso' | 'formation';
+  category: ('pro' | 'perso' | 'formation')[];
   description: string;
   tech: string[];
   status: string;
