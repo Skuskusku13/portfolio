@@ -34,3 +34,12 @@ export interface Skills {
   self_hosted: string[];
   tools: string[];
 }
+
+export interface PortalService {
+  name: string;
+  url: string;
+  description: string;
+  icon: string; // Nom de l'icône Lucide (ex: "FileText", "Activity")
+  restricted?: boolean; // Si vrai, nécessite d'être sur le réseau autorisé
+  fallbackUrl?: string; // URL de redirection si l'accès est refusé
+}

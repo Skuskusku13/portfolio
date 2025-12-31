@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Experience from './components/Experience';
@@ -6,17 +7,28 @@ import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Portal from './components/Portal';
 
 function App() {
+  const [view, setView] = useState<'portfolio' | 'portal'>('portfolio');
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-      <Navbar />
-      <Hero />
-      <Experience />
-      <Education />
-      <Projects />
-      <Skills />
-      <Contact />
+      <Navbar currentView={view} onViewChange={setView} />
+      
+      {view === 'portfolio' ? (
+        <main>
+          <Hero />
+          <Experience />
+          <Education />
+          <Projects />
+          <Skills />
+          <Contact />
+        </main>
+      ) : (
+        <Portal />
+      )}
+      
       <Footer />
     </div>
   );
