@@ -18,7 +18,7 @@ export default function Skills() {
     { key: 'network_security', title: 'Réseau & Sécurité', icon: ShieldCheck },
     { key: 'os', title: "Systèmes d'exploitation", icon: Monitor },
     { key: 'frontend', title: 'Front-end', icon: Layout },
-    { key: 'project_management', title: 'Gestion de Projet & Conception', icon: ClipboardList },
+    { key: 'project_management', title: 'Gestion & Conception', icon: ClipboardList },
     // { key: 'data_ai', title: 'Data Science & IA', icon: Brain }, // Décommenter pour réactiver
   ];
 
