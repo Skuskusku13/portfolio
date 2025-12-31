@@ -6,9 +6,8 @@ export default function Hero() {
           <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
             Développeur Back-end & DevOps
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-            En alternance chez Meilleurtaux, spécialisé en PHP/Symfony, Docker et automatisation.
-            Actuellement en formation Architecte des Systèmes d'Information (Bac +5).
+          <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Architecte des Systèmes d'Information en alternance. Conception d'architectures Back-end et DevOps pour des solutions robustes, sécurisées et automatisées.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a href="#contact"
