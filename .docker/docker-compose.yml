@@ -9,6 +9,7 @@ services:
       context: ../
       dockerfile: ./.docker/Dockerfile
     container_name: "portfolio"
+    restart: unless-stopped
     environment:
       VIRTUAL_HOST: dlyhub.com
       VIRTUAL_PORT: 80
