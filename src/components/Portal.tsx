@@ -121,7 +121,11 @@ const ServiceCard = ({ service, isAuthorized }: { service: PortalService; isAuth
 // --- Composant Principal ---
 export default function Portal() {
   const { ip, loading } = useIpAddress();
-  const isAuthorized = ip ? ALLOWED_IPS.includes(ip) : false;
+  
+  // Vérification : L'IP client doit COMMENCER par une des IPs autorisées (pour gérer les préfixes IPv6)
+  const isAuthorized = ip 
+    ? ALLOWED_IPS.some((allowed: string) => ip.startsWith(allowed)) 
+    : false;
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
