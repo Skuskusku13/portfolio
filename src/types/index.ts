@@ -28,6 +28,8 @@ export interface Skills {
   databases: string[];
   devops: string[];
   frontend: string[];
+  network_security: string[];
   os: string[];
+  self_hosted?: string[];
   tools: string[];
 }
