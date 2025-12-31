@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { Server, Database, Code, Monitor, Layout, Wrench, Home, ShieldCheck, ClipboardList, type LucideIcon } from 'lucide-react';
 import { skills } from '../data';
 import type { Skills as SkillsType } from '../types';
+import Pagination from './Pagination';
 
 interface SkillSection {
   key: keyof SkillsType;
@@ -9,6 +11,21 @@ interface SkillSection {
 }
 
 export default function Skills() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) setItemsPerPage(3);
+      else if (window.innerWidth < 1024) setItemsPerPage(4);
+      else setItemsPerPage(6);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const skillSections: SkillSection[] = [
     { key: 'backend', title: 'Back-end', icon: Server },
     { key: 'devops', title: 'DevOps', icon: Code },
@@ -22,19 +39,30 @@ export default function Skills() {
     // { key: 'data_ai', title: 'Data Science & IA', icon: Brain }, // Décommenter pour réactiver
   ];
 
+  // Filter sections that actually have content
+  const activeSections = skillSections.filter(section => {
+    const items = skills[section.key];
+    return items && items.length > 0;
+  });
+
+  // Pagination Logic
+  const totalPages = Math.ceil(activeSections.length / itemsPerPage);
+  const displayedSections = activeSections.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white">Compétences Techniques</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           
-          {skillSections.map((section) => {
+          {displayedSections.map((section) => {
             const items = skills[section.key];
-            
-            // Si la section est vide ou undefined, on ne l'affiche pas
-            if (!items || items.length === 0) return null;
-
             const Icon = section.icon;
+
+            if (!items) return null;
 
             return (
               <div 
@@ -57,6 +85,12 @@ export default function Skills() {
           })}
 
         </div>
+
+        <Pagination 
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </section>
   );
