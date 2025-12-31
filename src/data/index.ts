@@ -64,6 +64,7 @@ export const skills: Skills = {
   network_security: ["WireGuard", "Nginx", "SSL / TLS"],
   os: ["MacOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Kali", "Raspberry Pi OS"],
   frontend: ["TypeScript", "JavaScript", "AngularJS", "ReactJS", "Vite", "Twig", "HTML", "CSS", "SCSS", "Bootstrap",],
+  project_management: ["Agile / Scrum", "Kanban", "Jira", "UML (Séquence)", "Merise (MCD, MLD)", "Architecture Technique"],
   // data_ai: ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "PySpark"],
 };
 

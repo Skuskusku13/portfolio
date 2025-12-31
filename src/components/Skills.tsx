@@ -1,4 +1,4 @@
-import { Server, Database, Code, Monitor, Layout, Wrench, Home, ShieldCheck, type LucideIcon } from 'lucide-react';
+import { Server, Database, Code, Monitor, Layout, Wrench, Home, ShieldCheck, ClipboardList, type LucideIcon } from 'lucide-react';
 import { skills } from '../data';
 import type { Skills as SkillsType } from '../types';
 
@@ -18,6 +18,7 @@ export default function Skills() {
     { key: 'network_security', title: 'Réseau & Sécurité', icon: ShieldCheck },
     { key: 'os', title: "Systèmes d'exploitation", icon: Monitor },
     { key: 'frontend', title: 'Front-end', icon: Layout },
+    { key: 'project_management', title: 'Gestion de Projet & Conception', icon: ClipboardList },
     // { key: 'data_ai', title: 'Data Science & IA', icon: Brain }, // Décommenter pour réactiver
   ];
 

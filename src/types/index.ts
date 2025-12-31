@@ -30,6 +30,7 @@ export interface Skills {
   frontend: string[];
   network_security: string[];
   os: string[];
+  project_management: string[];
   self_hosted: string[];
   tools: string[];
 }
