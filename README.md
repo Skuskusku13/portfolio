@@ -58,4 +58,4 @@ Pour plus de détails techniques, consultez la [Documentation de l'Architecture]
 *   **Mode Sombre (Dark Mode)** : (Préparé via Tailwind, suit les préférences système par défaut).
 
 ---
-© 2024 Dan Levy
+© 2025 Dan Levy
