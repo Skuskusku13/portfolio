@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import { Code, Menu, X, LayoutDashboard, Briefcase } from 'lucide-react';
+import { Menu, X, LayoutDashboard, Briefcase } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
+import { useTheme } from '../hooks/useTheme';
+import logoLight from '../assets/logo-light.svg';
+import logoDark from '../assets/logo-dark.svg';
 
 interface NavbarProps {
   currentView: 'portfolio' | 'portal';
@@ -9,6 +12,7 @@ interface NavbarProps {
 
 export default function Navbar({ currentView, onViewChange }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme } = useTheme();
 
   const menuItems = [
     { href: "#about", label: "À propos" },
@@ -26,7 +30,11 @@ export default function Navbar({ currentView, onViewChange }: NavbarProps) {
             className="flex items-center gap-2 cursor-pointer" 
             onClick={() => onViewChange('portfolio')}
           >
-            <Code className="w-6 h-6 text-blue-600 dark:text-blue-400 shrink-0" />
+            <img 
+              src={theme === 'dark' ? logoDark : logoLight} 
+              alt="Logo" 
+              className="h-12 w-auto"
+            />
             <span className="font-bold text-xl text-gray-900 dark:text-white whitespace-nowrap">Dan Levy</span>
           </div>
 
