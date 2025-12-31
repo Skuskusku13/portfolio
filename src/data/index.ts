@@ -57,14 +57,14 @@ export const formations: Formation[] = [
 
 export const skills: Skills = {
   backend: ["PHP", "Symfony", "Python", "Django", "Flask", "NestJS", "Java", "Spring Boot", "RabbitMQ"],
-  // data_ai: ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "PySpark"],
-  databases: ["MySQL / MariaDB", "MongoDB"],
   devops: ["Docker", "Docker Compose", "Prometheus", "Grafana", "Datadog", "Portainer", "Logrotate", "CI / CD", "Bash / zsh", "GitLab", "GitHub", "Git"],
-  frontend: ["TypeScript", "JavaScript", "AngularJS", "ReactJS", "Vite", "Bootstrap", "HTML", "CSS", "SCSS"],
+  tools: ["n8n", "PhpMyAdmin", "PhpStorm", "PHPUnit", "WordPress"],
+  databases: ["MySQL / MariaDB", "MongoDB"],
+  self_hosted: ["Joplin", "Cloudflared", "Pi-hole"],
   network_security: ["WireGuard", "Nginx", "SSL / TLS"],
   os: ["MacOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Kali", "Raspberry Pi OS"],
-  self_hosted: ["Joplin", "Cloudflared", "Pi-hole"],
-  tools: ["n8n", "PhpMyAdmin", "PhpStorm", "PHPUnit", "WordPress"]
+  frontend: ["TypeScript", "JavaScript", "AngularJS", "ReactJS", "Vite", "Bootstrap", "HTML", "CSS", "SCSS"],
+  // data_ai: ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "PySpark"],
 };
 
 export const projects: Project[] = [
