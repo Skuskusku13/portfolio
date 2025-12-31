@@ -10,7 +10,7 @@ services:
       dockerfile: ./.docker/Dockerfile
     container_name: "portfolio"
     environment:
-      VIRTUAL_HOST: dlyhub.localhost
+      VIRTUAL_HOST: dlyhub.com
       VIRTUAL_PORT: 80
       LETSENCRYPT_HOST: dlyhub.com
       LETSENCRYPT_EMAIL: ${DEFAULT_EMAIL}
