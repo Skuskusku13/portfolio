@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Experience from './components/Experience';
@@ -8,9 +7,10 @@ import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Portal from './components/Portal';
+import { useView } from './hooks/useView';
 
 function App() {
-  const [view, setView] = useState<'portfolio' | 'portal'>('portfolio');
+  const [view, setView] = useView();
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
