@@ -27,5 +27,6 @@ export interface Skills {
   databases: string[];
   devops: string[];
   frontend: string[];
+  os: string[];
   tools: string[];
 }

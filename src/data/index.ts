@@ -56,11 +56,12 @@ export const formations: Formation[] = [
 ];
 
 export const skills: Skills = {
-  backend: ["PHP", "Symfony", "Python", "Node.js", "Java", "Spring Boot"],
-  databases: ["MariaDB", "SQL", "PhpMyAdmin"],
+  backend: ["PHP", "Symfony", "Python", "NestJS", "Java", "Spring Boot"],
+  databases: ["MySQL / MariaDB", "MongoDB", "PhpMyAdmin"],
   devops: ["Docker", "Docker Compose", "Nginx", "CI/CD", "Bash / zsh", "GitLab", "GitHub", "Git"],
-  frontend: ["JavaScript", "HTML", "CSS", "AngularJS", "React Native", "Bootstrap", "SCSS"],
-  tools: ["RabbitMQ", "PhpStorm", "PHPUnit", "WordPress", "Debian", "Ubuntu", "Raspberry Pi"]
+  frontend: ["TypeScript", "JavaScript", "AngularJS", "React Native", "Vite", "Bootstrap", "HTML", "CSS", "SCSS"],
+  os: ["macOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Raspberry Pi OS"],
+  tools: ["n8n", "RabbitMQ", "PhpStorm", "PHPUnit", "WordPress"]
 };
 
 export const projects: Project[] = [

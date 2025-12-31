@@ -1,4 +1,4 @@
-import { Server, Database, Code } from 'lucide-react';
+import { Server, Database, Code, Monitor } from 'lucide-react';
 import { skills } from '../data';
 
 export default function Skills() {
@@ -51,6 +51,20 @@ export default function Skills() {
           </div>
 
           <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 transition-colors duration-300">
+            <h3 className="text-xl font-bold mb-4 text-blue-600 dark:text-blue-400 flex items-center gap-2">
+              <Monitor className="w-5 h-5" />
+              Systèmes d'exploitation
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {skills.os.map((skill, i) => (
+                <span key={i} className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-full text-sm">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 transition-colors duration-300">
             <h3 className="text-xl font-bold mb-4 text-blue-600 dark:text-blue-400">Front-end</h3>
             <div className="flex flex-wrap gap-2">
               {skills.frontend.map((skill, i) => (
@@ -61,7 +75,7 @@ export default function Skills() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 md:col-span-2 transition-colors duration-300">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 transition-colors duration-300">
             <h3 className="text-xl font-bold mb-4 text-blue-600 dark:text-blue-400">Autres outils</h3>
             <div className="flex flex-wrap gap-2">
               {skills.tools.map((skill, i) => (
