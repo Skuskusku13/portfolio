@@ -14,7 +14,7 @@ export default function Skills() {
     { key: 'devops', title: 'DevOps', icon: Code },
     { key: 'tools', title: 'Outils & Services', icon: Wrench },
     { key: 'databases', title: 'Bases de données', icon: Database },
-    { key: 'self_hosted', title: 'Self-Hosted & Home Lab', icon: Home },
+    { key: 'self_hosted', title: 'Self-Hosted', icon: Home },
     { key: 'network_security', title: 'Réseau & Sécurité', icon: ShieldCheck },
     { key: 'os', title: "Systèmes d'exploitation", icon: Monitor },
     { key: 'frontend', title: 'Front-end', icon: Layout },
