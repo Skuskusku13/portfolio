@@ -11,7 +11,7 @@ interface SkillSection {
 export default function Skills() {
   const skillSections: SkillSection[] = [
     { key: 'backend', title: 'Back-end', icon: Server },
-    { key: 'devops', title: 'DevOps & CI/CD', icon: Code },
+    { key: 'devops', title: 'DevOps', icon: Code },
     { key: 'tools', title: 'Outils & Services', icon: Wrench },
     { key: 'databases', title: 'Bases de données', icon: Database },
     { key: 'self_hosted', title: 'Self-Hosted & Home Lab', icon: Home },

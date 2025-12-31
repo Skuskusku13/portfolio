@@ -63,7 +63,7 @@ export const skills: Skills = {
   self_hosted: ["Joplin", "Cloudflared", "Pi-hole"],
   network_security: ["WireGuard", "Nginx", "SSL / TLS"],
   os: ["MacOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Kali", "Raspberry Pi OS"],
-  frontend: ["TypeScript", "JavaScript", "AngularJS", "ReactJS", "Vite", "Bootstrap", "HTML", "CSS", "SCSS"],
+  frontend: ["TypeScript", "JavaScript", "AngularJS", "ReactJS", "Vite", "Twig", "HTML", "CSS", "SCSS", "Bootstrap",],
   // data_ai: ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "PySpark"],
 };
 
