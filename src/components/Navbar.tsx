@@ -7,7 +7,7 @@ export default function Navbar() {
 
   const menuItems = [
     { href: "#about", label: "À propos" },
-    { href: "#experience", label: "Expérience" },
+    { href: "#experiences", label: "Expériences" },
     { href: "#projects", label: "Projets" },
     { href: "#skills", label: "Compétences" },
     { href: "#contact", label: "Contact" },
