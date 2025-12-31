@@ -56,12 +56,13 @@ export const formations: Formation[] = [
 ];
 
 export const skills: Skills = {
-  backend: ["PHP", "Symfony", "Python", "NestJS", "Java", "Spring Boot"],
+  backend: ["PHP", "Symfony", "Python", "Django", "Flask", "NestJS", "Java", "Spring Boot"],
+  // data_ai: ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "PySpark"],
   databases: ["MySQL / MariaDB", "MongoDB", "PhpMyAdmin"],
-  devops: ["Docker", "Docker Compose", "Nginx", "CI/CD", "Bash / zsh", "GitLab", "GitHub", "Git"],
-  frontend: ["TypeScript", "JavaScript", "AngularJS", "React Native", "Vite", "Bootstrap", "HTML", "CSS", "SCSS"],
-  os: ["macOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Raspberry Pi OS"],
-  tools: ["n8n", "RabbitMQ", "PhpStorm", "PHPUnit", "WordPress"]
+  devops: ["Docker", "Docker Compose", "Nginx", "Prometheus", "Grafana", "Datadog", "Portainer", "CI / CD", "Bash / zsh", "GitLab", "GitHub", "Git"],
+  frontend: ["TypeScript", "JavaScript", "AngularJS", "ReactJS", "Vite", "Bootstrap", "HTML", "CSS", "SCSS"],
+  os: ["MacOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Kali", "Raspberry Pi OS"],
+  tools: ["n8n", "Cloudflare", "Pi-hole", "RabbitMQ", "PhpStorm", "PHPUnit", "WordPress"]
 };
 
 export const projects: Project[] = [

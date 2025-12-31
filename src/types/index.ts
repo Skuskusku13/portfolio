@@ -24,6 +24,7 @@ export interface Project {
 
 export interface Skills {
   backend: string[];
+  data_ai?: string[];
   databases: string[];
   devops: string[];
   frontend: string[];
