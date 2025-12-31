@@ -26,17 +26,17 @@ export default function Navbar({ currentView, onViewChange }: NavbarProps) {
             className="flex items-center gap-2 cursor-pointer" 
             onClick={() => onViewChange('portfolio')}
           >
-            <Code className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-            <span className="font-bold text-xl text-gray-900 dark:text-white">Dan Levy</span>
+            <Code className="w-6 h-6 text-blue-600 dark:text-blue-400 shrink-0" />
+            <span className="font-bold text-xl text-gray-900 dark:text-white whitespace-nowrap">Dan Levy</span>
           </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Menu - Visible only on large screens */}
+          <div className="hidden lg:flex items-center gap-8">
             {currentView === 'portfolio' && menuItems.map((item) => (
               <a 
                 key={item.href}
                 href={item.href} 
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition"
+                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition whitespace-nowrap"
               >
                 {item.label}
               </a>
@@ -44,7 +44,7 @@ export default function Navbar({ currentView, onViewChange }: NavbarProps) {
             
             <button
               onClick={() => onViewChange(currentView === 'portfolio' ? 'portal' : 'portfolio')}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition-colors text-sm font-medium"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition-colors text-sm font-medium whitespace-nowrap"
             >
               {currentView === 'portfolio' ? (
                 <>
@@ -62,12 +62,12 @@ export default function Navbar({ currentView, onViewChange }: NavbarProps) {
             <ThemeToggle />
           </div>
 
-          {/* Mobile Toggle */}
-          <div className="md:hidden flex items-center gap-4">
+          {/* Mobile/Tablet Toggle */}
+          <div className="lg:hidden flex items-center gap-4">
             <ThemeToggle />
             <button 
               onClick={() => setMenuOpen(!menuOpen)} 
-              className="text-gray-700 dark:text-gray-300"
+              className="text-gray-700 dark:text-gray-300 p-2"
             >
               {menuOpen ? <X /> : <Menu />}
             </button>
@@ -75,16 +75,16 @@ export default function Navbar({ currentView, onViewChange }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile/Tablet Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800">
+        <div className="lg:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-800 absolute w-full left-0 shadow-lg">
           <div className="px-4 py-4 space-y-3">
             {currentView === 'portfolio' && menuItems.map((item) => (
               <a 
                 key={item.href}
                 href={item.href} 
                 onClick={() => setMenuOpen(false)}
-                className="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                className="block text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 py-2"
               >
                 {item.label}
               </a>
@@ -94,7 +94,7 @@ export default function Navbar({ currentView, onViewChange }: NavbarProps) {
                 onViewChange(currentView === 'portfolio' ? 'portal' : 'portfolio');
                 setMenuOpen(false);
               }}
-              className="w-full flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium"
+              className="w-full flex items-center gap-2 px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white font-medium mt-2"
             >
               {currentView === 'portfolio' ? (
                 <>
