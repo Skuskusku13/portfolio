@@ -1,16 +1,43 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Briefcase, Wrench, GraduationCap } from 'lucide-react';
 import { projects } from '../data';
+import Pagination from './Pagination';
+import type { Project } from '../types';
 
 export default function Projects() {
-  const [projectFilter, setProjectFilter] = useState('all');
+  const [projectFilter, setProjectFilter] = useState<Project['category'][number] | 'all'>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) setItemsPerPage(3);
+      else if (window.innerWidth < 1024) setItemsPerPage(4);
+      else setItemsPerPage(6);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const filteredProjects = projectFilter === 'all'
     ? projects
-    // @ts-expect-error: category is now an array, checking inclusion
-    : projects.filter(p => p.category.includes(projectFilter));
+    : projects.filter(p => p.category.includes(projectFilter as Project['category'][number]));
 
-  const filters = [
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
+  const displayedProjects = filteredProjects.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handleFilterChange = (filterId: Project['category'][number] | 'all') => {
+    setProjectFilter(filterId);
+    setCurrentPage(1); // Reset page to 1 when filter changes
+  };
+
+  const filters: { id: Project['category'][number] | 'all', label: string }[] = [
     { id: 'all', label: 'Tous' },
     { id: 'pro', label: 'Professionnels' },
     { id: 'perso', label: 'Personnels' },
@@ -29,7 +56,7 @@ export default function Projects() {
           {filters.map((filter) => (
             <button
               key={filter.id}
-              onClick={() => setProjectFilter(filter.id)}
+              onClick={() => handleFilterChange(filter.id)}
               className={`px-6 py-2 rounded-full font-semibold transition ${
                 projectFilter === filter.id
                   ? 'bg-blue-600 text-white'
@@ -42,7 +69,7 @@ export default function Projects() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project, idx) => (
+          {displayedProjects.map((project, idx) => (
             <div key={idx} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:shadow-lg dark:hover:shadow-blue-900/10 transition duration-300">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex gap-2">
@@ -70,6 +97,12 @@ export default function Projects() {
             </div>
           ))}
         </div>
+
+        <Pagination 
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </section>
   );
