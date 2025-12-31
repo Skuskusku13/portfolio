@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import faviconLight from '../assets/favicon-light.svg';
+import faviconDark from '../assets/favicon-dark.svg';
 
 type Theme = 'light' | 'dark';
 
@@ -20,6 +22,13 @@ export function useTheme() {
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(theme);
+
+    // Update Favicon
+    const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
+    if (link) {
+        link.href = theme === 'dark' ? faviconDark : faviconLight;
+    }
+
   }, [theme]);
 
   // Écouter les changements système (OS) uniquement si l'utilisateur n'a pas forcé un mode
