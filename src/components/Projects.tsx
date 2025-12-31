@@ -23,7 +23,7 @@ export default function Projects() {
 
   const filteredProjects = projectFilter === 'all'
     ? projects
-    : projects.filter(p => p.category.includes(projectFilter as any));
+    : projects.filter(p => p.category.includes(projectFilter as Project['category'][number]));
 
   // Pagination Logic
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
