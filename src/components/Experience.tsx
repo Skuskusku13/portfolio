@@ -2,7 +2,7 @@ import { experiences } from '../data';
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="experiences" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white">Expérience Professionnelle</h2>
         <div className="space-y-8">

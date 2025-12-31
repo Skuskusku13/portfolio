@@ -56,11 +56,16 @@ export const formations: Formation[] = [
 ];
 
 export const skills: Skills = {
-  backend: ["PHP", "Symfony", "Python", "Node.js", "Java", "Spring Boot"],
-  databases: ["MariaDB", "SQL", "PhpMyAdmin"],
-  devops: ["Docker", "Docker Compose", "Nginx", "CI/CD", "Bash / zsh", "GitLab", "GitHub", "Git"],
-  frontend: ["JavaScript", "HTML", "CSS", "AngularJS", "React Native", "Bootstrap", "SCSS"],
-  tools: ["RabbitMQ", "PhpStorm", "PHPUnit", "WordPress", "Debian", "Ubuntu", "Raspberry Pi"]
+  backend: ["PHP", "Symfony", "Python", "Django", "Flask", "NestJS", "Java", "Spring Boot", "RabbitMQ"],
+  devops: ["Docker", "Docker Compose", "Prometheus", "Grafana", "Datadog", "Portainer", "Logrotate", "CI / CD", "Bash / zsh", "GitLab", "GitHub", "Git"],
+  tools: ["n8n", "PhpMyAdmin", "PhpStorm", "PHPUnit", "WordPress"],
+  databases: ["MySQL / MariaDB", "MongoDB"],
+  self_hosted: ["Joplin", "Cloudflared", "Pi-hole"],
+  network_security: ["WireGuard", "Nginx", "SSL / TLS"],
+  os: ["MacOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Kali", "Raspberry Pi OS"],
+  frontend: ["TypeScript", "JavaScript", "AngularJS", "ReactJS", "Vite", "Twig", "HTML", "CSS", "SCSS", "Bootstrap",],
+  project_management: ["Agile / Scrum", "Kanban", "Jira", "UML (Séquence)", "Merise (MCD, MLD)", "Architecture Technique"],
+  // data_ai: ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "PySpark"],
 };
 
 export const projects: Project[] = [
