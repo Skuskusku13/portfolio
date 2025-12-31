@@ -1,4 +1,4 @@
-import type {Experience, Formation, Project, Skills} from '../types';
+import type {Experience, Formation, Project, Skills, PortalService} from '../types';
 
 export const experiences: Experience[] = [
   {
@@ -111,4 +111,49 @@ export const projects: Project[] = [
     tech: ["Raspberry Pi", "Docker", "Nginx", "Debian"],
     status: "En production"
   }
+];
+
+export const portalServices: PortalService[] = [
+  {
+    name: "Pi-hole",
+    url: "https://pihole.dlyhub.com",
+    description: "Bloqueur de publicités et DNS local",
+    icon: "Shield",
+    restricted: true
+  },
+
+  {
+    name: "Portainer",
+    url: "https://portainer.dlyhub.com",
+    description: "Gestionnaire d'infrastructure Docker",
+    icon: "Container",
+    restricted: true
+  },
+  {
+    name: "n8n",
+    url: "https://n8n.dlyhub.com",
+    description: "Automatisation de workflows",
+    icon: "Workflow",
+    restricted: true
+  },
+  {
+    name: "Joplin Admin",
+    url: "https://jop.dlyhub.com",
+    description: "Serveur de synchronisation de notes sécurisé",
+    icon: "FileText",
+    restricted: true
+  },
+  {
+    name: "PhpMyAdmin",
+    url: "https://pma.dlyhub.com",
+    description: "Administration MariaDB",
+    icon: "Database",
+    restricted: true
+  },
+  {
+    name: "Microwave",
+    url: "https://microwave.dlyhub.com",
+    description: "Projet personnel (Web)",
+    icon: "Globe"
+  },
 ];
