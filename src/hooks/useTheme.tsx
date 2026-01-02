@@ -1,10 +1,17 @@
-import { useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 import faviconLight from '../assets/favicon-light.svg';
 import faviconDark from '../assets/favicon-dark.svg';
 
 type Theme = 'light' | 'dark';
 
-export function useTheme() {
+interface ThemeContextType {
+  theme: Theme;
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     // 1. Priorité : Préférence utilisateur sauvegardée
     if (typeof window !== 'undefined' && localStorage.getItem('theme')) {
@@ -49,11 +56,23 @@ export function useTheme() {
   const toggleTheme = () => {
     setTheme((prev) => {
       const newTheme = prev === 'light' ? 'dark' : 'light';
-      // Quand l'utilisateur clique, on sauvegarde son choix explicitement
       localStorage.setItem('theme', newTheme);
       return newTheme;
     });
   };
 
-  return { theme, toggleTheme };
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
 }
