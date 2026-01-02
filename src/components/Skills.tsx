@@ -53,7 +53,7 @@ export default function Skills() {
   );
 
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300">
+    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white">Compétences Techniques</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

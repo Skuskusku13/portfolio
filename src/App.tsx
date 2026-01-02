@@ -1,4 +1,4 @@
-import Navbar from './components/Navbar';
+import Navbar from './components/navbar';
 import Hero from './components/Hero';
 import Experience from './components/Experience';
 import Education from './components/Education';
@@ -20,9 +20,9 @@ function App() {
         <main>
           <Hero />
           <Experience />
-          <Education />
           <Projects />
           <Skills />
+          <Education />
           <Contact />
         </main>
       ) : (
