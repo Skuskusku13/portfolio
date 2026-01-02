@@ -24,7 +24,8 @@ COPY ./.docker/000-default.conf /usr/local/apache2/conf/extra/000-default.conf
 
 # Configurer Apache
 RUN echo "Include /usr/local/apache2/conf/extra/000-default.conf" >> /usr/local/apache2/conf/httpd.conf && \
-    sed -i '/LoadModule rewrite_module/s/^#//g' /usr/local/apache2/conf/httpd.conf
+    sed -i '/LoadModule rewrite_module/s/^#//g' /usr/local/apache2/conf/httpd.conf && \
+    sed -i '/LoadModule headers_module/s/^#//g' /usr/local/apache2/conf/httpd.conf
 
 # Copier UNIQUEMENT les fichiers buildés (production)
 COPY --from=builder /app/dist /usr/local/apache2/htdocs/
