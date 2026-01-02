@@ -26,9 +26,14 @@ export default function Navbar({ currentView, onViewChange }: NavbarProps) {
     <nav className="fixed top-0 w-full bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm z-50 shadow-sm transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div 
+          <a 
+            href="#about"
             className="flex items-center gap-2 cursor-pointer" 
-            onClick={() => onViewChange('portfolio')}
+            onClick={() => {
+              if (currentView !== 'portfolio') {
+                onViewChange('portfolio');
+              }
+            }}
           >
             <img 
               src={theme === 'dark' ? logoDark : logoLight} 
@@ -36,7 +41,7 @@ export default function Navbar({ currentView, onViewChange }: NavbarProps) {
               className="h-12 w-auto"
             />
             <span className="font-bold text-xl text-gray-900 dark:text-white whitespace-nowrap">Dan Levy</span>
-          </div>
+          </a>
 
           {/* Desktop Menu - Visible only on large screens */}
           <div className="hidden lg:flex items-center gap-8">
