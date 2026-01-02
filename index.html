@@ -1,13 +1,67 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" id="favicon" type="image/svg+xml" href="/favicon-light.svg" />
+    
+    <!-- Viewport & Accessibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portfolio</title>
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#030712" media="(prefers-color-scheme: dark)">
+
+    <!-- Primary Meta Tags -->
+    <title>Dan Levy | Développeur Back-end, DevOps</title>
+    <meta name="title" content="Dan Levy | Développeur Back-end, DevOps">
+    <meta name="description" content="Portfolio de Dan Levy, Architecte des Systèmes d'Information (Bac+5). Expert en Symfony, PHP, Python, Docker, DevOps, et administration système. Découvrez mes projets et compétences.">
+    <meta name="author" content="Dan Levy">
+    <meta name="keywords" content="Dan Levy, Back-end, Full Stack, DevOps, Développeur Web, Automatisations, Symfony, PHP, Python, Docker, CI/CD, React, Linux, Portfolio, Freelance, Paris, France">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://dlyhub.com/" />
+
+    <!-- Favicons -->
+    <link rel="icon" id="favicon" type="image/svg+xml" href="/favicon-light.svg" />
+    <link rel="apple-touch-icon" href="/favicon-light.svg">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dlyhub.com/">
+    <meta property="og:title" content="Dan Levy | Développeur Back-end & DevOps">
+    <meta property="og:description" content="Développeur passionné par l'architecture logicielle, le DevOps et l'auto-hébergement. Expert Symfony, Docker.">
+    <meta property="og:image" content="https://dlyhub.com/favicon-light.svg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://dlyhub.com/">
+    <meta property="twitter:title" content="Dan Levy | Développeur Back-end & DevOps">
+    <meta property="twitter:description" content="Développeur passionné par l'architecture logicielle, le DevOps et l'auto-hébergement. Expert Symfony, Docker.">
+    <meta property="twitter:image" content="https://dlyhub.com/favicon-light.svg">
+    
+        <!-- Structured Data (JSON-LD) for Google Knowledge Graph -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Dan Levy",
+      "url": "https://dlyhub.com",
+      "jobTitle": "Développeur Back-end & DevOps",
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "CFA INSTA"
+      },
+      "sameAs": [
+        "https://github.com/Skuskusku13",
+        "https://www.linkedin.com/in/dan-levy-a736a2150/"
+      ],
+      "knowsAbout": ["PHP", "Symfony", "Python", "Docker", "BackEnd", "DevOps", "FullStack", "Linux", "CI/CD", "Automatisations", "SQL", "Network Security"]
+    }
+    </script>
   </head>
   <body>
+    <noscript>Vous devez activer JavaScript pour visualiser ce site correctement.</noscript>
     <div id="root"></div>
-    <script type="module" src="src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
