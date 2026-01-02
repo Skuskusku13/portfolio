@@ -24,7 +24,7 @@ export function useTheme() {
     root.classList.add(theme);
 
     // Update Favicon
-    const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
+    const link = document.getElementById('favicon') as HTMLLinkElement;
     if (link) {
         link.href = theme === 'dark' ? faviconDark : faviconLight;
     }
