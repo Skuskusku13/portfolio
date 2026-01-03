@@ -20,6 +20,7 @@ export interface Project {
   description: string;
   tech: string[];
   status: string;
+  githubLinks?: { label: string; url: string }[];
 }
 
 export interface Skills {

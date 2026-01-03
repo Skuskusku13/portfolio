@@ -20,7 +20,7 @@ export const experiences: Experience[] = [
     role: "Full-stack Developer",
     period: "Sept. 2023 - Janv. 2024",
     type: "Alternance",
-    skills: ["Node.js", "AngularJS", "Spring Boot", "SCSS"]
+    skills: ["Node.js", "Angular", "Spring Boot", "SCSS"]
   },
   {
     company: "SESAN",
@@ -63,7 +63,7 @@ export const skills: Skills = {
   self_hosted: ["Joplin", "Cloudflared", "Pi-hole"],
   network_security: ["WireGuard", "Nginx", "SSL / TLS"],
   os: ["MacOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Kali", "Raspberry Pi OS"],
-  frontend: ["TypeScript", "JavaScript", "Android (Java)", "AngularJS", "ReactJS", "Vite", "Twig", "HTML", "CSS", "SCSS", "Bootstrap",],
+  frontend: ["TypeScript", "JavaScript", "Android (Java)", "Angular", "React", "Vite", "Twig", "HTML", "CSS", "SCSS", "Bootstrap",],
   project_management: ["Agile / Scrum", "Kanban", "Jira", "UML (Séquence)", "Merise (MCD, MLD)", "Architecture Technique"],
   // data_ai: ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "PySpark"],
 };
@@ -73,8 +73,11 @@ export const projects: Project[] = [
     title: "Portfolio & Portail",
     category: ["perso"],
     description: "CV informatique et interface centralisée pour l'accès aux services auto-hébergés (Joplin, Portainer, n8n) avec gestion d'accessibilité par IP.",
-    tech: ["ReactJS", "Vite", "Tailwind CSS", "Docker"],
-    status: "En production"
+    tech: ["React", "Vite", "Tailwind CSS", "Docker"],
+    status: "En production",
+    githubLinks: [
+      { label: "Code Source", url: "https://github.com/Skuskusku13/portfolio" },
+    ]
   },
   {
     title: "Infrastructure Microservices",
@@ -95,7 +98,10 @@ export const projects: Project[] = [
     category: ["perso", "pro"],
     description: "Automatisation des déploiements via des pipelines CI / CD pour garantir des mises en production rapides et fiables.",
     tech: ["Docker", "Reusable Workflows", "Github CI / CD", "Bash"],
-    status: "En production"
+    status: "En cours",
+    githubLinks: [
+      { label: "Workflows réutilisable", url: "https://github.com/Skuskusku13/workflows-reusable" }
+    ]
   },
   {
     title: "Stack Monitoring & Observabilité",
@@ -105,32 +111,49 @@ export const projects: Project[] = [
     status: "En cours"
   },
   {
-    title: "API REST avec Spring Boot",
-    category: ["pro", "formation"],
-    description: "Développement d'une API complète avec authentification jwt et gestion de données",
-    tech: ["Java", "Spring Boot", "MariaDB"],
-    status: "Terminé"
+    title: "Plateforme Shajudan",
+    category: ["formation"],
+    description: "Plateforme complète de gestion commerciale intégrant API, backoffice d'administration et application mobile pour la gestion des stocks et transactions.",
+    tech: ["Docker", "Python", "Django", "Django REST Framework", "SQLite3", "JWT", "CI / CD", "Angular", "Ionic", "TypeScript", "API REST"],
+    status: "Terminé",
+    githubLinks: [
+      { label: "Backoffice Django", url: "https://github.com/Skuskusku13/backoffice-django/" },
+      { label: "Backoffice", url: "https://github.com/Skuskusku13/backoffice/" },
+      { label: "Bateau Shajudan", url: "https://github.com/Skuskusku13/bateau-shajudan/" }
+    ]
   },
   {
-    title: "Bateau de Thibaut",
-    category: ["formation"],
-    description: "Développement d'une application mobile pour un magasin. Gestion de stock, promos, indisponibilités des articles, articles de saisons, prix d'achat, prrix de revente.",
-    tech: ["Angular", "Ionic", "TypeScript", "API REST"],
-    status: "Terminé"
+    title: "API REST avec Spring Boot",
+    category: ["pro", "formation"],
+    description: "Développement d'une API et gestion de données, et affichage de ces données en front.",
+    tech: ["Java", "Spring Boot", "MariaDB", "Angular"],
+    status: "Terminé",
+    githubLinks: [
+      { label: "Front (Angular)", url: "https://github.com/Skuskusku13/SpringAngularRest/tree/main/frontRestProject" },
+      { label: "Back (Spring Boot)", url: "https://github.com/Skuskusku13/SpringAngularRest/tree/main/myRestProject" },
+    ]
   },
   {
     title: "Bunker",
     category: ["formation"],
     description: "Filevault pour notes sécurisées enregistrement des mdp et email pour des sites.",
-    tech: ["NestJS", "AngularJS", "MariaDB"],
-    status: "Terminé"
+    tech: ["NestJS", "Angular", "MariaDB", "docker"],
+    status: "Terminé",
+    githubLinks: [
+      { label: "Front (Angular / TS)", url: "https://github.com/Skuskusku13/bunker_webapp" },
+      { label: "Back (NestJS TS)", url: "https://github.com/Skuskusku13/bunker_API" },
+    ]
   },
   {
     title: "Applications Mobile Android",
     category: ["formation"],
-    description: "Application native Android pour la consultation de données parlementaires (Open Data).",
+    description: "Application native Android pour la consultation de données en API.",
     tech: ["Java", "Android SDK", "Gradle"],
-    status: "Terminé"
+    status: "Terminé",
+    githubLinks: [
+      { label: "Pokedex Android", url: "https://github.com/Skuskusku13/pokedex-android" },
+      { label: "Nos députés (Open Data)", url: "https://github.com/Skuskusku13/nosdeputes-android" },
+    ]
   },
   {
     title: "Analyse Big Data",
@@ -140,11 +163,14 @@ export const projects: Project[] = [
     status: "Terminé"
   },
   {
-    title: "API de Machine Learning",
+    title: "Chatbot IA",
     category: ["formation"],
-    description: "Développement d'une API Flask exposant un modèle d'IA entraîné avec TensorFlow / Keras pour la classification.",
-    tech: ["Python", "Flask", "TensorFlow", "Keras"],
-    status: "Terminé"
+    description: "Chatbot utilisant TensorFlow/Keras et NLTK pour analyser les intentions des utilisateurs et générer des réponses contextuelles via une interface web Flask.",
+    tech: ["Docker", "Python", "Flask", "TensorFlow", "Keras", "NLTK"],
+    status: "Terminé",
+    githubLinks: [
+      { label: "Pokemon model IA", url: "https://github.com/Skuskusku13/pokemon_model_ia" }
+    ]
   },
   {
     title: "Site vitrine avec CMS",
