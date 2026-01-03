@@ -125,12 +125,12 @@ export const projects: Project[] = [
   {
     title: "API REST avec Spring Boot",
     category: ["pro", "formation"],
-    description: "Développement d'une API et gestion de données",
-    tech: ["Java", "Spring Boot", "MariaDB"],
+    description: "Développement d'une API et gestion de données, et affichage de ces données en front.",
+    tech: ["Java", "Spring Boot", "MariaDB", "Angular"],
     status: "Terminé",
     githubLinks: [
-      { label: "Angular & SpringBoot", url: "https://github.com/Skuskusku13/SpringAngularRest" },
-      { label: "", url: "" }
+      { label: "Front (Angular)", url: "https://github.com/Skuskusku13/SpringAngularRest/tree/main/frontRestProject" },
+      { label: "Back (Spring Boot)", url: "https://github.com/Skuskusku13/SpringAngularRest/tree/main/myRestProject" },
     ]
   },
   {

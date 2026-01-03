@@ -7,6 +7,7 @@ import type { Project } from '../types';
 
 const ProjectCard = ({ project }: { project: Project }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showAllTags, setShowAllTags] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -21,6 +22,10 @@ const ProjectCard = ({ project }: { project: Project }) => {
   }, []);
 
   const hasGithubLinks = project.githubLinks && project.githubLinks.length > 0;
+  
+  const MAX_TAGS = 4;
+  const hasMoreTags = project.tech.length > MAX_TAGS;
+  const displayedTags = showAllTags ? project.tech : project.tech.slice(0, MAX_TAGS);
 
   return (
     <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:shadow-lg dark:hover:shadow-blue-900/10 transition duration-300 flex flex-col h-full">
@@ -90,13 +95,23 @@ const ProjectCard = ({ project }: { project: Project }) => {
         </div>
       </div>
       <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">{project.title}</h3>
-      <p className="text-gray-600 dark:text-gray-400 mb-4 grow">{project.description}</p>
-      <div className="flex flex-wrap gap-2 mt-auto">
-        {project.tech.map((tech, i) => (
-          <span key={i} className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded text-sm">
-            {tech}
-          </span>
-        ))}
+      <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{project.description}</p>
+      <div className="mt-auto">
+        <div className="flex flex-wrap gap-2">
+          {displayedTags.map((tech, i) => (
+            <span key={i} className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded text-sm">
+              {tech}
+            </span>
+          ))}
+          {hasMoreTags && (
+            <button
+              onClick={() => setShowAllTags(!showAllTags)}
+              className="px-2 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline focus:outline-none"
+            >
+              {showAllTags ? "Voir moins" : "Voir plus..."}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
