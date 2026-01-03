@@ -163,11 +163,14 @@ export const projects: Project[] = [
     status: "Terminé"
   },
   {
-    "title": "Chatbot IA",
-    "category": ["formation"],
-    "description": "Chatbot utilisant TensorFlow/Keras et NLTK pour analyser les intentions des utilisateurs et générer des réponses contextuelles via une interface web Flask.",
-    "tech": ["Docker", "Python", "Flask", "TensorFlow", "Keras", "NLTK"],
-    "status": "Prototype"
+    title: "Chatbot IA",
+    category: ["formation"],
+    description: "Chatbot utilisant TensorFlow/Keras et NLTK pour analyser les intentions des utilisateurs et générer des réponses contextuelles via une interface web Flask.",
+    tech: ["Docker", "Python", "Flask", "TensorFlow", "Keras", "NLTK"],
+    status: "Terminé",
+    githubLinks: [
+      { label: "Pokemon model IA", url: "https://github.com/Skuskusku13/pokemon_model_ia" }
+    ]
   },
   {
     title: "Site vitrine avec CMS",
