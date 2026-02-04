@@ -11,7 +11,7 @@ up:
 	docker compose -f $(DOCKER_COMPOSE_FILE) -p $(PROJECT_NAME) up -d
 
 down:
-	docker compose -f $(DOCKER_COMPOSE_FILE) -p $(PROJECT_NAME) down
+	docker compose -f $(DOCKER_COMPOSE_FILE) -p $(PROJECT_NAME) down --remove-orphans
 
 exec:
 	docker exec -it $(SERVICE_NAME) /bin/sh
