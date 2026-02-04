@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Mail, Send, Loader2, Check } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
+import { MAILER_URL } from '../config';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ export default function Contact() {
     setStatus('loading');
 
     try {
-      const response = await fetch('https://mailer.dlyhub.com/send-email', {
+      const response = await fetch(MAILER_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

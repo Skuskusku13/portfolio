@@ -3,3 +3,5 @@ export const ALLOWED_IPS = (import.meta.env.VITE_PORTAL_IPS || "")
   .split(',')
   .map((ip: string) => ip.trim())
   .filter((ip: string) => ip.length > 0);
+
+export const MAILER_URL = import.meta.env.VITE_MAILER_URL;
