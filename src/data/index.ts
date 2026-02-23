@@ -189,7 +189,13 @@ export const portalServices: PortalService[] = [
     icon: "Shield",
     restricted: true
   },
-
+  {
+    name: "Grafana",
+    url: "https://grafana.dlyhub.com",
+    description: "Monitoring & Observabilité",
+    icon: "MonitorCog",
+    restricted: true
+  },
   {
     name: "Portainer",
     url: "https://portainer.dlyhub.com",
