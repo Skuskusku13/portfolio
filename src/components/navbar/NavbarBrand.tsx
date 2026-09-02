@@ -2,25 +2,13 @@ import { useTheme } from '../../hooks/useTheme';
 import logoLight from '../../assets/logo-light.svg';
 import logoDark from '../../assets/logo-dark.svg';
 
-interface NavbarBrandProps {
-  currentView: 'portfolio' | 'portal';
-  onViewChange: (view: 'portfolio' | 'portal') => void;
-}
-
-export default function NavbarBrand({ currentView, onViewChange }: NavbarBrandProps) {
+export default function NavbarBrand() {
   const { theme } = useTheme();
 
-  const handleClick = () => {
-    if (currentView !== 'portfolio') {
-      onViewChange('portfolio');
-    }
-  };
-
   return (
-    <a 
+    <a
       href="#about"
-      className="flex items-center gap-2 cursor-pointer" 
-      onClick={handleClick}
+      className="flex items-center gap-2 cursor-pointer"
     >
       <img 
         src={theme === 'dark' ? logoDark : logoLight} 

@@ -1,19 +1,13 @@
-import type {Experience, Formation, Project, Skills, PortalService} from '../types';
+import type {Experience, Formation, Project, Skills} from '../types';
 
 export const experiences: Experience[] = [
   {
     company: "Meilleurtaux Placement",
-    role: "Développeur Back-end / DevOps",
-    period: "Sept. 2024 - Aujourd'hui",
+    role: "Développeur Back-end & DevOps",
+    period: "Janv. 2024 - Aujourd'hui",
     type: "Alternance",
-    skills: ["PHP", "Symfony", "Python", "MariaDB", "Docker", "Docker Compose", "Nginx", "RabbitMQ", "CI/CD", "Bash"]
-  },
-  {
-    company: "Meilleurtaux Placement",
-    role: "Développeur Back-end",
-    period: "Janv. 2024 - Août 2024",
-    type: "Alternance",
-    skills: ["PHP", "Symfony", "PHPUnit", "Docker", "PhpMyAdmin", "PhpStorm"]
+    promotion: "CDI · Sept. 2026",
+    skills: ["PHP", "Symfony", "Python", "MariaDB", "Docker", "Docker Compose", "Nginx", "RabbitMQ", "CI/CD", "Bash", "PHPUnit", "PhpMyAdmin", "PhpStorm"]
   },
   {
     company: "Storyzy",
@@ -179,55 +173,4 @@ export const projects: Project[] = [
     tech: ["WordPress", "PHP", "JavaScript", "CSS", "HTML"],
     status: "Plusieurs projets livrés"
   }
-];
-
-export const portalServices: PortalService[] = [
-  {
-    name: "Pi-hole",
-    url: "https://pihole.dlyhub.com",
-    description: "Bloqueur de publicités et DNS local",
-    icon: "Shield",
-    restricted: true
-  },
-  {
-    name: "Grafana",
-    url: "https://grafana.dlyhub.com",
-    description: "Monitoring & Observabilité",
-    icon: "MonitorCog",
-    restricted: true
-  },
-  {
-    name: "Portainer",
-    url: "https://portainer.dlyhub.com",
-    description: "Gestionnaire d'infrastructure Docker",
-    icon: "Container",
-    restricted: true
-  },
-  {
-    name: "n8n",
-    url: "https://n8n.dlyhub.com",
-    description: "Automatisation de workflows",
-    icon: "Workflow",
-    restricted: true
-  },
-  {
-    name: "Joplin Admin",
-    url: "https://jop.dlyhub.com",
-    description: "Serveur de synchronisation de notes sécurisé",
-    icon: "FileText",
-    restricted: true
-  },
-  {
-    name: "PhpMyAdmin",
-    url: "https://pma.dlyhub.com",
-    description: "Administration MariaDB",
-    icon: "Database",
-    restricted: true
-  },
-  {
-    name: "Microwave",
-    url: "https://microwave.dlyhub.com",
-    description: "Projet personnel (Web)",
-    icon: "Globe"
-  },
 ];

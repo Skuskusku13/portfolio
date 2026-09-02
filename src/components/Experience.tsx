@@ -13,11 +13,18 @@ export default function Experience() {
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{exp.role}</h3>
                   <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold">{exp.company}</p>
                 </div>
-                <div className="mt-2 md:mt-0 text-right">
+                <div className="mt-2 md:mt-0 text-left md:text-right flex flex-col items-start md:items-end gap-1">
                   <p className="text-gray-600 dark:text-gray-400">{exp.period}</p>
-                  <span className="inline-block mt-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm">
-                    {exp.type}
-                  </span>
+                  <div className="flex flex-row flex-wrap items-center gap-2">
+                    {exp.promotion && (
+                      <span className="inline-block px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 rounded-full text-sm font-semibold">
+                        {exp.promotion}
+                      </span>
+                    )}
+                    <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm">
+                      {exp.type}
+                    </span>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-wrap gap-2">
