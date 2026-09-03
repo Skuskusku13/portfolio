@@ -57,5 +57,23 @@ Pour plus de détails techniques, consultez la [Documentation de l'Architecture]
 *   **Responsive Design** : Interface adaptée aux mobiles, tablettes et ordinateurs.
 *   **Mode Sombre (Dark Mode)** : (Préparé via Tailwind, suit les préférences système par défaut).
 
+## 🔒 CSP et hash du script JSON-LD
+
+Le bloc `<script type="application/ld+json">` de `index.html` est autorisé dans la Content-Security-Policy (`.docker/000-default.conf`) via un hash `sha256-...`. Si ce bloc change, il faut recalculer le hash et mettre à jour la CSP.
+
+Méthode recommandée : la console du navigateur affiche le hash exact attendu quand la CSP bloque le script (message d'erreur `Refused to execute inline script...`).
+
+Alternative en ligne de commande :
+```bash
+node -e "
+const fs = require('fs');
+const crypto = require('crypto');
+const html = fs.readFileSync('index.html', 'utf8');
+const match = html.match(/<script type=\"application\/ld\+json\">([\s\S]*?)<\/script>/);
+const hash = crypto.createHash('sha256').update(match[1]).digest('base64');
+console.log('sha256-' + hash);
+"
+```
+
 ---
 © 2025 Dan Levy

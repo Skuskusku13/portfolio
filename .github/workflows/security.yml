@@ -1,0 +1,17 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Tous les 1er du mois à 8h00 UTC (heure du runner GitHub Actions, pas l'heure locale)
+    - cron: '0 8 1 * *'
+
+jobs:
+  security:
+    uses: Skuskusku13/workflows-reusable/.github/workflows/npm-security.yml@v1.1.0
+    with:
+      project-name: portfolio
+      node-version: '22'
+      audit-level: high
