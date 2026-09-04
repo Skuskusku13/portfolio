@@ -8,9 +8,16 @@ on:
     # Tous les 1er du mois à 8h00 UTC (heure du runner GitHub Actions, pas l'heure locale)
     - cron: '0 8 1 * *'
 
+concurrency:
+  group: zap-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   zap-baseline:
-    uses: Skuskusku13/workflows-reusable/.github/workflows/owasp-zap-baseline.yml@v1.1.1
+    uses: Skuskusku13/workflows-reusable/.github/workflows/owasp-zap-baseline.yml@v1.2.0
     with:
       project-name: portfolio
       node-version: '22'
@@ -18,4 +25,5 @@ jobs:
       start-command: npm run preview -- --port 4173 --host
       port: '4173'
       health-check-path: /
+      zap-spider-minutes: '1'
       zap-fail-on-warn: false
