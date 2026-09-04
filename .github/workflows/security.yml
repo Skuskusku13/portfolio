@@ -10,7 +10,7 @@ on:
 
 jobs:
   security:
-    uses: Skuskusku13/workflows-reusable/.github/workflows/npm-security.yml@v1.1.0
+    uses: Skuskusku13/workflows-reusable/.github/workflows/npm-security.yml@v1.1.1
     with:
       project-name: portfolio
       node-version: '22'
