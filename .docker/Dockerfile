@@ -17,7 +17,7 @@ COPY . .
 # d'où le défaut prod ici. Surcharge : --build-arg VITE_MAILER_URL=... ou
 # build.args dans .docker/docker-compose.yml. Aucun .env n'est nécessaire au build.
 # Déclaré après COPY pour que changer l'URL n'invalide pas le cache de npm ci.
-ARG VITE_MAILER_URL=https://back.dlyhub.com/send-email
+ARG VITE_MAILER_URL=https://back.dlyhub.com/api/contact
 ENV VITE_MAILER_URL=$VITE_MAILER_URL
 
 # Refuser un build sans URL : un bundle avec fetch(void 0) a déjà été déployé en prod,
