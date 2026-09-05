@@ -16,11 +16,11 @@ concurrency:
 permissions:
   contents: read
 
+# Trivy (dépendances, via package-lock.json) + Gitleaks (secrets).
+# npm audit retiré en v1.2.1 : l'endpoint npm ne répondait pas depuis les runners,
+# et Trivy couvre les mêmes avis (GitHub Advisory Database).
 jobs:
   security:
-    uses: Skuskusku13/workflows-reusable/.github/workflows/npm-security.yml@v1.2.0
+    uses: Skuskusku13/workflows-reusable/.github/workflows/npm-security.yml@v1.2.1
     with:
       project-name: portfolio
-      node-version: '22'
-      audit-level: high
-      audit-omit-dev: true

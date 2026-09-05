@@ -1,5 +1,7 @@
 name: OWASP ZAP Baseline
 
+# Scan DAST passif (aucune attaque) sur l'app buildée dans le runner. Rapide,
+# lancé sur chaque PR. Le scan actif complet est dans zap-full-scan.yml.
 on:
   push:
     branches: [main]
@@ -17,10 +19,11 @@ permissions:
 
 jobs:
   zap-baseline:
-    uses: Skuskusku13/workflows-reusable/.github/workflows/owasp-zap-baseline.yml@v1.2.0
+    uses: Skuskusku13/workflows-reusable/.github/workflows/owasp-zap-baseline.yml@v1.2.1
     with:
       project-name: portfolio
       node-version: '22'
+      install-command: npm ci --no-audit --no-fund
       build-command: npm run build
       start-command: npm run preview -- --port 4173 --host
       port: '4173'
