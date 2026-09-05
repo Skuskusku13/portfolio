@@ -1,0 +1,26 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Tous les 1er du mois à 8h00 UTC (heure du runner GitHub Actions, pas l'heure locale)
+    - cron: '0 8 1 * *'
+
+# Annule le run précédent sur la même branche/PR (évite d'empiler les scans)
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+# Trivy (dépendances, via package-lock.json) + Gitleaks (secrets).
+# npm audit retiré en v1.2.1 : l'endpoint npm ne répondait pas depuis les runners,
+# et Trivy couvre les mêmes avis (GitHub Advisory Database).
+jobs:
+  security:
+    uses: Skuskusku13/workflows-reusable/.github/workflows/npm-security.yml@v1.2.1
+    with:
+      project-name: portfolio
