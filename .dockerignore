@@ -1,0 +1,21 @@
+# Contexte de build Docker (context: ../ dans .docker/docker-compose.yml).
+# Le build n'a besoin que du code source, de package*.json et de .docker/000-default.conf.
+
+# Jamais dans une image : variables d'environnement locales
+.env
+.env.*
+
+# Inutiles au build, lourds ou régénérés
+.git
+node_modules
+dist
+coverage
+
+# Outillage et documentation
+.github
+.idea
+.vscode
+.docker/docker-compose.yml
+*.md
+docs
+.DS_Store

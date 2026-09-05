@@ -8,6 +8,10 @@ services:
     build:
       context: ../
       dockerfile: ./.docker/Dockerfile
+      args:
+        # URL publique de l'API de contact, inlinée dans le bundle par Vite (valeur publique, pas un secret).
+        # Défaut = prod ; surchargeable via un .env à côté de ce fichier (VITE_MAILER_URL=...).
+        VITE_MAILER_URL: ${VITE_MAILER_URL:-https://back.dlyhub.com/api/contact}
     container_name: "portfolio"
     restart: unless-stopped
     environment:
