@@ -7,7 +7,7 @@ export default function Hero() {
             Développeur Back-end & DevOps
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Architecte des Systèmes d'Information en alternance. Conception d'architectures Back-end et DevOps pour des solutions robustes, sécurisées et automatisées.
+            Architecte des Systèmes d'Information. Conception d'architectures Back-end et DevOps pour des solutions robustes, sécurisées et automatisées.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a href="#contact"
