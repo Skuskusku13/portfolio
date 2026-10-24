@@ -13,12 +13,17 @@
   "devops": [
     "Docker",
     "Docker Compose",
+    "GitHub Actions",
+    "CI/CD",
+    "Trivy · Gitleaks · ZAP",
     "Prometheus",
     "Grafana",
+    "cAdvisor / node-exporter",
     "Datadog",
     "Portainer",
     "Logrotate",
-    "CI/CD",
+    "Sauvegardes rsync",
+    "cron",
     "Bash / zsh",
     "GitLab",
     "GitHub",
@@ -33,17 +38,27 @@
   ],
   "databases": [
     "MySQL / MariaDB",
+    "PostgreSQL",
     "MongoDB"
   ],
   "self_hosted": [
-    "Joplin",
+    "Pi-hole",
     "Cloudflared",
-    "Pi-hole"
+    "Joplin",
+    "Home Assistant",
+    "Zigbee2MQTT",
+    "Mosquitto (MQTT)",
+    "NetAlertX",
+    "What's Up Docker"
   ],
   "network_security": [
+    "Nginx (reverse proxy)",
+    "TLS / Let's Encrypt",
     "WireGuard",
-    "Nginx",
-    "TLS"
+    "Fail2ban",
+    "iptables / ip6tables",
+    "SSH durci",
+    "git-crypt"
   ],
   "os": [
     "macOS",
