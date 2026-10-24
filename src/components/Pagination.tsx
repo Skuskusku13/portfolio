@@ -1,35 +1,50 @@
+import { useRef } from 'react';
+import Button from './ui/Button';
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  /** id de la section à ramener en haut de l'écran quand la page change. */
+  scrollTargetId: string;
 }
 
-export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+/**
+ * Pagination partagée (Projets, Compétences). Le compteur est annoncé aux lecteurs d'écran,
+ * chaque changement de page ramène la section en haut de l'écran, et le focus ne se perd
+ * pas quand le bouton activé devient désactivé en bout de liste.
+ */
+export default function Pagination({ currentPage, totalPages, onPageChange, scrollTargetId }: PaginationProps) {
+  const navRef = useRef<HTMLElement>(null);
+
   if (totalPages <= 1) return null;
 
-  return (
-    <div className="flex justify-center items-center gap-2 mt-12">
-      <button
-        type="button"
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
-      >
-        Précédent
-      </button>
-      
-      <span className="text-gray-600 dark:text-gray-400 font-medium px-2">
-        Page {currentPage} sur {totalPages}
-      </span>
+  const goTo = (page: number) => {
+    onPageChange(page);
+    document.getElementById(scrollTargetId)?.scrollIntoView({ block: 'start' });
+    // Le bouton cliqué peut devenir désactivé : on garde le focus dans la pagination.
+    const nextDisabled = page === 1 || page === totalPages;
+    if (nextDisabled) requestAnimationFrame(() => navRef.current?.focus({ preventScroll: true }));
+  };
 
-      <button
-        type="button"
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
-      >
+  return (
+    <nav
+      ref={navRef}
+      tabIndex={-1}
+      aria-label="Pagination"
+      className="mt-10 flex items-center justify-between gap-4 border-t border-line pt-6 outline-none sm:mt-12"
+    >
+      <Button variant="secondary" size="sm" onClick={() => goTo(currentPage - 1)} disabled={currentPage === 1}>
+        Précédent
+      </Button>
+
+      <p aria-live="polite" className="font-mono text-[13px] text-ink-2 tnum">
+        Page {currentPage} sur {totalPages}
+      </p>
+
+      <Button variant="secondary" size="sm" onClick={() => goTo(currentPage + 1)} disabled={currentPage === totalPages}>
         Suivant
-      </button>
-    </div>
+      </Button>
+    </nav>
   );
 }

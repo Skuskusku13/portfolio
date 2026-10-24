@@ -4,6 +4,8 @@ export interface Experience {
   period: string;
   type: string;
   promotion?: string;
+  /** Une phrase : ce qui a été fait, dérivé des technologies réellement pratiquées. */
+  summary: string;
   skills: string[];
 }
 

@@ -6,14 +6,16 @@ export const experiences: Experience[] = [
     role: "Développeur Back-end & DevOps",
     period: "Janv. 2024 - Aujourd'hui",
     type: "Alternance",
-    promotion: "CDI · Sept. 2026",
+    promotion: "CDI · depuis sept. 2026",
+    summary: "Développement back-end Symfony et messagerie asynchrone RabbitMQ, conteneurisation Docker, intégration et déploiement continus.",
     skills: ["PHP", "Symfony", "Python", "MariaDB", "Docker", "Docker Compose", "Nginx", "RabbitMQ", "CI/CD", "Bash", "PHPUnit", "PhpMyAdmin", "PhpStorm"]
   },
   {
     company: "Storyzy",
-    role: "Full-stack Developer",
+    role: "Développeur Full-stack",
     period: "Sept. 2023 - Janv. 2024",
     type: "Alternance",
+    summary: "Développement full-stack : API Node.js et Spring Boot, interfaces Angular.",
     skills: ["Node.js", "Angular", "Spring Boot", "SCSS"]
   },
   {
@@ -21,6 +23,7 @@ export const experiences: Experience[] = [
     role: "Développeur Web",
     period: "Oct. 2021 - Août 2023",
     type: "Alternance",
+    summary: "Développement web : sites WordPress, intégration HTML, CSS et JavaScript, mesure d'audience Piwik Pro.",
     skills: ["HTML", "CSS", "JavaScript", "WordPress", "Bootstrap", "Piwik Pro"]
   }
 ];
@@ -51,64 +54,64 @@ export const formations: Formation[] = [
 
 export const skills: Skills = {
   backend: ["PHP", "Symfony", "Python", "Django", "Flask", "NestJS", "Java", "Spring Boot", "RabbitMQ"],
-  devops: ["Docker", "Docker Compose", "Prometheus", "Grafana", "Datadog", "Portainer", "Logrotate", "CI / CD", "Bash / zsh", "GitLab", "GitHub", "Git"],
+  devops: ["Docker", "Docker Compose", "Prometheus", "Grafana", "Datadog", "Portainer", "Logrotate", "CI/CD", "Bash / zsh", "GitLab", "GitHub", "Git"],
   tools: ["n8n", "PhpMyAdmin", "PhpStorm", "PHPUnit", "WordPress"],
   databases: ["MySQL / MariaDB", "MongoDB"],
   self_hosted: ["Joplin", "Cloudflared", "Pi-hole"],
-  network_security: ["WireGuard", "Nginx", "SSL / TLS"],
-  os: ["MacOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Kali", "Raspberry Pi OS"],
-  frontend: ["TypeScript", "JavaScript", "Android (Java)", "Angular", "React", "Vite", "Twig", "HTML", "CSS", "SCSS", "Bootstrap",],
+  network_security: ["WireGuard", "Nginx", "TLS"],
+  os: ["macOS", "Windows", "Debian", "Ubuntu", "Linux Mint", "Kali", "Raspberry Pi OS"],
+  frontend: ["TypeScript", "JavaScript", "Android (Java)", "Angular", "React", "Vite", "Twig", "HTML", "CSS", "SCSS", "Bootstrap"],
   project_management: ["Agile / Scrum", "Kanban", "Jira", "UML (Séquence)", "Merise (MCD, MLD)", "Architecture Technique"],
   // data_ai: ["TensorFlow", "Keras", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "PySpark"],
 };
 
 export const projects: Project[] = [
   {
-    title: "Portfolio & Portail",
+    title: "Portfolio (ce site)",
     category: ["perso"],
-    description: "CV informatique et interface centralisée pour l'accès aux services auto-hébergés (Joplin, Portainer, n8n) avec gestion d'accessibilité par IP.",
-    tech: ["React", "Vite", "Tailwind CSS", "Docker"],
+    description: "SPA React, Vite et Tailwind conteneurisée en build multi-stage et servie par un Apache durci (CSP stricte, COOP/COEP). Scannée en CI par npm audit, Trivy, Gitleaks et ZAP.",
+    tech: ["React", "Vite", "Tailwind CSS", "Docker", "GitHub Actions"],
     status: "En production",
     githubLinks: [
-      { label: "Code Source", url: "https://github.com/Skuskusku13/portfolio" },
+      { label: "Code source", url: "https://github.com/Skuskusku13/portfolio" },
     ]
   },
   {
-    title: "Infrastructure Microservices",
+    title: "Infrastructure microservices",
     category: ["perso", "pro"],
-    description: "Architecture complète de services conteneurisés avec reverse proxy, gestion SSL et réseau privé.",
-    tech: ["Docker Compose", "Nginx Proxy", "Cloudflared", "MariaDB", "LetsEncrypt", "Logrotate"],
+    description: "Architecture de services conteneurisés derrière un reverse proxy, avec certificats TLS et réseau privé.",
+    tech: ["Docker Compose", "Nginx Proxy", "Cloudflared", "MariaDB", "Let's Encrypt", "Logrotate"],
     status: "En production"
   },
   {
     title: "Système de messagerie asynchrone",
     category: ["pro"],
-    description: "Implémentation d'un système de file d'attente avec RabbitMQ et le protocol amqps pour le traitement asynchrone des demandes.",
+    description: "Implémentation d'une file d'attente RabbitMQ (protocole AMQPS) pour le traitement asynchrone des demandes.",
     tech: ["RabbitMQ", "PHP", "Symfony"],
     status: "En production"
   },
   {
     title: "Pipeline CI/CD",
     category: ["perso", "pro"],
-    description: "Automatisation des déploiements via des pipelines CI / CD pour garantir des mises en production rapides et fiables.",
-    tech: ["Docker", "Reusable Workflows", "Github CI / CD", "Bash"],
+    description: "Automatisation des déploiements avec des workflows GitHub Actions réutilisables, pour des mises en production rapides et fiables.",
+    tech: ["Docker", "GitHub Actions", "Reusable Workflows", "Bash"],
     status: "En cours",
     githubLinks: [
-      { label: "Workflows réutilisable", url: "https://github.com/Skuskusku13/workflows-reusable" }
+      { label: "Workflows réutilisables", url: "https://github.com/Skuskusku13/workflows-reusable" }
     ]
   },
   {
-    title: "Stack Monitoring & Observabilité",
+    title: "Stack monitoring & observabilité",
     category: ["perso", "pro"],
-    description: "Mise en place d'une surveillance complète de l'infrastructure avec collecte de métriques et dashboards.",
+    description: "Surveillance de l'infrastructure : collecte de métriques et tableaux de bord.",
     tech: ["Prometheus", "Grafana", "Node Exporter", "Datadog", "Docker"],
     status: "En cours"
   },
   {
     title: "Plateforme Shajudan",
     category: ["formation"],
-    description: "Plateforme complète de gestion commerciale intégrant API, backoffice d'administration et application mobile pour la gestion des stocks et transactions.",
-    tech: ["Docker", "Python", "Django", "Django REST Framework", "SQLite3", "JWT", "CI / CD", "Angular", "Ionic", "TypeScript", "API REST"],
+    description: "Plateforme de gestion commerciale : API, backoffice d'administration et application mobile pour les stocks et les transactions.",
+    tech: ["Docker", "Python", "Django", "Django REST Framework", "SQLite3", "JWT", "CI/CD", "Angular", "Ionic", "TypeScript", "API REST"],
     status: "Terminé",
     githubLinks: [
       { label: "Backoffice Django", url: "https://github.com/Skuskusku13/backoffice-django/" },
@@ -119,7 +122,7 @@ export const projects: Project[] = [
   {
     title: "API REST avec Spring Boot",
     category: ["pro", "formation"],
-    description: "Développement d'une API et gestion de données, et affichage de ces données en front.",
+    description: "Développement d'une API REST et affichage des données dans un front Angular.",
     tech: ["Java", "Spring Boot", "MariaDB", "Angular"],
     status: "Terminé",
     githubLinks: [
@@ -130,8 +133,8 @@ export const projects: Project[] = [
   {
     title: "Bunker",
     category: ["formation"],
-    description: "Filevault pour notes sécurisées enregistrement des mdp et email pour des sites.",
-    tech: ["NestJS", "Angular", "MariaDB", "docker"],
+    description: "Coffre-fort de notes sécurisées : enregistrement de mots de passe et d'identifiants par site.",
+    tech: ["NestJS", "Angular", "MariaDB", "Docker"],
     status: "Terminé",
     githubLinks: [
       { label: "Front (Angular / TS)", url: "https://github.com/Skuskusku13/bunker_webapp" },
@@ -139,9 +142,9 @@ export const projects: Project[] = [
     ]
   },
   {
-    title: "Applications Mobile Android",
+    title: "Applications mobiles Android",
     category: ["formation"],
-    description: "Application native Android pour la consultation de données en API.",
+    description: "Applications natives Android consommant des API de données.",
     tech: ["Java", "Android SDK", "Gradle"],
     status: "Terminé",
     githubLinks: [
@@ -159,7 +162,7 @@ export const projects: Project[] = [
   {
     title: "Chatbot IA",
     category: ["formation"],
-    description: "Chatbot utilisant TensorFlow/Keras et NLTK pour analyser les intentions des utilisateurs et générer des réponses contextuelles via une interface web Flask.",
+    description: "Chatbot TensorFlow/Keras et NLTK qui analyse les intentions des utilisateurs et répond via une interface web Flask.",
     tech: ["Docker", "Python", "Flask", "TensorFlow", "Keras", "NLTK"],
     status: "Terminé",
     githubLinks: [
@@ -167,10 +170,10 @@ export const projects: Project[] = [
     ]
   },
   {
-    title: "Site vitrine avec CMS",
+    title: "Sites vitrines avec CMS",
     category: ["formation", "pro"],
-    description: "Développement de sites web avec WordPress et personnalisation avancée",
+    description: "Développement de sites vitrines WordPress avec personnalisation avancée.",
     tech: ["WordPress", "PHP", "JavaScript", "CSS", "HTML"],
-    status: "Plusieurs projets livrés"
+    status: "Livré"
   }
 ];
