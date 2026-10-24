@@ -10,14 +10,19 @@ permissions:
 
 jobs:
   create_issue_branch_job:
+    # Dépôt public : seules les issues du propriétaire ou d'un membre créent une branche
+    # (sinon n'importe qui ferait écrire dans le dépôt via contents: write).
+    if: contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association)
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: Create Issue Branch
-        uses: robvanderleek/create-issue-branch@main
+        uses: robvanderleek/create-issue-branch@dfe19372d9a9198999c0fd8a81f0dbe00951afd9 # v1.9.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

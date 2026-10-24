@@ -1,9 +1,13 @@
 # Contexte de build Docker (context: ../ dans .docker/docker-compose.yml).
 # Le build n'a besoin que du code source, de package*.json et de .docker/000-default.conf.
 
-# Jamais dans une image : variables d'environnement locales
-.env
-.env.*
+# Jamais dans une image : variables d'environnement locales et clés, à toute profondeur
+**/.env
+**/.env.*
+**/*.pem
+**/*.key
+**/.npmrc
+.claude
 
 # Inutiles au build, lourds ou régénérés
 .git
@@ -19,3 +23,6 @@ coverage
 *.md
 docs
 .DS_Store
+
+# Artefacts Impeccable (captures, briefs) : jamais nécessaires au build
+.impeccable

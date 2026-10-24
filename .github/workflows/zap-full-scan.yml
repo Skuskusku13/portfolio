@@ -24,10 +24,10 @@ permissions:
 
 jobs:
   zap-full-scan:
-    uses: Skuskusku13/workflows-reusable/.github/workflows/owasp-zap-full-scan.yml@v1.2.1
+    uses: Skuskusku13/workflows-reusable/.github/workflows/owasp-zap-full-scan.yml@3ec7f78b10aa9eae037d337681719f50b9e26a6c # v1.2.1
     with:
       project-name: portfolio
-      node-version: '22'
+      node-version: '26'
       install-command: npm ci --no-audit --no-fund
       build-command: npm run build
       start-command: npm run preview -- --port 4173 --host

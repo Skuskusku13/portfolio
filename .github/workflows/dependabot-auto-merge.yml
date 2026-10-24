@@ -1,0 +1,48 @@
+name: Dependabot auto-merge
+
+# Fusion automatique des PR Dependabot mineures et patchs, une fois les checks
+# obligatoires de main au vert (protection de branche : CI, Trivy, Gitleaks, ZAP).
+# Les majeures sont ignorées dans dependabot.yml. Les PR Docker restent manuelles :
+# rien en CI ne construit l'image, donc rien ne les valide.
+#
+# Prérequis côté dépôt, sinon gh fusionnerait avant la CI ou échouerait :
+#   - Settings → General → Pull Requests → « Allow auto-merge » coché ;
+#   - protection de main avec les checks obligatoires listés ci-dessus.
+on:
+  pull_request:
+
+# Sur une PR Dependabot, GITHUB_TOKEN est en lecture seule par défaut : la clé
+# permissions l'élève au strict nécessaire pour activer l'auto-merge.
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  auto-merge:
+    name: Auto-merge des mineures et patchs
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'Skuskusku13/portfolio'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # Pas de checkout : le code de la PR n'est pas nécessaire, et un jeton en
+      # écriture ne doit pas côtoyer du contenu tiers.
+      - name: Métadonnées Dependabot
+        id: metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # update-type est le plus haut changement semver de la PR (groupe compris).
+      - name: Activer l'auto-merge (mineure ou patch, hors Docker)
+        if: >-
+          (steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
+           steps.metadata.outputs.update-type == 'version-update:semver-patch') &&
+          !startsWith(github.head_ref, 'dependabot/docker/')
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

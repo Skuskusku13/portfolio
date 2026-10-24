@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'coverage']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -16,8 +16,19 @@ export default defineConfig([
       reactRefresh.configs.vite,
     ],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest',
       globals: globals.browser,
+    },
+    rules: {
+      // Destructurer pour omettre des props (`const { a, ...rest } = props`) est voulu.
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+    },
+  },
+  {
+    // Fichiers de configuration exécutés par Node, pas par le navigateur.
+    files: ['vite.config.ts', 'vitest.config.ts', 'eslint.config.js'],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 ])

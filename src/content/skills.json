@@ -1,0 +1,91 @@
+{
+  "backend": [
+    "PHP",
+    "Symfony",
+    "Python",
+    "Django",
+    "Flask",
+    "NestJS",
+    "Java",
+    "Spring Boot",
+    "RabbitMQ"
+  ],
+  "devops": [
+    "Docker",
+    "Docker Compose",
+    "GitHub Actions",
+    "CI/CD",
+    "Déploiement blue-green (zero downtime)",
+    "Prometheus",
+    "Grafana",
+    "Datadog",
+    "Portainer",
+    "Logrotate",
+    "Sauvegardes rsync",
+    "Bash / zsh",
+    "GitLab",
+    "GitHub",
+    "Git"
+  ],
+  "tools": [
+    "n8n",
+    "PhpMyAdmin",
+    "PhpStorm",
+    "PHPUnit",
+    "WordPress"
+  ],
+  "databases": [
+    "MySQL / MariaDB",
+    "PostgreSQL",
+    "MongoDB"
+  ],
+  "self_hosted": [
+    "Pi-hole",
+    "Joplin",
+    "Home Assistant",
+    "Zigbee2MQTT",
+    "Mosquitto (MQTT)",
+    "NetAlertX",
+    "What's Up Docker"
+  ],
+  "network_security": [
+    "Cloudflare (Tunnel, WAF, ZTNA)",
+    "Nginx (reverse proxy)",
+    "TLS / Let's Encrypt",
+    "WireGuard",
+    "Fail2ban",
+    "iptables",
+    "Trivy · Gitleaks · ZAP",
+    "git-crypt"
+  ],
+  "os": [
+    "macOS",
+    "Windows",
+    "Debian",
+    "Ubuntu",
+    "Linux Mint",
+    "Kali",
+    "Raspberry Pi OS"
+  ],
+  "frontend": [
+    "TypeScript",
+    "JavaScript",
+    "Android (Java)",
+    "Angular",
+    "React",
+    "Vite",
+    "Twig",
+    "HTML",
+    "CSS",
+    "SCSS",
+    "Bootstrap"
+  ],
+  "project_management": [
+    "Agile / Scrum",
+    "Kanban",
+    "Jira",
+    "UML (Séquence)",
+    "Merise (MCD, MLD)",
+    "Architecture Technique"
+  ]
+}

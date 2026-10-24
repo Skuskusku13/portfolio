@@ -1,198 +1,173 @@
-import { useState, useEffect, useRef } from 'react';
-import { Briefcase, Wrench, GraduationCap, ChevronDown } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowUpRight, Briefcase, GraduationCap, Wrench, type LucideIcon } from 'lucide-react';
 import { projects } from '../data';
-import { GithubIcon, GithubOffIcon } from './Icons';
+import type { Project, ProjectStatus } from '../types';
+import { useItemsPerPage } from '../hooks/useItemsPerPage';
+import Section from './ui/Section';
+import Reveal from './ui/Reveal';
+import Card from './ui/Card';
+import Tag from './ui/Tag';
+import ChipList from './ui/ChipList';
+import NewWindowHint from './ui/NewWindowHint';
 import Pagination from './Pagination';
-import type { Project } from '../types';
 
-const ProjectCard = ({ project }: { project: Project }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [showAllTags, setShowAllTags] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+type Category = Project['category'][number];
+type Filter = Category | 'all';
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+const categoryLabels: Record<Category, string> = {
+  pro: 'Pro',
+  perso: 'Perso',
+  formation: 'Formation',
+};
 
-  const hasGithubLinks = project.githubLinks && project.githubLinks.length > 0;
-  
-  const MAX_TAGS = 4;
-  const hasMoreTags = project.tech.length > MAX_TAGS;
-  const displayedTags = showAllTags ? project.tech : project.tech.slice(0, MAX_TAGS);
+// Icônes de catégorie en tête de carte (reprises de la première version du site).
+const categoryIcons: Record<Category, LucideIcon> = {
+  pro: Briefcase,
+  perso: Wrench,
+  formation: GraduationCap,
+};
+
+const filters: { id: Filter; label: string }[] = [
+  { id: 'all', label: 'Tous' },
+  { id: 'pro', label: 'Professionnels' },
+  { id: 'perso', label: 'Personnels' },
+  { id: 'formation', label: 'Formation' },
+];
+
+function statusTone(status: ProjectStatus): 'ok' | 'warn' | 'neutral' {
+  if (status === 'En production') return 'ok';
+  if (status === 'En cours') return 'warn';
+  return 'neutral';
+}
+
+/**
+ * Carte projet : icônes de catégorie et statut en tête, titre, description, puis un pied
+ * (pastilles de technologies, tags de catégorie, dépôts) pour s'aligner d'une carte à l'autre.
+ */
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+  const links = project.githubLinks ?? [];
 
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:shadow-lg dark:hover:shadow-blue-900/10 transition duration-300 flex flex-col h-full">
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex gap-2">
-          {project.category.map((cat, i) => (
-            <div key={i} className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg" title={cat}>
-              {cat === 'pro' && <Briefcase className="w-5 h-5 text-blue-600 dark:text-blue-400" />}
-              {cat === 'perso' && <Wrench className="w-5 h-5 text-blue-600 dark:text-blue-400" />}
-              {cat === 'formation' && <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400" />}
-            </div>
-          ))}
-        </div>
-        <div className="flex items-center gap-3">
-          {/* GitHub Links Logic */}
-          <div className="relative" ref={dropdownRef}>
-            {!hasGithubLinks ? (
-              <div 
-                className="p-1.5 text-gray-300 dark:text-gray-700 cursor-not-allowed" 
-                title="Code source non disponible"
-              >
-                <GithubOffIcon className="w-6 h-6" />
-              </div>
-            ) : project.githubLinks!.length === 1 ? (
-              <a
-                href={project.githubLinks![0].url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center p-1.5 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-                title="Voir le code source"
-              >
-                <GithubIcon className="w-6 h-6" />
-              </a>
-            ) : (
-              <>
-                <button
-                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="flex items-center gap-1 p-1.5 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-                  title="Voir les repositories"
-                >
-                  <GithubIcon className="w-6 h-6" />
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                
-                {isDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-10 overflow-hidden">
-                    {project.githubLinks!.map((link, idx) => (
-                      <a
-                        key={idx}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border-b last:border-0 border-gray-100 dark:border-gray-700"
-                      >
-                        {link.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-          
-          <span className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded self-center">
-            {project.status}
-          </span>
-        </div>
+    <Card as="li" delay={index * 60} className="flex flex-col">
+      <div className="flex items-center justify-between gap-x-3">
+        {/* Décoratives : la catégorie est écrite en tag au pied de la carte. */}
+        <span aria-hidden="true" className="flex items-center gap-2 text-accent">
+          {project.category.map((cat) => {
+            const Icon = categoryIcons[cat];
+            return <Icon key={cat} className="size-[18px]" strokeWidth={1.5} />;
+          })}
+        </span>
+        <Tag tone={statusTone(project.status)} dot className="shrink-0">
+          {project.status}
+        </Tag>
       </div>
-      <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">{project.title}</h3>
-      <p className="text-gray-600 dark:text-gray-400 mb-4 flex-grow">{project.description}</p>
-      <div className="mt-auto">
-        <div className="flex flex-wrap gap-2">
-          {displayedTags.map((tech, i) => (
-            <span key={i} className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded text-sm">
-              {tech}
-            </span>
-          ))}
-          {hasMoreTags && (
-            <button
-              onClick={() => setShowAllTags(!showAllTags)}
-              className="px-2 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline focus:outline-none"
-            >
-              {showAllTags ? "Voir moins" : "Voir plus..."}
-            </button>
+      <h3 className="mt-3 text-[18px] font-semibold leading-[1.3] text-ink">{project.title}</h3>
+      <p className="mt-2 text-[15px] leading-[1.5] text-ink-2">{project.description}</p>
+
+      {/* Pied calé en bas de la carte : pastilles, catégories et dépôts s'alignent d'une carte à l'autre. */}
+      <div className="mt-auto pt-5">
+        <ChipList items={project.tech} label={`Technologies de ${project.title}`} />
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <ul role="list" aria-label={`Catégories de ${project.title}`} className="flex flex-wrap gap-1.5">
+            {project.category.map((cat) => (
+              <li key={cat}>
+                <Tag>{categoryLabels[cat]}</Tag>
+              </li>
+            ))}
+          </ul>
+          {links.length > 0 && (
+            <ul className="flex flex-wrap gap-x-4 gap-y-1.5">
+              {links.map((link) => (
+                <li key={link.url}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1 py-1 text-[14px] text-accent hover:underline"
+                  >
+                    {links.length === 1 ? 'Code source' : link.label}
+                    {links.length === 1 && (
+                      <>
+                        {' '}
+                        <span className="sr-only">de {project.title}</span>
+                      </>
+                    )}
+                    <NewWindowHint />
+                    <ArrowUpRight
+                      className="size-3.5 transition-transform duration-200 ease-out-quint group-hover:-translate-y-px group-hover:translate-x-px"
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
 export default function Projects() {
-  const [projectFilter, setProjectFilter] = useState<Project['category'][number] | 'all'>('all');
+  const [filter, setFilter] = useState<Filter>('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const itemsPerPage = useItemsPerPage();
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) setItemsPerPage(3);
-      else if (window.innerWidth < 1024) setItemsPerPage(4);
-      else setItemsPerPage(6);
-    };
+  const filtered = filter === 'all' ? projects : projects.filter((p) => p.category.includes(filter));
+  const totalPages = Math.max(1, Math.ceil(filtered.length / itemsPerPage));
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  // Page effective, recadrée quand la largeur ou le filtre réduit le nombre de pages.
+  const page = Math.min(Math.max(1, currentPage), totalPages);
+  const displayed = filtered.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
-  const filteredProjects = projectFilter === 'all'
-    ? projects
-    : projects.filter(p => p.category.includes(projectFilter as Project['category'][number]));
-
-  // Pagination Logic
-  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
-  const displayedProjects = filteredProjects.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const handleFilterChange = (filterId: Project['category'][number] | 'all') => {
-    setProjectFilter(filterId);
-    setCurrentPage(1); // Reset page to 1 when filter changes
+  const handleFilter = (id: Filter) => {
+    setFilter(id);
+    setCurrentPage(1);
   };
 
-  const filters: { id: Project['category'][number] | 'all', label: string }[] = [
-    { id: 'all', label: 'Tous' },
-    { id: 'pro', label: 'Professionnels' },
-    { id: 'perso', label: 'Personnels' },
-    { id: 'formation', label: 'Formation' },
-  ];
-
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold mb-4 text-center text-gray-900 dark:text-white">Projets</h2>
-        <p className="text-gray-600 dark:text-gray-400 text-center mb-8">
-          Une sélection de mes réalisations professionnelles, personnelles et académiques
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {filters.map((filter) => (
-            <button
-              key={filter.id}
-              onClick={() => handleFilterChange(filter.id)}
-              className={`px-6 py-2 rounded-full font-semibold transition ${
-                projectFilter === filter.id
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
-              }`}
-            >
-              {filter.label}
-            </button>
-          ))}
+    <Section id="projects" title="Projets">
+      <Reveal className="mb-8" delay={60}>
+        <div role="group" aria-label="Filtrer les projets" className="flex flex-wrap gap-2">
+          {filters.map((f) => {
+            const active = filter === f.id;
+            return (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => handleFilter(f.id)}
+                aria-pressed={active}
+                className={`h-9 rounded-md border px-3.5 text-[14px] font-medium transition-colors duration-200 ${
+                  active
+                    ? 'border-ink bg-ink text-canvas'
+                    : 'border-line bg-surface text-ink-2 hover:border-line-strong/40 hover:text-ink'
+                }`}
+              >
+                {f.label}
+              </button>
+            );
+          })}
         </div>
+      </Reveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayedProjects.map((project, idx) => (
-            <ProjectCard key={idx} project={project} />
+      <p className="sr-only" role="status" aria-live="polite">
+        {filtered.length} projet{filtered.length > 1 ? 's' : ''} affiché{filtered.length > 1 ? 's' : ''}
+        {totalPages > 1 ? `, page ${page} sur ${totalPages}` : ''}
+      </p>
+
+      {filtered.length === 0 ? (
+        <p className="rule pt-6 text-[15px] leading-[1.5] text-ink-2">Aucun projet dans cette catégorie pour le moment.</p>
+      ) : (
+        <ul role="list" aria-label="Liste des projets" className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {displayed.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
           ))}
-        </div>
+        </ul>
+      )}
 
-        <Pagination 
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
-      </div>
-    </section>
+      <Pagination currentPage={page} totalPages={totalPages} onPageChange={setCurrentPage} scrollTargetId="projects" />
+    </Section>
   );
 }

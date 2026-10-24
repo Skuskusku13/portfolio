@@ -1,78 +1,77 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import faviconLight from '../assets/favicon-light.svg';
 import faviconDark from '../assets/favicon-dark.svg';
+import { ThemeContext, type Theme } from './themeContext';
 
-type Theme = 'light' | 'dark';
+const THEME_COLORS: Record<Theme, string> = { light: '#f4f6fb', dark: '#0a1124' };
 
-interface ThemeContextType {
-  theme: Theme;
-  toggleTheme: () => void;
+function readSavedTheme(): Theme | null {
+  try {
+    const saved = localStorage.getItem('theme');
+    return saved === 'dark' || saved === 'light' ? saved : null;
+  } catch {
+    return null; /* stockage indisponible (navigation privée, cookies bloqués) */
+  }
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+function saveTheme(theme: Theme): void {
+  try {
+    localStorage.setItem('theme', theme);
+  } catch {
+    /* stockage indisponible : le choix vaut pour la session, sans message (compromis assumé) */
+  }
+}
+
+/**
+ * Thème initial : la classe posée par le script inline d'index.html avant le premier
+ * rendu fait foi (pas de flash). Repli : préférence sauvegardée, puis préférence système.
+ */
+function getInitialTheme(): Theme {
+  if (typeof document === 'undefined') return 'light';
+  const root = document.documentElement;
+  if (root.classList.contains('dark')) return 'dark';
+  if (root.classList.contains('light')) return 'light';
+  return readSavedTheme() ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+}
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // 1. Priorité : Préférence utilisateur sauvegardée
-    if (typeof window !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme') as Theme;
-    }
-    // 2. Sinon : Préférence système
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    // 3. Par défaut
-    return 'light';
-  });
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  // Un choix explicite (bascule) prime sur le système pour toute la session, même si le stockage a échoué.
+  const userChose = useRef(readSavedTheme() !== null);
 
   useEffect(() => {
-    const root = window.document.documentElement;
+    const root = document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(theme);
 
-    // Update Favicon
-    const link = document.getElementById('favicon') as HTMLLinkElement;
-    if (link) {
-        link.href = theme === 'dark' ? faviconDark : faviconLight;
-    }
+    const link = document.getElementById('favicon');
+    if (link instanceof HTMLLinkElement) link.href = theme === 'dark' ? faviconDark : faviconLight;
 
+    // La couleur de la barre du navigateur suit le thème choisi, pas seulement le système.
+    document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
+      meta.content = THEME_COLORS[theme];
+    });
   }, [theme]);
 
-  // Écouter les changements système (OS) uniquement si l'utilisateur n'a pas forcé un mode
+  // Suivre le système tant que l'utilisateur n'a pas forcé un mode.
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
     const handleChange = () => {
-      // Si aucune préférence n'est sauvegardée dans le localStorage, on suit le système
-      if (!localStorage.getItem('theme')) {
-        setTheme(mediaQuery.matches ? 'dark' : 'light');
-      }
+      if (!userChose.current) setTheme(mediaQuery.matches ? 'dark' : 'light');
     };
-
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const newTheme = prev === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', newTheme);
-      return newTheme;
-    });
-  };
+  // La persistance est un effet de bord : elle reste hors de l'updater de setState (pur).
+  const toggleTheme = useCallback(() => {
+    const next: Theme = theme === 'light' ? 'dark' : 'light';
+    userChose.current = true;
+    saveTheme(next);
+    setTheme(next);
+  }, [theme]);
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
+  const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }

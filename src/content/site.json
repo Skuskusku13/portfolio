@@ -1,0 +1,33 @@
+{
+  "chain": [
+    {
+      "title": "Code",
+      "detail": "React 19 · TypeScript · Vite · Tailwind",
+      "href": "https://github.com/Skuskusku13/portfolio"
+    },
+    {
+      "title": "CI sécurité",
+      "detail": "Actions : Trivy · Gitleaks · ZAP",
+      "href": "https://github.com/Skuskusku13/portfolio/tree/main/.github/workflows"
+    },
+    {
+      "title": "Build",
+      "detail": "Docker multi-stage, node:26 → httpd:2.4",
+      "href": "https://github.com/Skuskusku13/portfolio/blob/main/.docker/Dockerfile"
+    },
+    {
+      "title": "Serveur",
+      "detail": "Apache durci : CSP, COOP/COEP, nosniff",
+      "href": "https://github.com/Skuskusku13/portfolio/blob/main/.docker/000-default.conf"
+    },
+    {
+      "title": "Réseau",
+      "detail": "Reverse proxy · Cloudflare Tunnel · TLS"
+    },
+    {
+      "title": "dlyhub.com",
+      "detail": "Cette page, servie en production",
+      "href": "https://dlyhub.com/"
+    }
+  ]
+}

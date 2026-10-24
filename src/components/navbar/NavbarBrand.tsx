@@ -1,4 +1,4 @@
-import { useTheme } from '../../hooks/useTheme';
+import { useTheme } from '../../hooks/useThemeContext';
 import logoLight from '../../assets/logo-light.svg';
 import logoDark from '../../assets/logo-dark.svg';
 
@@ -6,18 +6,9 @@ export default function NavbarBrand() {
   const { theme } = useTheme();
 
   return (
-    <a
-      href="#about"
-      className="flex items-center gap-2 cursor-pointer"
-    >
-      <img 
-        src={theme === 'dark' ? logoDark : logoLight} 
-        alt="Logo" 
-        className="h-12 w-auto"
-      />
-      <span className="font-bold text-xl text-gray-900 dark:text-white whitespace-nowrap">
-        Dan Levy
-      </span>
+    <a href="#about" className="flex min-w-0 items-center gap-2.5 rounded-sm" aria-label="Dan Levy, revenir en haut de la page">
+      <img src={theme === 'dark' ? logoDark : logoLight} alt="" width={28} height={28} className="size-7" />
+      <span className="whitespace-nowrap text-[16px] font-semibold tracking-[-0.01em] text-ink max-[359px]:sr-only">Dan Levy</span>
     </a>
   );
 }

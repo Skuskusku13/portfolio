@@ -45,3 +45,12 @@ Thumbs.db
 
 # Vite
 /temp/
+
+# Documents de travail des sessions de refonte : restent en local, hors dépôt
+.impeccable/
+/PRODUCT.md
+/DESIGN.md
+/REFONTE.md
+
+# Captures avant/après des vérifications UI
+.captures/

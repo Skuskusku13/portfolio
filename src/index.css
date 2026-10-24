@@ -2,14 +2,374 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html {
-  scroll-behavior: smooth;
+/* ------------------------------------------------------------------
+   Polices auto-hébergées (CSP : font-src 'self'). Licences : public/fonts/LICENSES.txt
+   ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Red Hat Mono";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/red-hat-mono-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Red Hat Mono";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/red-hat-mono-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* ------------------------------------------------------------------
+   Tokens de thème. Les valeurs vivent en variables CSS (clair / sombre),
+   le bloc @theme inline les expose aux utilitaires Tailwind.
+   ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
+  --canvas: #f4f6fb;
+  --surface: #ffffff;
+  --surface-2: #eef2fa;
+  --ink: #14213d;
+  --ink-2: #46547a;
+  --ink-3: #65718f;
+  --line: #d8deeb;
+  --line-strong: #14213d;
+  --line-input: #7f8aa8; /* bordure des champs : >= 3:1 sur la surface et sur le canvas (WCAG 1.4.11) */
+  --accent: #1a46e0;
+  --accent-hover: #1538bd;
+  --accent-ink: #ffffff;
+  --ok: #1b8a4e;
+  --warn: #9a6400;
+  --danger: #b3261e;
+  /* Icônes de la bascule de thème : la lune (mode clair) en bleu nuit, le soleil (mode sombre) en jaune. */
+  --sun: #eab308;
+  --moon: #1b2a5c;
+  --shadow-float: 0 16px 40px -16px rgb(20 33 61 / 0.22), 0 2px 8px -2px rgb(20 33 61 / 0.08);
 }
 
 .dark {
+  /* Bleu nuit : un sombre qui garde de la profondeur et un peu de couleur, jamais un noir plat. */
   color-scheme: dark;
+  --canvas: #0a1124;
+  --surface: #141e3a;
+  --surface-2: #1b2745;
+  --ink: #f0f4fb;
+  --ink-2: #b3bdd3;
+  --ink-3: #8f9bb6;
+  --line: #2b3960;
+  --line-strong: #f0f4fb;
+  --line-input: #71809f;
+  --accent: #8fb1ff;
+  --accent-hover: #a9c4ff;
+  --accent-ink: #0a1124;
+  --ok: #62d08a;
+  --warn: #e8bb5f;
+  --danger: #ff8f85;
+  --sun: #eab308;
+  --moon: #8fb1ff;
+  --shadow-float: 0 16px 40px -16px rgb(2 6 20 / 0.8), 0 2px 8px -2px rgb(2 6 20 / 0.6);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-input: var(--line-input);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --color-sun: var(--sun);
+  --color-moon: var(--moon);
+
+  --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Red Hat Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --shadow-float: var(--shadow-float);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+/* ------------------------------------------------------------------
+   Base : les surfaces du navigateur portent aussi le design.
+   ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* en-tête fixe : les ancres et le focus restent visibles */
+    -webkit-text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-optical-sizing: auto;
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+  }
+
+  input, textarea, select, button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input, textarea {
+    caret-color: var(--accent);
+  }
+
+  ::placeholder {
+    color: var(--ink-3);
+    opacity: 1;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--line);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Grammaire de mouvement : une seule entrée, orchestrée par section.
+   Visible par défaut (sans JS, sans IntersectionObserver, reduced-motion).
+   ------------------------------------------------------------------ */
+@layer utilities {
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .js .reveal:not(.is-in) {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .reveal {
+    transition:
+      opacity 480ms var(--ease-out-quint),
+      transform 480ms var(--ease-out-quint);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  /* Un contrôle qui reçoit le focus clavier avant l'entrée du bloc doit être visible. */
+  .js .reveal:not(.is-in):focus-within {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Filet qui se trace à l'arrivée dans le viewport (défaut : tracé). */
+  .rule {
+    position: relative;
+  }
+  .rule::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background-color: var(--line);
+    transform-origin: left center;
+    transition: transform 720ms var(--ease-out-quint);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js .reveal:not(.is-in).rule::before,
+  .js .reveal:not(.is-in) .rule::before {
+    transform: scaleX(0);
+  }
+
+  /* À l'impression, tout est visible et immobile : un bloc jamais entré dans le viewport resterait blanc. */
+  @media print {
+    .js .reveal:not(.is-in) {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal, .rule::before {
+      transition: none;
+    }
+    .js .reveal:not(.is-in).rule::before,
+    .js .reveal:not(.is-in) .rule::before {
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal:not(.is-in) {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal, .rule::before {
+      transition: none;
+    }
+    .js .reveal:not(.is-in).rule::before,
+    .js .reveal:not(.is-in) .rule::before {
+      transform: none;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Interaction signature du hero : le point de signal descend le rail de la
+   chaîne de production une fois au chargement, et allume chaque étape au passage.
+   ------------------------------------------------------------------ */
+@layer components {
+  /* Segment de rail : du centre du repère de l'étape au centre du repère suivant. */
+  .chain-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 24px;
+    bottom: -13px;
+    width: 1px;
+    background-color: var(--line);
+  }
+  .chain-signal {
+    top: 15px;
+    opacity: 0;
+    will-change: transform;
+    animation:
+      chain-signal-run var(--signal-duration, 1900ms) var(--ease-out-quint) var(--signal-delay, 700ms) 1 forwards,
+      chain-signal-show 200ms linear var(--signal-delay, 700ms) 1 forwards;
+  }
+  .chain-mark {
+    animation: chain-mark-on 320ms var(--ease-out-quint) var(--mark-delay, 0ms) 1 forwards;
+  }
+  @keyframes chain-signal-run {
+    from { transform: translateY(0); }
+    to { transform: translateY(var(--chain-dist, 0px)); }
+  }
+  @keyframes chain-signal-show {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes chain-mark-on {
+    to {
+      border-color: var(--accent);
+      background-color: var(--accent);
+      box-shadow: inset 0 0 0 2px var(--surface);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chain-signal {
+      animation: none;
+      opacity: 1;
+      transform: translateY(var(--chain-dist, 0px));
+    }
+    .chain-mark {
+      animation: none;
+      border-color: var(--accent);
+      background-color: var(--accent);
+      box-shadow: inset 0 0 0 2px var(--surface);
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Rail des expériences (desktop) : les cartes restent la grammaire, un rail
+   discret les relie comme la chaîne du hero ; repère plein pour le poste actuel.
+   ------------------------------------------------------------------ */
+@layer components {
+  @media (min-width: 64rem) {
+    .timeline {
+      padding-left: 2.5rem;
+    }
+    .timeline-item {
+      position: relative;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: calc(-2.5rem - 5.5px);
+      top: 35px;
+      width: 11px;
+      height: 11px;
+      border-radius: 9999px;
+      border: 1px solid var(--line);
+      background-color: var(--surface);
+    }
+    .timeline-item--current::before {
+      border-color: var(--accent);
+      background-color: var(--accent);
+      box-shadow: inset 0 0 0 2px var(--surface);
+    }
+    /* Segment de rail : du bas du repère au haut du repère suivant (cartes espacées de 1.25rem). */
+    .timeline-item:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: -2.5rem;
+      top: 46px;
+      bottom: calc(-1.25rem - 35px);
+      width: 1px;
+      background-color: var(--line);
+    }
+  }
 }

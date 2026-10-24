@@ -1,28 +1,28 @@
 import { GraduationCap } from 'lucide-react';
 import { formations } from '../data';
+import Section from './ui/Section';
+import Card from './ui/Card';
+import Tag from './ui/Tag';
 
 export default function Education() {
   return (
-    <section id="education" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white">Formation</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {formations.map((formation, idx) => (
-            <div key={idx} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 transition-colors duration-300">
-              <div className="flex items-center gap-2 mb-4">
-                <GraduationCap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-semibold">
-                  {formation.level}
-                </span>
-              </div>
-              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{formation.diploma}</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-2">{formation.specialization}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{formation.school}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{formation.period}</p>
+    <Section id="education" title="Formation">
+      <ol role="list" className="grid gap-5 md:grid-cols-3">
+        {formations.map((formation, idx) => (
+          <Card as="li" key={`${formation.diploma}-${formation.period}`} delay={idx * 60} className="flex flex-col">
+            <h3 className="text-[18px] font-semibold leading-[1.3] text-ink">{formation.diploma}</h3>
+            <p className="mt-1.5 text-[15px] leading-[1.5] text-ink-2">{formation.specialization}</p>
+            <p className="mt-1 flex items-center gap-1.5 text-[14px] leading-[1.5] text-ink-3">
+              <GraduationCap className="size-4" strokeWidth={1.5} aria-hidden="true" />
+              {formation.school}
+            </p>
+            <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pt-5">
+              <p className="font-mono text-[13px] text-ink-2 tnum">{formation.period}</p>
+              <Tag tone="accent">{formation.level}</Tag>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
+          </Card>
+        ))}
+      </ol>
+    </Section>
   );
 }

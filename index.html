@@ -5,24 +5,24 @@
     
     <!-- Viewport & Accessibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#030712" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a1124" media="(prefers-color-scheme: dark)">
 
-    <!-- Speed & Resource Hints -->
-    <link rel="preconnect" href="https://dlyhub.com">
-    <link rel="dns-prefetch" href="https://dlyhub.com/">
+    <!-- Thème appliqué avant le premier rendu. Script inline autorisé par son hash sha256 dans la CSP (.docker/000-default.conf) : à recalculer si son contenu change. -->
+    <script>(function(){var r=document.documentElement;try{var s=localStorage.getItem("theme");var d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;r.classList.add(d?"dark":"light","js")}catch(e){r.classList.add("light","js")}})();</script>
 
-    <!-- Primary Meta Tags -->
-    <title>Dan Levy | Développeur Back-end, DevOps</title>
-    <meta name="title" content="Dan Levy | Développeur Back-end, DevOps">
-    <meta name="description" content="Portfolio de Dan Levy, Architecte des Systèmes d'Information (Bac+5). Expert en Symfony, PHP, Python, Docker, DevOps, et administration système. Découvrez mes projets et compétences.">
+    <!-- Police du LCP préchargée (auto-hébergée, CSP font-src 'self') ; Red Hat Mono, réservée aux petits textes, se charge à la demande. -->
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Feuille de style référencée ici (et non importée par main.tsx) : elle bloque le rendu jusqu'à son
+         arrivée, en dev comme en prod, donc le hero statique n'est jamais peint sans ses styles. -->
+    <link rel="stylesheet" href="/src/index.css">
+
+    <!-- Référencement -->
+    <title>Dan Levy | Développeur Back-end &amp; DevOps</title>
+    <meta name="description" content="Dan Levy, développeur back-end & DevOps (Symfony, PHP, Python, Docker, CI/CD), Architecte des SI Bac +5. Parcours, projets et contact.">
     <meta name="author" content="Dan Levy">
-    <meta name="keywords" content="Dan Levy, Back-end, Full Stack, DevOps, Développeur Web, Automatisations, Symfony, PHP, Python, Docker, CI/CD, React, Linux, Portfolio, Freelance, Paris, France">
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-
-    <!-- Canonical -->
-    <link rel="canonical" href="https://dlyhub.com/" />
+    <link rel="canonical" href="https://dlyhub.com/">
 
     <!-- Favicons -->
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -32,43 +32,81 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Aperçus sociaux (Open Graph ; X/Twitter se replie sur og:*) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dlyhub.com/">
+    <meta property="og:site_name" content="Dan Levy">
+    <meta property="og:locale" content="fr_FR">
     <meta property="og:title" content="Dan Levy | Développeur Back-end & DevOps">
-    <meta property="og:description" content="Développeur passionné par l'architecture logicielle, le DevOps et l'auto-hébergement. Expert Symfony, Docker.">
-    <meta property="og:image" content="https://dlyhub.com/icon-512.png">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="https://dlyhub.com/">
-    <meta property="twitter:title" content="Dan Levy | Développeur Back-end & DevOps">
-    <meta property="twitter:description" content="Développeur passionné par l'architecture logicielle, le DevOps et l'auto-hébergement. Expert Symfony, Docker.">
-    <meta property="twitter:image" content="https://dlyhub.com/icon-512.png">
-    
-        <!-- Structured Data (JSON-LD) for Google Knowledge Graph -->
+    <meta property="og:description" content="Développeur back-end & DevOps : back-ends Symfony, conteneurs, CI/CD et infrastructure auto-hébergée en production.">
+    <meta property="og:image" content="https://dlyhub.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Dan Levy, développeur back-end & DevOps — dlyhub.com">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Données structurées (schema.org). Bloc de données : non soumis à la CSP, aucun hash à maintenir. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Dan Levy",
-      "url": "https://dlyhub.com",
-      "jobTitle": "Développeur Back-end & DevOps",
-      "alumniOf": {
-        "@type": "EducationalOrganization",
-        "name": "CFA INSTA"
-      },
-      "sameAs": [
-        "https://github.com/Skuskusku13",
-        "https://www.linkedin.com/in/dan-levy-a736a2150/"
-      ],
-      "knowsAbout": ["PHP", "Symfony", "Python", "Docker", "BackEnd", "DevOps", "FullStack", "Linux", "CI/CD", "Automatisations", "SQL", "Network Security"]
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://dlyhub.com/#website",
+          "url": "https://dlyhub.com/",
+          "name": "Dan Levy",
+          "alternateName": "Dan Levy - Portfolio",
+          "inLanguage": "fr-FR",
+          "publisher": { "@id": "https://dlyhub.com/#person" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://dlyhub.com/#profile",
+          "url": "https://dlyhub.com/",
+          "name": "Dan Levy | Développeur Back-end & DevOps",
+          "isPartOf": { "@id": "https://dlyhub.com/#website" },
+          "mainEntity": { "@id": "https://dlyhub.com/#person" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://dlyhub.com/#person",
+          "name": "Dan Levy",
+          "url": "https://dlyhub.com/",
+          "image": "https://dlyhub.com/og-image.png",
+          "description": "Développeur back-end & DevOps : back-ends Symfony, conteneurs, CI/CD, supervision et infrastructure en production.",
+          "jobTitle": "Développeur Back-end & DevOps",
+          "worksFor": { "@type": "Organization", "name": "Meilleurtaux Placement" },
+          "alumniOf": { "@type": "EducationalOrganization", "name": "CFA INSTA" },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "Architecte des Systèmes d'Information",
+            "educationalLevel": "Bac +5"
+          },
+          "address": { "@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR" },
+          "knowsAbout": ["PHP", "Symfony", "Python", "Docker", "Docker Compose", "RabbitMQ", "CI/CD", "Linux", "DevOps", "Développement back-end", "Sécurité des réseaux", "SQL"],
+          "sameAs": ["https://github.com/Skuskusku13", "https://www.linkedin.com/in/dan-levy-a736a2150/"]
+        }
+      ]
     }
     </script>
   </head>
   <body>
-    <noscript>Vous devez activer JavaScript pour visualiser ce site correctement.</noscript>
-    <div id="root"></div>
+    <noscript>
+      <h1>Dan Levy</h1>
+      <p>Développeur Back-end &amp; DevOps. Back-ends Symfony, conteneurs, CI/CD, supervision et sécurité, en production chez Meilleurtaux Placement (CDI depuis septembre 2026).</p>
+      <p>Bac +5 Architecte des Systèmes d'Information (CFA INSTA). Expériences : Meilleurtaux Placement, Storyzy, SESAN.</p>
+      <p>
+        <a href="mailto:danlevy149@gmail.com">danlevy149@gmail.com</a> ·
+        <a href="https://github.com/Skuskusku13">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/dan-levy-a736a2150/">LinkedIn</a>
+      </p>
+      <p>Activez JavaScript pour parcourir le portfolio complet.</p>
+    </noscript>
+    <!-- Hero statique : le nom et l'énoncé (élément LCP) sont peints avant le JavaScript, dans la même
+         chaîne d'enveloppes que l'application pour ne rien faire bouger au montage. React remplace ce contenu.
+         Garde-fou : src/components/HeroStatic.test.tsx compare ce bloc au rendu de HeroStatic. -->
+    <div id="root"><div class="min-h-screen bg-canvas text-ink"><main id="main" tabindex="-1" class="outline-none"><section id="about" class="pt-24 pb-8 sm:pt-32 sm:pb-10 lg:pt-36 lg:pb-12"><div class="mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-12"><div class="grid items-start gap-x-12 gap-y-8 lg:grid-cols-12"><div class="lg:col-span-7"><!-- hero-static:start --><h1 class="text-[52px] font-semibold leading-[0.98] sm:text-[64px] lg:text-[72px]">Dan Levy</h1><p class="mt-5 max-w-[48ch] text-[18px] leading-[1.4] text-ink sm:text-[20px]">Architecte des Systèmes d'Information. Conception d'architectures Back-end et DevOps pour des solutions robustes, sécurisées et automatisées.</p><p class="mt-4 max-w-[56ch] text-[17px] leading-[1.55] text-ink-2 sm:text-[18px]">Conteneurs, CI/CD, supervision, sécurité : je conçois et j'exploite des systèmes qui tournent en production, du code au déploiement. Ce site en est un exemple, de son dépôt à votre écran.</p><!-- hero-static:end --></div></div></div></section></main></div></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

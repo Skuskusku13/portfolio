@@ -1,0 +1,54 @@
+# Mises à jour automatiques : dépendances npm, images Docker (épinglées par digest
+# dans .docker/Dockerfile) et actions GitHub (actions tierces épinglées par SHA de commit,
+# que Dependabot sait suivre, y compris les workflows réutilisables du compte, épinglés par SHA avec le tag en commentaire).
+# Les majeures npm et Docker sont ignorées (elles demandent des tests manuels) ; les PR
+# mineures et patchs sont fusionnées automatiquement par workflows/dependabot-auto-merge.yml.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "07:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 5
+    # Délai de refroidissement : une version fraîchement publiée (et potentiellement compromise)
+    # n'est proposée qu'après 7 jours (14 pour une majeure). Les correctifs de sécurité ne sont pas retardés.
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
+    groups:
+      dev-tooling:
+        dependency-type: development
+        update-types: [minor, patch]
+    # Pas de majeure : React, Vite ou Tailwind en version majeure se testent à la main.
+    # Ce filtre vaut aussi pour un correctif de sécurité qui exigerait une majeure :
+    # l'alerte reste alors visible dans l'onglet Sécurité, sans PR automatique.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: docker
+    directory: /.docker
+    schedule:
+      interval: weekly
+      day: monday
+      time: "07:00"
+      timezone: Europe/Paris
+    cooldown:
+      default-days: 7
+    # Pas de changement de tag majeur (node:27-alpine…) : Node est fixé par .nvmrc et engines.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "07:00"
+      timezone: Europe/Paris
+    cooldown:
+      default-days: 7
