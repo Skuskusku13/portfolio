@@ -70,7 +70,7 @@ export default function Navbar() {
             aria-expanded={menuOpen}
             aria-controls={MENU_ID}
             aria-label="Menu"
-            className="inline-flex size-9 items-center justify-center rounded-md text-ink-2 transition-colors duration-200 hover:bg-surface-2 hover:text-ink lg:hidden"
+            className="relative inline-flex size-9 items-center justify-center rounded-md text-ink-2 transition-colors duration-200 before:absolute before:-inset-1 before:content-[''] hover:bg-surface-2 hover:text-ink lg:hidden"
           >
             {menuOpen ? <X className="size-5" strokeWidth={1.5} /> : <Menu className="size-5" strokeWidth={1.5} />}
           </button>

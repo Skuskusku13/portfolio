@@ -141,11 +141,15 @@ export default function Projects() {
         {totalPages > 1 ? `, page ${page} sur ${totalPages}` : ''}
       </p>
 
-      <ul role="list" aria-label="Liste des projets" className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {displayed.map((project, index) => (
-          <ProjectCard key={project.title} project={project} index={index} />
-        ))}
-      </ul>
+      {filtered.length === 0 ? (
+        <p className="rule pt-6 text-[15px] leading-[1.5] text-ink-2">Aucun projet dans cette catégorie pour le moment.</p>
+      ) : (
+        <ul role="list" aria-label="Liste des projets" className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {displayed.map((project, index) => (
+            <ProjectCard key={project.title} project={project} index={index} />
+          ))}
+        </ul>
+      )}
 
       <Pagination currentPage={page} totalPages={totalPages} onPageChange={setCurrentPage} scrollTargetId="projects" />
     </Section>
