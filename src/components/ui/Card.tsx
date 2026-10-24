@@ -15,7 +15,7 @@ interface CardProps {
  */
 export default function Card({ as = 'div', delay = 0, className = '', children }: CardProps) {
   return (
-    <Reveal as={as} delay={delay} className={`rounded-lg border border-line bg-surface p-6 ${className}`}>
+    <Reveal as={as} delay={delay} className={`min-w-0 rounded-lg border border-line bg-surface p-6 ${className}`}>
       {children}
     </Reveal>
   );
