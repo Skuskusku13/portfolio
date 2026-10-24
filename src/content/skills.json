@@ -15,6 +15,7 @@
     "Docker Compose",
     "GitHub Actions",
     "CI/CD",
+    "Déploiement blue-green (zero downtime)",
     "Prometheus",
     "Grafana",
     "Datadog",
