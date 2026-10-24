@@ -1,6 +1,6 @@
 # Mises à jour automatiques : dépendances npm, images Docker (épinglées par digest
-# dans .docker/Dockerfile) et actions GitHub (actions tierces épinglées par SHA de commit ;
-# les workflows réutilisables du compte restent suivis par tag, ex. @v1.2.1).
+# dans .docker/Dockerfile) et actions GitHub (actions tierces épinglées par SHA de commit,
+# que Dependabot sait suivre ; les workflows réutilisables du compte restent suivis par tag, ex. @v1.2.1).
 version: 2
 updates:
   - package-ecosystem: npm
@@ -11,6 +11,11 @@ updates:
       time: "07:00"
       timezone: Europe/Paris
     open-pull-requests-limit: 5
+    # Délai de refroidissement : une version fraîchement publiée (et potentiellement compromise)
+    # n'est proposée qu'après 7 jours (14 pour une majeure). Les correctifs de sécurité ne sont pas retardés.
+    cooldown:
+      default-days: 7
+      semver-major-days: 14
     groups:
       dev-tooling:
         dependency-type: development
