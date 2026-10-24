@@ -128,8 +128,12 @@ Toute variable préfixée `VITE_*` est inlinée dans le bundle public : n'y mett
 | `zap-baseline.yml` | PR, push main, mensuel | scan DAST passif ZAP sur l'app buildée dans le runner |
 | `zap-full-scan.yml` | hebdomadaire, manuel | scan DAST actif ZAP (jamais sur les PR) |
 | `create-branch-from-issue.yml` | issue ouverte par un membre | branche créée depuis l'issue |
+| `dependabot-auto-merge.yml` | PR ouverte par Dependabot | active l'auto-merge des PR mineures et patchs (npm, actions), fusionnées une fois les checks obligatoires de `main` au vert |
 
 Dependabot suit npm, les digests Docker et les SHA d'actions, avec un délai de 7 jours.
+Les majeures npm et Docker sont ignorées (tests manuels). Les PR Docker ne sont jamais
+fusionnées automatiquement : rien en CI ne construit l'image. L'auto-merge suppose, côté
+dépôt, « Allow auto-merge » activé et des checks obligatoires sur `main`.
 
 ## Tests
 
