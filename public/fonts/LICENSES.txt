@@ -1,0 +1,8 @@
+Polices auto-hébergées (CSP font-src 'self').
+
+- Bricolage Grotesque — © 2022 The Bricolage Grotesque Project Authors (https://github.com/ateliertriay/bricolage).
+  Licence : SIL Open Font License 1.1 (https://openfontlicense.org).
+- Red Hat Mono — © 2021 Red Hat, Inc. (https://github.com/RedHatOfficial/RedHatFont).
+  Licence : SIL Open Font License 1.1 (https://openfontlicense.org).
+
+Fichiers woff2 sous-ensembles latin / latin-ext issus de Google Fonts.

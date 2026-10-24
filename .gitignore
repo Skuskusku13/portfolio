@@ -45,3 +45,10 @@ Thumbs.db
 
 # Vite
 /temp/
+
+# Impeccable : captures lourdes et cache local (design.json, surfaces/ et critique/ restent versionnés)
+.impeccable/review/
+.impeccable/hook.cache.json
+
+# Captures avant/après des vérifications UI
+.captures/

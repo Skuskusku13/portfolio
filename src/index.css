@@ -2,14 +2,305 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html {
-  scroll-behavior: smooth;
+/* ------------------------------------------------------------------
+   Polices auto-hébergées (CSP : font-src 'self'). Licences : public/fonts/LICENSES.txt
+   ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/bricolage-grotesque-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Red Hat Mono";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/red-hat-mono-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Red Hat Mono";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/red-hat-mono-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* ------------------------------------------------------------------
+   Tokens de thème. Les valeurs vivent en variables CSS (clair / sombre),
+   le bloc @theme inline les expose aux utilitaires Tailwind.
+   ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
+  --canvas: #f5f5f7;
+  --surface: #ffffff;
+  --surface-2: #fafafb;
+  --ink: #1d1d1f;
+  --ink-2: #515154;
+  --ink-3: #6e6e73;
+  --line: #d2d2d7;
+  --line-strong: #1d1d1f;
+  --line-input: #8e8e93; /* bordure des champs : >= 3:1 sur la surface (WCAG 1.4.11) */
+  --accent: #163dcc;
+  --accent-hover: #1234b5;
+  --accent-ink: #ffffff;
+  --ok: #1f7a3e;
+  --warn: #8a5b00;
+  --danger: #b3261e;
+  --shadow-float: 0 16px 40px -16px rgb(29 29 31 / 0.22), 0 2px 8px -2px rgb(29 29 31 / 0.08);
 }
 
 .dark {
+  /* Bleu nuit : un sombre qui garde de la profondeur, jamais un noir plat. */
   color-scheme: dark;
+  --canvas: #0a1020;
+  --surface: #121b30;
+  --surface-2: #18233f;
+  --ink: #eef2f8;
+  --ink-2: #aeb8cc;
+  --ink-3: #8b97ae;
+  --line: #273354;
+  --line-strong: #eef2f8;
+  --line-input: #6b7794;
+  --accent: #7fa2ff;
+  --accent-hover: #99b6ff;
+  --accent-ink: #0a1020;
+  --ok: #5ccb7e;
+  --warn: #e0b35a;
+  --danger: #ff8a80;
+  --shadow-float: 0 16px 40px -16px rgb(2 6 20 / 0.8), 0 2px 8px -2px rgb(2 6 20 / 0.6);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-input: var(--line-input);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-ok: var(--ok);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+
+  --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Red Hat Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --shadow-float: var(--shadow-float);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+/* ------------------------------------------------------------------
+   Base : les surfaces du navigateur portent aussi le design.
+   ------------------------------------------------------------------ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* en-tête fixe : les ancres et le focus restent visibles */
+    -webkit-text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-optical-sizing: auto;
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+  }
+
+  input, textarea, select, button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input, textarea {
+    caret-color: var(--accent);
+  }
+
+  ::placeholder {
+    color: var(--ink-3);
+    opacity: 1;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--line);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Grammaire de mouvement : une seule entrée, orchestrée par section.
+   Visible par défaut (sans JS, sans IntersectionObserver, reduced-motion).
+   ------------------------------------------------------------------ */
+@layer utilities {
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .js .reveal:not(.is-in) {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .reveal {
+    transition:
+      opacity 480ms var(--ease-out-quint),
+      transform 480ms var(--ease-out-quint);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* Filet qui se trace à l'arrivée dans le viewport (défaut : tracé). */
+  .rule {
+    position: relative;
+  }
+  .rule::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background-color: var(--line);
+    transform-origin: left center;
+    transition: transform 720ms var(--ease-out-quint);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js .reveal:not(.is-in).rule::before,
+  .js .reveal:not(.is-in) .rule::before {
+    transform: scaleX(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal:not(.is-in) {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal, .rule::before {
+      transition: none;
+    }
+    .js .reveal:not(.is-in).rule::before,
+    .js .reveal:not(.is-in) .rule::before {
+      transform: none;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Interaction signature du hero : le point de signal descend le rail de la
+   chaîne de production une fois au chargement, et allume chaque étape au passage.
+   ------------------------------------------------------------------ */
+@layer components {
+  /* Segment de rail : du centre du repère de l'étape au centre du repère suivant. */
+  .chain-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 22px;
+    bottom: -23px;
+    width: 1px;
+    background-color: var(--line);
+  }
+  .chain-signal {
+    top: 19px;
+    opacity: 0;
+    animation:
+      chain-signal-run var(--signal-duration, 1900ms) var(--ease-out-quint) var(--signal-delay, 700ms) 1 forwards,
+      chain-signal-show 200ms linear var(--signal-delay, 700ms) 1 forwards;
+  }
+  .chain-mark {
+    animation: chain-mark-on 320ms var(--ease-out-quint) var(--mark-delay, 0ms) 1 forwards;
+  }
+  @keyframes chain-signal-run {
+    from { top: 19px; }
+    to { top: calc(100% - var(--chain-last-h, 61px) + 19px); }
+  }
+  @keyframes chain-signal-show {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes chain-mark-on {
+    to {
+      border-color: var(--accent);
+      background-color: var(--accent);
+      box-shadow: inset 0 0 0 2px var(--surface);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chain-signal {
+      animation: none;
+      opacity: 1;
+      top: calc(100% - var(--chain-last-h, 61px) + 19px);
+    }
+    .chain-mark {
+      animation: none;
+      border-color: var(--accent);
+      background-color: var(--accent);
+      box-shadow: inset 0 0 0 2px var(--surface);
+    }
+  }
 }
