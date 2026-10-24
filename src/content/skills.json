@@ -40,7 +40,6 @@
   ],
   "self_hosted": [
     "Pi-hole",
-    "Cloudflared",
     "Joplin",
     "Home Assistant",
     "Zigbee2MQTT",
@@ -49,6 +48,7 @@
     "What's Up Docker"
   ],
   "network_security": [
+    "Cloudflare (Tunnel, WAF, ZTNA)",
     "Nginx (reverse proxy)",
     "TLS / Let's Encrypt",
     "WireGuard",
