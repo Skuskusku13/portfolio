@@ -26,15 +26,14 @@ src/
 │   ├── useTheme.tsx       ThemeProvider (classe sur <html>, favicon, theme-color, suivi système)
 │   ├── useThemeContext.ts useTheme()
 │   ├── useActiveSection.ts section visible (IntersectionObserver) pour la navigation
-│   ├── useItemsPerPage.ts éléments par page selon la largeur (useSyncExternalStore)
-│   └── useParisTime.ts    heure de Paris à la minute (useSyncExternalStore), section Contact
+│   └── useItemsPerPage.ts éléments par page selon la largeur (useSyncExternalStore)
 ├── components/
 │   ├── navbar/            Navbar, NavLinks, MobileMenu, NavbarBrand, items
 │   ├── ui/                primitives : Button, Card, ChipList, Container, NewWindowHint,
 │   │                      NoWrapHyphens, Reveal, Section, Tag, BrandIcons
 │   ├── Hero.tsx, HeroStatic.tsx, DeploymentChain.tsx
 │   ├── Experience.tsx, Projects.tsx, Skills.tsx, Education.tsx, Pagination.tsx
-│   ├── Contact.tsx, ContactChannels.tsx, ContactForm.tsx
+│   ├── Contact.tsx, ContactForm.tsx
 │   ├── ThemeToggle.tsx, Footer.tsx
 │   └── *.test.tsx         tests à côté de chaque composant
 └── test/                  setup Vitest (jsdom, jest-dom, stubs) et faux IntersectionObserver
@@ -84,10 +83,9 @@ recopiés statiquement dans `index.html` (test `HeroStatic.test.tsx`).
 
 ## Formulaire de contact
 
-La section pose l'adresse email en tête de la colonne gauche (copiable, avec LinkedIn, GitHub
-et le lieu, Paris, dont l'heure locale s'affiche à la minute). Le formulaire occupe la colonne
-droite : compteur de caractères relié par `aria-describedby`, champs en lecture seule pendant
-l'envoi, panneau de succès qui remplace les champs et reçoit le focus.
+Une seule colonne : le formulaire dans un panneau (compteur de caractères relié par
+`aria-describedby`, champs en lecture seule pendant l'envoi, panneau de succès qui remplace les
+champs et reçoit le focus), puis dessous l'adresse en clair, sa copie, LinkedIn et GitHub.
 
 `ContactForm` valide en direct (format signalé au départ du champ, champ vide reproché à
 l'envoi, puis validation à chaque frappe), avec `aria-invalid`, `aria-describedby` et une région

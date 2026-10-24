@@ -74,7 +74,7 @@ Détails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; stratégie de test 
 - Navigation par ancres avec section active, menu mobile accessible au clavier.
 - Projets filtrables par catégorie (pro, perso, formation) et paginés ; compétences paginées.
 - Formulaire de contact validé en direct, compteur de caractères, panneau de succès, erreurs
-  d'envoi explicites, repli email ; heure de Paris à la minute à côté des canaux directs.
+  d'envoi explicites, repli email ; copie de l'adresse, LinkedIn et GitHub sous le formulaire.
 - Durée de chaque expérience calculée depuis le contenu, date du build servi lue dans
   l'en-tête de la page.
 - Thème clair / sombre sans flash (script inline hashé en CSP), suivi du système.
