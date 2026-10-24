@@ -28,8 +28,9 @@ export default function Pagination({ currentPage, totalPages, onPageChange, scro
     if (e.detail > 0) document.getElementById(scrollTargetId)?.scrollIntoView({ block: 'start' });
   };
 
+  // Groupé et centré : Précédent, « Page x sur y », Suivant se lisent d'un seul regard.
   return (
-    <nav aria-label="Pagination" className="mt-8 flex items-center justify-between gap-4 sm:mt-10">
+    <nav aria-label="Pagination" className="mt-8 flex items-center justify-center gap-5 sm:mt-10">
       <Button variant="secondary" size="sm" onClick={goTo(currentPage - 1, isFirst)} aria-disabled={isFirst || undefined}>
         Précédent
       </Button>
