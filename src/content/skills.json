@@ -15,15 +15,12 @@
     "Docker Compose",
     "GitHub Actions",
     "CI/CD",
-    "Trivy · Gitleaks · ZAP",
     "Prometheus",
     "Grafana",
-    "cAdvisor / node-exporter",
     "Datadog",
     "Portainer",
     "Logrotate",
     "Sauvegardes rsync",
-    "cron",
     "Bash / zsh",
     "GitLab",
     "GitHub",
@@ -58,6 +55,7 @@
     "Fail2ban",
     "iptables / ip6tables",
     "SSH durci",
+    "Trivy · Gitleaks · ZAP",
     "git-crypt"
   ],
   "os": [
