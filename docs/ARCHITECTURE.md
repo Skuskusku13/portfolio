@@ -119,7 +119,8 @@ Toute variable préfixée `VITE_*` est inlinée dans le bundle public : n'y mett
 |---|---|---|
 | `ci.yml` | PR, push main | lint, `tsc -b`, tests avec seuils de couverture 80 %, build |
 | `security.yml` | PR, push main, mensuel | Trivy (lockfile) et Gitleaks via `workflows-reusable` (épinglé par SHA) |
-| `zap-baseline.yml` / `zap-full-scan.yml` | PR / hebdomadaire | scans DAST ZAP sur l'app buildée |
+| `zap-baseline.yml` | PR, push main, mensuel | scan DAST passif ZAP sur l'app buildée dans le runner |
+| `zap-full-scan.yml` | hebdomadaire, manuel | scan DAST actif ZAP (jamais sur les PR) |
 | `create-branch-from-issue.yml` | issue ouverte par un membre | branche créée depuis l'issue |
 
 Dependabot suit npm, les digests Docker et les SHA d'actions, avec un délai de 7 jours.
