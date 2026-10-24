@@ -300,7 +300,20 @@
       chain-signal-run var(--signal-duration, 1900ms) var(--ease-out-quint) var(--signal-delay, 700ms) 1 forwards,
       chain-signal-show 200ms linear var(--signal-delay, 700ms) 1 forwards;
   }
+  /* L'état « allumé » du repère vit sur un pseudo-élément qui ne fait que passer en
+     opacité : l'animation reste sur le compositeur, sans repaint de bordure, fond ni ombre. */
   .chain-mark {
+    position: relative;
+  }
+  .chain-mark::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 9999px;
+    border: 1px solid var(--accent);
+    background-color: var(--accent);
+    box-shadow: inset 0 0 0 2px var(--surface);
+    opacity: 0;
     animation: chain-mark-on 320ms var(--ease-out-quint) var(--mark-delay, 0ms) 1 forwards;
   }
   @keyframes chain-signal-run {
@@ -312,11 +325,7 @@
     to { opacity: 1; }
   }
   @keyframes chain-mark-on {
-    to {
-      border-color: var(--accent);
-      background-color: var(--accent);
-      box-shadow: inset 0 0 0 2px var(--surface);
-    }
+    to { opacity: 1; }
   }
   @media (prefers-reduced-motion: reduce) {
     .chain-signal {
@@ -324,11 +333,9 @@
       opacity: 1;
       transform: translateY(var(--chain-dist, 0px));
     }
-    .chain-mark {
+    .chain-mark::after {
       animation: none;
-      border-color: var(--accent);
-      background-color: var(--accent);
-      box-shadow: inset 0 0 0 2px var(--surface);
+      opacity: 1;
     }
   }
 }
