@@ -106,7 +106,7 @@ Toute variable préfixée `VITE_*` est inlinée dans le bundle public : n'y mett
 
 ## Build, image et serveur
 
-- `npm run build` = `tsc -b` puis `vite build` ; un seul chunk JS (~88 ko gzip), une feuille
+- `npm run build` = `tsc -b` puis `vite build` ; un seul chunk JS (~87 ko gzip), une feuille
   CSS, polices auto-hébergées (`public/fonts`, `font-display: swap`, Bricolage préchargée).
 - Dockerfile multi-stage : `node:26-alpine` (build) → `httpd:2.4-alpine` (service), images
   épinglées par digest, `apk upgrade`, `HEALTHCHECK`, seul `dist/` est copié.
