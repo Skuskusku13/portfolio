@@ -51,9 +51,9 @@ export default function Skills() {
 
       <ul role="list" aria-label="Familles de compétences" className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {displayed.map((section, index) => {
-          const items = skills[section.key];
+          // activeSections ne garde que les familles non vides : items est défini ici.
+          const items = skills[section.key] ?? [];
           const Icon = section.icon;
-          if (!items) return null;
 
           return (
             <Card as="li" key={section.key} delay={index * 60}>
