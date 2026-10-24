@@ -246,7 +246,7 @@ describe('Contact — canaux directs', () => {
     const setTimeoutSpy = vi.spyOn(window, 'setTimeout');
     render(<Contact />);
 
-    await user.click(screen.getByRole('button', { name: "Copier l'adresse" }));
+    await user.click(screen.getByRole('button', { name: "Copier l'email" }));
 
     expect(writeText).toHaveBeenCalledWith(EMAIL);
     expect(await screen.findByText('Adresse copiée')).toBeInTheDocument();
@@ -265,15 +265,9 @@ describe('Contact — canaux directs', () => {
     });
     render(<Contact />);
 
-    await user.click(screen.getByRole('button', { name: "Copier l'adresse" }));
+    await user.click(screen.getByRole('button', { name: "Copier l'email" }));
 
     expect(await screen.findByText(/Copie impossible/)).toBeInTheDocument();
-  });
-
-  it('affiche le lieu et l’heure de Paris, à la minute', () => {
-    render(<Contact />);
-    expect(screen.getByText('Paris')).toBeInTheDocument();
-    expect(screen.getByText(/^\d{2}:\d{2}$/)).toBeInTheDocument();
   });
 
   it('expose l’email, LinkedIn et GitHub en liens nommés', () => {

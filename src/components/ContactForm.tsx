@@ -156,8 +156,8 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
 
   if (state.kind === 'sent') {
     return (
-      <form aria-label="Formulaire de contact" noValidate onSubmit={(e) => e.preventDefault()} className="rule pt-6">
-        <div ref={sentRef} tabIndex={-1} role="status" className="rounded-lg border border-line bg-surface p-6 outline-none">
+      <form aria-label="Formulaire de contact" noValidate onSubmit={(e) => e.preventDefault()}>
+        <div ref={sentRef} tabIndex={-1} role="status" className="outline-none">
           <div className="flex items-start gap-3">
             <span aria-hidden="true" className="mt-2 size-2 shrink-0 rounded-full bg-ok" />
             <div className="min-w-0">
@@ -176,7 +176,7 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
   }
 
   return (
-    <form aria-label="Formulaire de contact" noValidate onSubmit={handleSubmit} className="rule space-y-5 pt-6">
+    <form aria-label="Formulaire de contact" noValidate onSubmit={handleSubmit} className="space-y-5">
       <p className="text-[14px] text-ink-2">Tous les champs sont obligatoires.</p>
 
       <div>
