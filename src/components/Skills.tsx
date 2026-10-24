@@ -1,5 +1,16 @@
 import { useState } from 'react';
-import { Server, Database, Code, Monitor, Layout, Wrench, Home, ShieldCheck, ClipboardList, type LucideIcon } from 'lucide-react';
+import {
+  Server,
+  Database,
+  Container as ContainerIcon,
+  Monitor,
+  Layout,
+  Wrench,
+  Home,
+  ShieldCheck,
+  ClipboardList,
+  type LucideIcon,
+} from 'lucide-react';
 import { skills } from '../data';
 import type { SkillGroupKey } from '../types';
 import Section from './ui/Section';
@@ -14,13 +25,14 @@ interface SkillSection {
   icon: LucideIcon;
 }
 
+// L'exploitation d'abord (DevOps, outils, auto-hébergement, réseau), le développement ensuite.
 const skillSections: SkillSection[] = [
-  { key: 'backend', title: 'Back-end', icon: Server },
-  { key: 'devops', title: 'DevOps', icon: Code },
+  { key: 'devops', title: 'DevOps', icon: ContainerIcon },
   { key: 'tools', title: 'Outils & services', icon: Wrench },
-  { key: 'databases', title: 'Bases de données', icon: Database },
   { key: 'self_hosted', title: 'Auto-hébergement', icon: Home },
   { key: 'network_security', title: 'Réseau & sécurité', icon: ShieldCheck },
+  { key: 'backend', title: 'Back-end', icon: Server },
+  { key: 'databases', title: 'Bases de données', icon: Database },
   { key: 'os', title: "Systèmes d'exploitation", icon: Monitor },
   { key: 'frontend', title: 'Front-end', icon: Layout },
   { key: 'project_management', title: 'Gestion & conception', icon: ClipboardList },
@@ -43,7 +55,7 @@ export default function Skills() {
   const displayed = activeSections.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
   return (
-    <Section id="skills" title="Compétences" deck="Ce que je pratique au quotidien, du back-end à l'exploitation.">
+    <Section id="skills" title="Compétences" deck="Ce que je pratique au quotidien : conteneurs, CI/CD, supervision et sécurité d'abord, le back-end ensuite.">
       <p className="sr-only" role="status" aria-live="polite">
         {activeSections.length} familles affichées{totalPages > 1 ? `, page ${page} sur ${totalPages}` : ''}
       </p>

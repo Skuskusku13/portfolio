@@ -111,7 +111,7 @@ export default function Projects() {
     <Section
       id="projects"
       title="Projets"
-      deck="Infrastructure, pipelines et services que j'exploite réellement, puis les projets de formation."
+      deck="Infrastructure, pipelines et services : des projets menés au travail, en perso et en formation."
     >
       <Reveal className="mb-8" delay={60}>
         <div role="group" aria-label="Filtrer les projets" className="flex flex-wrap gap-2">

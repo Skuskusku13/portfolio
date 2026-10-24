@@ -7,11 +7,7 @@ import NoWrapHyphens from './ui/NoWrapHyphens';
 
 export default function Experience() {
   return (
-    <Section
-      id="experiences"
-      title="Expériences"
-      deck="Back-end, puis infrastructure : des systèmes en production depuis 2021."
-    >
+    <Section id="experiences" title="Expériences">
       <ol role="list" className="grid gap-5">
         {experiences.map((exp, idx) => {
           const isCurrent = idx === 0;
@@ -30,13 +26,15 @@ export default function Experience() {
                 </div>
                 <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
                   <p className="font-mono text-[13px] leading-[1.6] text-ink-2 tnum">{exp.period}</p>
-                  {exp.promotion ? (
-                    <Tag tone="ok" dot>
-                      {exp.promotion}
-                    </Tag>
-                  ) : (
+                  {/* Le contrat d'origine reste affiché ; la promotion s'ajoute à côté. */}
+                  <div className="flex flex-wrap items-center gap-2 sm:justify-end">
                     <Tag>{exp.type}</Tag>
-                  )}
+                    {exp.promotion && (
+                      <Tag tone="ok" dot>
+                        {exp.promotion}
+                      </Tag>
+                    )}
+                  </div>
                 </div>
               </div>
 

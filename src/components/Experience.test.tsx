@@ -27,10 +27,9 @@ describe('Experience', () => {
     expect(screen.getByText(first?.promotion ?? '')).toBeInTheDocument();
   });
 
-  it('affiche le tag de type sur les expériences sans promotion', () => {
+  it('affiche le tag de type sur chaque expérience, promotion comprise', () => {
     render(<Experience />);
-    const others = experiences.filter((exp) => !exp.promotion);
-    expect(screen.getAllByText('Alternance')).toHaveLength(others.length);
+    expect(screen.getAllByText('Alternance')).toHaveLength(experiences.length);
   });
 
   it('liste les compétences de chaque expérience', () => {
