@@ -84,7 +84,7 @@ Détails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; stratégie de test 
 ## Tests
 
 ```bash
-npm test                 # 171 tests
+npm test                 # 185 tests
 npm run test:coverage    # seuils 80 % sur src/hooks, src/components, src/lib, src/content, src/config.ts
 ```
 
@@ -95,10 +95,10 @@ accessible, et couvrent le formulaire de contact (succès, erreur réseau, déla
 
 | | Performance | Accessibilité | Bonnes pratiques | SEO |
 |---|---|---|---|---|
-| Mobile | 99 | 100 | 100 | 100 |
+| Mobile | 98 | 100 | 100 | 100 |
 | Desktop | 100 | 100 | 100 | 100 |
 
-JavaScript initial : 85 ko gzip. Couverture de tests : 98 % des instructions.
+JavaScript initial : 88 ko gzip. Couverture de tests : 98 % des instructions.
 Aucune erreur ni avertissement console, aucune requête en échec.
 
 ## CSP et script inline
