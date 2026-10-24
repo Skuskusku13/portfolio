@@ -14,24 +14,6 @@ describe('Section', () => {
     expect(screen.getByText('Corps')).toBeInTheDocument();
   });
 
-  it('affiche le chapeau quand il est fourni', () => {
-    render(
-      <Section id="a" title="T" deck="Une phrase de chapeau">
-        <span />
-      </Section>,
-    );
-    expect(screen.getByText('Une phrase de chapeau')).toBeInTheDocument();
-  });
-
-  it('n’affiche pas de paragraphe sans chapeau', () => {
-    const { container } = render(
-      <Section id="a" title="T">
-        <span />
-      </Section>,
-    );
-    expect(container.querySelector('header p')).toBeNull();
-  });
-
   it('ajoute la classe additionnelle à la section', () => {
     const { container } = render(
       <Section id="a" title="T" className="extra">

@@ -128,11 +128,7 @@ export default function Projects() {
   };
 
   return (
-    <Section
-      id="projects"
-      title="Projets"
-      deck="Infrastructure, pipelines et services : des projets menés au travail, en perso et en formation."
-    >
+    <Section id="projects" title="Projets">
       <Reveal className="mb-8" delay={60}>
         <div role="group" aria-label="Filtrer les projets" className="flex flex-wrap gap-2">
           {filters.map((f) => {

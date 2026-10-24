@@ -84,7 +84,7 @@ function DirectChannels() {
 
 export default function Contact() {
   return (
-    <Section id="contact" title="Contact" deck="Ouvert aux opportunités professionnelles et aux échanges techniques.">
+    <Section id="contact" title="Contact">
       {/* Une seule colonne centrée : le formulaire dans un panneau, les canaux directs dessous. */}
       <Reveal className="mx-auto max-w-[680px]">
         <div className="rounded-lg border border-line bg-surface p-6 sm:p-8">

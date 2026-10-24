@@ -29,7 +29,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange, scro
   };
 
   return (
-    <nav aria-label="Pagination" className="mt-10 flex items-center justify-between gap-4 border-t border-line pt-6 sm:mt-12">
+    <nav aria-label="Pagination" className="mt-8 flex items-center justify-between gap-4 sm:mt-10">
       <Button variant="secondary" size="sm" onClick={goTo(currentPage - 1, isFirst)} aria-disabled={isFirst || undefined}>
         Précédent
       </Button>
