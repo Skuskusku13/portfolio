@@ -28,9 +28,9 @@ interface SkillSection {
 // L'exploitation d'abord (DevOps, outils, auto-hébergement, réseau), le développement ensuite.
 const skillSections: SkillSection[] = [
   { key: 'devops', title: 'DevOps', icon: ContainerIcon },
-  { key: 'tools', title: 'Outils & services', icon: Wrench },
-  { key: 'self_hosted', title: 'Auto-hébergement', icon: Home },
   { key: 'network_security', title: 'Réseau & sécurité', icon: ShieldCheck },
+  { key: 'self_hosted', title: 'Auto-hébergement', icon: Home },
+  { key: 'tools', title: 'Outils & services', icon: Wrench },
   { key: 'backend', title: 'Back-end', icon: Server },
   { key: 'databases', title: 'Bases de données', icon: Database },
   { key: 'os', title: "Systèmes d'exploitation", icon: Monitor },
