@@ -17,7 +17,7 @@ describe('NavLinks', () => {
     render(<NavLinks activeId="projects" />);
 
     expect(screen.getByRole('link', { name: 'Projets' })).toHaveAttribute('aria-current', 'location');
-    expect(screen.getByRole('link', { name: 'Contact' })).not.toHaveAttribute('aria-current');
+    expect(screen.getByRole('link', { name: 'Formation' })).not.toHaveAttribute('aria-current');
   });
 
   it('distingue le lien actif du menu mobile autrement que par la couleur', () => {
