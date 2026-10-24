@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import faviconLight from '../assets/favicon-light.svg';
 import faviconDark from '../assets/favicon-dark.svg';
 
@@ -11,61 +11,70 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+/**
+ * Thème initial : la classe posée par le script inline d'index.html avant le premier
+ * rendu fait foi (pas de flash). Repli : préférence sauvegardée, puis préférence système.
+ */
+function getInitialTheme(): Theme {
+  if (typeof document === 'undefined') return 'light';
+  const root = document.documentElement;
+  if (root.classList.contains('dark')) return 'dark';
+  if (root.classList.contains('light')) return 'light';
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+  } catch {
+    /* stockage indisponible */
+  }
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // 1. Priorité : Préférence utilisateur sauvegardée
-    if (typeof window !== 'undefined' && localStorage.getItem('theme')) {
-      return localStorage.getItem('theme') as Theme;
-    }
-    // 2. Sinon : Préférence système
-    if (typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    // 3. Par défaut
-    return 'light';
-  });
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    const root = window.document.documentElement;
+    const root = document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(theme);
 
-    // Update Favicon
-    const link = document.getElementById('favicon') as HTMLLinkElement;
-    if (link) {
-        link.href = theme === 'dark' ? faviconDark : faviconLight;
-    }
+    const link = document.getElementById('favicon') as HTMLLinkElement | null;
+    if (link) link.href = theme === 'dark' ? faviconDark : faviconLight;
 
+    // La couleur de la barre du navigateur suit le thème choisi, pas seulement le système.
+    document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
+      meta.content = theme === 'dark' ? '#0a1020' : '#f5f5f7';
+    });
   }, [theme]);
 
-  // Écouter les changements système (OS) uniquement si l'utilisateur n'a pas forcé un mode
+  // Suivre le système tant que l'utilisateur n'a pas forcé un mode.
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
     const handleChange = () => {
-      // Si aucune préférence n'est sauvegardée dans le localStorage, on suit le système
-      if (!localStorage.getItem('theme')) {
-        setTheme(mediaQuery.matches ? 'dark' : 'light');
+      let saved: string | null = null;
+      try {
+        saved = localStorage.getItem('theme');
+      } catch {
+        /* stockage indisponible */
       }
+      if (!saved) setTheme(mediaQuery.matches ? 'dark' : 'light');
     };
-
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     setTheme((prev) => {
-      const newTheme = prev === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', newTheme);
-      return newTheme;
+      const next: Theme = prev === 'light' ? 'dark' : 'light';
+      try {
+        localStorage.setItem('theme', next);
+      } catch {
+        /* stockage indisponible */
+      }
+      return next;
     });
-  };
+  }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
