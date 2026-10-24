@@ -280,13 +280,13 @@
     content: "";
     position: absolute;
     left: 5px;
-    top: 22px;
-    bottom: -23px;
+    top: 24px;
+    bottom: -13px;
     width: 1px;
     background-color: var(--line);
   }
   .chain-signal {
-    top: 19px;
+    top: 15px;
     opacity: 0;
     will-change: transform;
     animation:

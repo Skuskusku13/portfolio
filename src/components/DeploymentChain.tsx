@@ -45,7 +45,7 @@ export default function DeploymentChain() {
   }, []);
 
   return (
-    <figure className="rounded-lg border border-line bg-surface p-6 sm:p-8">
+    <figure className="rounded-lg border border-line bg-surface p-5 sm:p-6">
       <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <span className="min-w-0 text-[15px] font-semibold text-ink">Ce site, du dépôt à votre écran</span>
         <Tag tone="ok" dot className="shrink-0">
@@ -54,24 +54,25 @@ export default function DeploymentChain() {
       </figcaption>
 
       {/* Le point de signal est hors de la liste : un <ol> n'admet que des <li>. */}
-      <div ref={trackRef} className="relative mt-5" style={runStyle}>
+      <div ref={trackRef} className="relative mt-4" style={runStyle}>
         <span aria-hidden="true" className="chain-signal absolute left-[2px] size-[7px] rounded-full bg-accent" />
 
         <ol ref={listRef} role="list" className="list-none">
         {steps.map((step, i) => (
           <li
             key={step.title}
-            className="chain-step relative grid grid-cols-[12px_1fr] gap-x-4 py-2.5"
+            className="chain-step relative grid grid-cols-[12px_1fr] gap-x-3 py-2"
             style={{ '--mark-delay': `${SIGNAL_START_MS + i * STEP_MS}ms` } as CSSProperties}
           >
-            <span aria-hidden="true" className="chain-mark mt-[7px] size-[11px] rounded-full border border-line bg-surface" />
-            <div className="min-w-0">
+            <span aria-hidden="true" className="chain-mark mt-[5px] size-[11px] rounded-full border border-line bg-surface" />
+            {/* Titre et détail sur une même ligne (repli en dessous si la place manque) : la carte reste courte. */}
+            <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-0.5">
               {step.href ? (
                 <a
                   href={step.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1 py-0.5 text-[15px] font-medium leading-[1.4] text-ink hover:text-accent"
+                  className="group inline-flex items-center gap-1 text-[14px] font-medium leading-[1.5] text-ink hover:text-accent"
                 >
                   {step.title}
                   <NewWindowHint />
@@ -82,9 +83,9 @@ export default function DeploymentChain() {
                   />
                 </a>
               ) : (
-                <div className="text-[15px] font-medium leading-[1.4] text-ink">{step.title}</div>
+                <span className="text-[14px] font-medium leading-[1.5] text-ink">{step.title}</span>
               )}
-              <div className="mt-0.5 font-mono text-[12px] leading-[1.5] text-ink-2 tnum">{step.detail}</div>
+              <span className="font-mono text-[12px] leading-[1.5] text-ink-2 tnum">{step.detail}</span>
             </div>
           </li>
         ))}
@@ -92,7 +93,7 @@ export default function DeploymentChain() {
       </div>
 
       {buildDate && (
-        <p className="mt-5 border-t border-line pt-4 font-mono text-[12px] leading-[1.5] text-ink-3 tnum">
+        <p className="mt-3 border-t border-line pt-3 font-mono text-[12px] leading-[1.5] text-ink-3 tnum">
           Build servi{'\u00A0'}: {buildDate}
         </p>
       )}
