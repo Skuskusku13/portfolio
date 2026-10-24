@@ -10,7 +10,7 @@ colors:
   ink-3: "#6e6e73"
   line: "#d2d2d7"
   line-strong: "#1d1d1f"
-  line-input: "#8e8e93"
+  line-input: "#86868b"
   accent: "#163dcc"
   accent-hover: "#1234b5"
   accent-ink: "#ffffff"
@@ -226,7 +226,7 @@ Une palette à deux modes, construite sur un canvas froid, une encre à trois ni
 - **Encre tertiaire** (`ink-3`, #6e6e73 / #8b97ae) : catégories de projet, école, flèches sortantes au repos, placeholders, point du tag neutre.
 - **Filet** (`line`, #d2d2d7 / #273354) : toutes les bordures d'un pixel (cartes, pastilles, tags, champs, boutons secondaires, navbar, rails et séparateurs de listes), rail de la chaîne, pouce de la barre de défilement.
 - **Filet fort** (`line-strong`, #1d1d1f / #eef2f8) : bordure de survol du bouton secondaire, et à 40 % celle des filtres au survol.
-- **Bordure de champ** (`line-input`, #8e8e93 / #6b7794) : bordure au repos des champs du formulaire uniquement, assez contrastée sur la surface (≥ 3:1, WCAG 1.4.11) pour qu'un champ soit reconnu comme saisissable. Jamais sur une carte ni un séparateur.
+- **Bordure de champ** (`line-input`, #86868b / #6b7794) : bordure au repos des champs du formulaire uniquement, assez contrastée sur la surface (≥ 3:1, WCAG 1.4.11) pour qu'un champ soit reconnu comme saisissable. Jamais sur une carte ni un séparateur.
 
 ### Semantic
 - **Vert OK** (`ok`, #1f7a3e / #5ccb7e) : point du tag « En production » et « CDI ». Jamais en fond ni en texte.

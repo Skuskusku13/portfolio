@@ -18,7 +18,7 @@ function App() {
       </a>
       <Navbar />
 
-      <main id="main">
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
         <Experience />
         <Projects />

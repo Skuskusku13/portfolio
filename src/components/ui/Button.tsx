@@ -1,4 +1,5 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
+import NewWindowHint from './NewWindowHint';
 
 type Variant = 'primary' | 'secondary' | 'ghost';
 type Size = 'sm' | 'md';
@@ -18,7 +19,8 @@ export type ButtonProps = AnchorProps | NativeButtonProps;
 const base =
   'inline-flex items-center justify-center gap-2 rounded-md font-medium whitespace-nowrap select-none ' +
   'transition-[background-color,color,border-color,transform] duration-200 ease-out-quint ' +
-  'active:translate-y-px disabled:pointer-events-none disabled:opacity-50';
+  'active:translate-y-px disabled:pointer-events-none disabled:opacity-50 ' +
+  'aria-disabled:pointer-events-none aria-disabled:opacity-50';
 
 const variants: Record<Variant, string> = {
   primary: 'bg-accent text-accent-ink hover:bg-accent-hover',
@@ -34,33 +36,25 @@ const sizes: Record<Size, string> = {
 /**
  * Un seul composant d'action pour tout le site. `href` rend un lien, sinon un bouton.
  * Trois variantes : primary (une par écran), secondary (filet), ghost (texte).
+ * Un lien ouvert dans un nouvel onglet l'annonce aux lecteurs d'écran ; un bouton
+ * `aria-disabled` reste focalisable (le focus clavier n'est jamais perdu).
  */
-/** Retire les props communes avant de transmettre le reste à l'élément natif. */
-function omitCommon(props: ButtonProps): Record<string, unknown> {
-  const rest: Record<string, unknown> = { ...props };
-  delete rest.variant;
-  delete rest.size;
-  delete rest.className;
-  delete rest.children;
-  return rest;
-}
-
 export default function Button(props: ButtonProps) {
-  const { variant = 'primary', size = 'md', className = '', children } = props;
-  const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
-  const rest = omitCommon(props);
+  const classes = `${base} ${variants[props.variant ?? 'primary']} ${sizes[props.size ?? 'md']} ${props.className ?? ''}`;
 
   if (props.href !== undefined) {
+    const { variant, size, className, children, ...anchorProps } = props;
     return (
-      <a className={classes} {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}>
+      <a className={classes} {...anchorProps}>
         {children}
+        {anchorProps.target === '_blank' && <NewWindowHint />}
       </a>
     );
   }
 
-  const { type = 'button', ...buttonRest } = rest as ButtonHTMLAttributes<HTMLButtonElement>;
+  const { variant, size, className, children, type = 'button', ...buttonProps } = props;
   return (
-    <button type={type} className={classes} {...buttonRest}>
+    <button type={type} className={classes} {...buttonProps}>
       {children}
     </button>
   );

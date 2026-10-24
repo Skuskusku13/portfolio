@@ -11,7 +11,7 @@ interface ChipListProps {
  */
 export default function ChipList({ items, className = '', label = 'Technologies' }: ChipListProps) {
   return (
-    <ul aria-label={label} className={`flex flex-wrap gap-2 ${className}`}>
+    <ul role="list" aria-label={label} className={`flex flex-wrap gap-2 ${className}`}>
       {items.map((item) => (
         <li
           key={item}

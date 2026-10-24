@@ -45,7 +45,11 @@ export default function Skills() {
 
   return (
     <Section id="skills" title="Compétences" deck="Ce que je pratique au quotidien, du back-end à l'exploitation.">
-      <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <p className="sr-only" role="status" aria-live="polite">
+        {activeSections.length} familles affichées{totalPages > 1 ? `, page ${page} sur ${totalPages}` : ''}
+      </p>
+
+      <ul role="list" aria-label="Familles de compétences" className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {displayed.map((section, index) => {
           const items = skills[section.key];
           const Icon = section.icon;

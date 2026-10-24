@@ -6,6 +6,8 @@ interface RevealProps {
   delay?: number;
   className?: string;
   id?: string;
+  /** Rôle ARIA explicite (ex. `list` sur un ul sans puces, que Safari ne considère plus comme une liste). */
+  role?: string;
   children: ReactNode;
 }
 
@@ -17,7 +19,7 @@ interface RevealProps {
  * L'état « visible » est un état React (pas une classe posée à la main sur le DOM) :
  * une réécriture de `className` par React ne peut donc jamais le faire disparaître.
  */
-export default function Reveal({ as: Tag = 'div', delay = 0, className = '', id, children }: RevealProps) {
+export default function Reveal({ as: Tag = 'div', delay = 0, className = '', id, role, children }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
   // Sans IntersectionObserver (vieux navigateur), visible d'emblée.
   const [inView, setInView] = useState(() => typeof IntersectionObserver === 'undefined');
@@ -41,7 +43,7 @@ export default function Reveal({ as: Tag = 'div', delay = 0, className = '', id,
   const style = { '--reveal-delay': `${delay}ms` } as CSSProperties;
 
   return (
-    <Tag ref={ref} id={id} className={`reveal ${inView ? 'is-in' : ''} ${className}`} style={style}>
+    <Tag ref={ref} id={id} role={role} className={`reveal ${inView ? 'is-in' : ''} ${className}`} style={style}>
       {children}
     </Tag>
   );

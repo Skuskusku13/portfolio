@@ -51,6 +51,7 @@ export default function Hero() {
 
           <Reveal
             as="ul"
+            role="list"
             delay={240}
             className="max-w-[46ch] divide-y divide-line border-y border-line text-[14px] text-ink-2 lg:col-span-7 lg:col-start-1 lg:row-start-2"
           >

@@ -165,7 +165,7 @@
       "line-input": {
         "role": "neutral",
         "displayName": "Bordure de champ",
-        "canonical": "#8e8e93",
+        "canonical": "#86868b",
         "oklch": "oklch(64.8% 0.007 286.2)",
         "mode": "light",
         "cssVar": "--line-input",

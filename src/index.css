@@ -52,7 +52,7 @@
   --ink-3: #6e6e73;
   --line: #d2d2d7;
   --line-strong: #1d1d1f;
-  --line-input: #8e8e93; /* bordure des champs : >= 3:1 sur la surface (WCAG 1.4.11) */
+  --line-input: #86868b; /* bordure des champs : >= 3:1 sur la surface et sur le canvas (WCAG 1.4.11) */
   --accent: #163dcc;
   --accent-hover: #1234b5;
   --accent-ink: #ffffff;
@@ -214,6 +214,11 @@
       opacity 480ms var(--ease-out-quint),
       transform 480ms var(--ease-out-quint);
     transition-delay: var(--reveal-delay, 0ms);
+  }
+  /* Un contrôle qui reçoit le focus clavier avant l'entrée du bloc doit être visible. */
+  .js .reveal:not(.is-in):focus-within {
+    opacity: 1;
+    transform: none;
   }
 
   /* Filet qui se trace à l'arrivée dans le viewport (défaut : tracé). */

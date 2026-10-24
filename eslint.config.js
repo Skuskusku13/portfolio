@@ -19,6 +19,10 @@ export default defineConfig([
       ecmaVersion: 'latest',
       globals: globals.browser,
     },
+    rules: {
+      // Destructurer pour omettre des props (`const { a, ...rest } = props`) est voulu.
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+    },
   },
   {
     // Fichiers de configuration exécutés par Node, pas par le navigateur.

@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, type CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import Tag from './ui/Tag';
+import NewWindowHint from './ui/NewWindowHint';
 
 const REPO = 'https://github.com/Skuskusku13/portfolio';
 
@@ -19,6 +20,11 @@ const steps: { title: string; detail: string; href?: string }[] = [
 
 const SIGNAL_START_MS = 700;
 const STEP_MS = 380;
+
+const runStyle = {
+  '--signal-delay': `${SIGNAL_START_MS}ms`,
+  '--signal-duration': `${STEP_MS * (steps.length - 1)}ms`,
+} as CSSProperties;
 
 export default function DeploymentChain() {
   const listRef = useRef<HTMLOListElement>(null);
@@ -39,11 +45,6 @@ export default function DeploymentChain() {
     return () => ro.disconnect();
   }, []);
 
-  const runStyle = {
-    '--signal-delay': `${SIGNAL_START_MS}ms`,
-    '--signal-duration': `${STEP_MS * (steps.length - 1)}ms`,
-  } as CSSProperties;
-
   return (
     <figure className="rounded-lg border border-line bg-surface p-6 sm:p-8">
       <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
@@ -53,9 +54,11 @@ export default function DeploymentChain() {
         </Tag>
       </figcaption>
 
-      <ol ref={listRef} className="relative mt-5 list-none" style={runStyle}>
+      {/* Le point de signal est hors de la liste : un <ol> n'admet que des <li>. */}
+      <div className="relative mt-5" style={runStyle}>
         <span aria-hidden="true" className="chain-signal absolute left-[2px] size-[7px] rounded-full bg-accent" />
 
+        <ol ref={listRef} role="list" className="list-none">
         {steps.map((step, i) => (
           <li
             key={step.title}
@@ -72,6 +75,7 @@ export default function DeploymentChain() {
                   className="group inline-flex items-center gap-1 py-0.5 text-[15px] font-medium leading-[1.4] text-ink hover:text-accent"
                 >
                   {step.title}
+                  <NewWindowHint />
                   <ArrowUpRight
                     className="size-3.5 text-ink-3 transition-[color,transform] duration-200 ease-out-quint group-hover:-translate-y-px group-hover:translate-x-px group-hover:text-accent"
                     strokeWidth={1.5}
@@ -85,7 +89,8 @@ export default function DeploymentChain() {
             </div>
           </li>
         ))}
-      </ol>
+        </ol>
+      </div>
     </figure>
   );
 }

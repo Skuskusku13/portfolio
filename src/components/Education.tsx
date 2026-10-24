@@ -7,7 +7,7 @@ import Tag from './ui/Tag';
 export default function Education() {
   return (
     <Section id="education" title="Formation" deck="Trois diplômes au CFA INSTA, du BTS au Bac+5.">
-      <ol className="grid gap-5 md:grid-cols-3">
+      <ol role="list" className="grid gap-5 md:grid-cols-3">
         {formations.map((formation, idx) => (
           <Card as="li" key={`${formation.diploma}-${formation.period}`} delay={idx * 60} className="flex flex-col">
             <h3 className="text-[18px] font-semibold leading-[1.3] text-ink">{formation.diploma}</h3>

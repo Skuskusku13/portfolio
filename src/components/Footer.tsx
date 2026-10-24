@@ -1,5 +1,6 @@
 import Container from './ui/Container';
 import { GITHUB_URL, LINKEDIN_URL } from '../config';
+import NewWindowHint from './ui/NewWindowHint';
 
 const linkClass = 'inline-block py-1 text-[13px] text-ink-2 transition-colors duration-200 hover:text-ink';
 
@@ -13,9 +14,11 @@ export default function Footer() {
         <nav aria-label="Liens de pied de page" className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
             GitHub
+            <NewWindowHint />
           </a>
           <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
             LinkedIn
+            <NewWindowHint />
           </a>
           <a href="#about" className={linkClass}>
             Haut de page

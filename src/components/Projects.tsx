@@ -8,6 +8,7 @@ import Reveal from './ui/Reveal';
 import Card from './ui/Card';
 import Tag from './ui/Tag';
 import ChipList from './ui/ChipList';
+import NewWindowHint from './ui/NewWindowHint';
 import Pagination from './Pagination';
 
 type Category = Project['category'][number];
@@ -51,7 +52,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
 
       {/* Le pied suit le contenu : pas de vide au milieu de la carte quand la rangée est plus haute. */}
       <div className="pt-5">
-        <ChipList items={project.tech} />
+        <ChipList items={project.tech} label={`Technologies de ${project.title}`} />
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
           <span className="text-[13px] text-ink-3">{project.category.map((cat) => categoryLabels[cat]).join(' · ')}</span>
@@ -66,6 +67,13 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                     className="group inline-flex items-center gap-1 py-1 text-[14px] text-accent hover:underline"
                   >
                     {links.length === 1 ? 'Code source' : link.label}
+                    {links.length === 1 && (
+                      <>
+                        {' '}
+                        <span className="sr-only">de {project.title}</span>
+                      </>
+                    )}
+                    <NewWindowHint />
                     <ArrowUpRight
                       className="size-3.5 transition-transform duration-200 ease-out-quint group-hover:-translate-y-px group-hover:translate-x-px"
                       strokeWidth={1.5}
@@ -105,7 +113,7 @@ export default function Projects() {
       title="Projets"
       deck="Infrastructure, pipelines et services que j'exploite réellement, puis les projets de formation."
     >
-      <Reveal className="mb-8 flex flex-wrap gap-2" delay={60}>
+      <Reveal className="mb-8" delay={60}>
         <div role="group" aria-label="Filtrer les projets" className="flex flex-wrap gap-2">
           {filters.map((f) => {
             const active = filter === f.id;
@@ -133,7 +141,7 @@ export default function Projects() {
         {totalPages > 1 ? `, page ${page} sur ${totalPages}` : ''}
       </p>
 
-      <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <ul role="list" aria-label="Liste des projets" className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {displayed.map((project, index) => (
           <ProjectCard key={project.title} project={project} index={index} />
         ))}

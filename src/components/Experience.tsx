@@ -12,7 +12,7 @@ export default function Experience() {
       title="Expériences"
       deck="Back-end, puis infrastructure : des systèmes en production depuis 2021."
     >
-      <ol className="grid gap-5">
+      <ol role="list" className="grid gap-5">
         {experiences.map((exp, idx) => {
           const isCurrent = idx === 0;
           return (
