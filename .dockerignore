@@ -19,3 +19,6 @@ coverage
 *.md
 docs
 .DS_Store
+
+# Artefacts Impeccable (captures, briefs) : jamais nécessaires au build
+.impeccable

@@ -1,5 +1,6 @@
 # Étape 1 : Build de l'application React + Vite
-FROM node:22-alpine AS builder
+# Images épinglées par digest (supply chain) ; Dependabot (.github/dependabot.yml) propose les mises à jour.
+FROM node:26-alpine@sha256:6f08a523443ddedf52941874c203475b0ad503e859ad70cb26ab8be9a517dbd5 AS builder
 WORKDIR /app
 
 # Copier les fichiers de dépendances
@@ -31,7 +32,10 @@ RUN npm run build
 RUN grep -rq -- "$VITE_MAILER_URL" dist/assets/ || { echo "ERREUR : VITE_MAILER_URL absente du bundle" >&2; exit 1; }
 
 # Étape 2 : Servir avec Apache (IMAGE FINALE DE PRODUCTION)
-FROM httpd:2.4-alpine
+FROM httpd:2.4-alpine@sha256:3440c39d8d6f54fa9ad2549e5a60c19ddd435faadc29c1ad28aa795f71888889
+
+# Correctifs de sécurité Alpine publiés depuis la construction de l'image de base
+RUN apk upgrade --no-cache
 
 WORKDIR /usr/local/apache2/htdocs/
 
@@ -45,3 +49,8 @@ RUN echo "Include /usr/local/apache2/conf/extra/000-default.conf" >> /usr/local/
 
 # Copier UNIQUEMENT les fichiers buildés (production)
 COPY --from=builder /app/dist /usr/local/apache2/htdocs/
+
+# Sonde de santé (wget de BusyBox) : état healthy visible dans docker ps, exploitable par
+# compose (depends_on: condition: service_healthy) ou un auto-heal. Pas de port externe requis.
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget -qO- http://127.0.0.1/ > /dev/null || exit 1
