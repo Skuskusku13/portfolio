@@ -27,10 +27,8 @@ describe('Hero', () => {
     }
   });
 
-  it('affiche le rôle sous le nom et l’énoncé', () => {
+  it('affiche l’énoncé sous le nom', () => {
     render(<Hero />);
-    // L'esperluette est dans un span : on compare le texte du paragraphe entier.
-    expect(screen.getByText((_, el) => el?.tagName === 'P' && el.textContent === 'Développeur Back-end & DevOps')).toBeInTheDocument();
     expect(screen.getByText(/Architecte des Systèmes d'Information\. Conception d'architectures/)).toBeInTheDocument();
   });
 

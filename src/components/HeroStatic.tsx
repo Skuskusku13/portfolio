@@ -1,5 +1,5 @@
 /**
- * Le nom, le rôle, l'énoncé et le paragraphe de pratique du hero. Le paragraphe est l'élément LCP mesuré
+ * Le nom, l'énoncé et le paragraphe de pratique du hero. Le paragraphe est l'élément LCP mesuré
  * par Lighthouse : rien ici ne s'anime (une entrée en opacité retarderait le LCP de toute la
  * durée du JavaScript). Une copie statique de ce rendu vit dans index.html (#root) pour être
  * peinte avant le JavaScript ; HeroStatic.test.tsx garantit que les deux restent identiques.
@@ -8,10 +8,6 @@ export default function HeroStatic() {
   return (
     <>
       <h1 className="text-[52px] font-semibold leading-[0.98] sm:text-[64px] lg:text-[72px]">Dan Levy</h1>
-      {/* Rôle en encre secondaire ; l'esperluette en cobalt relie les deux métiers (seul accent du hero hors boutons). */}
-      <p className="mt-4 font-mono text-[20px] font-medium leading-[1.2] text-ink-2 sm:text-[24px]">
-        Développeur Back-end <span className="text-accent">&amp;</span> DevOps
-      </p>
       <p className="mt-5 max-w-[48ch] text-[18px] leading-[1.4] text-ink sm:text-[20px]">
         Architecte des Systèmes d'Information. Conception d'architectures Back-end et DevOps pour des solutions
         robustes, sécurisées et automatisées.
