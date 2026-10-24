@@ -13,11 +13,11 @@ export default function ThemeToggle() {
       title={label}
       className="relative inline-flex size-9 items-center justify-center rounded-md text-ink-2 transition-colors duration-200 before:absolute before:-inset-1 before:content-[''] hover:bg-surface-2 hover:text-ink"
     >
-      {/* Comme sur la première version du site : lune bleu nuit, soleil jaune. */}
+      {/* Comme sur la première version du site : lune bleu nuit et soleil jaune, pleins. */}
       {theme === 'light' ? (
-        <Moon className="size-[18px] text-moon" strokeWidth={1.5} />
+        <Moon className="size-[18px] text-moon" strokeWidth={1.5} fill="currentColor" />
       ) : (
-        <Sun className="size-[18px] text-sun" strokeWidth={1.5} />
+        <Sun className="size-[18px] text-sun" strokeWidth={1.5} fill="currentColor" />
       )}
     </button>
   );
