@@ -64,8 +64,8 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       <h3 className="mt-3 text-[18px] font-semibold leading-[1.3] text-ink">{project.title}</h3>
       <p className="mt-2 text-[15px] leading-[1.5] text-ink-2">{project.description}</p>
 
-      {/* Le pied suit le contenu : pas de vide au milieu de la carte quand la rangée est plus haute. */}
-      <div className="pt-5">
+      {/* Pied calé en bas de la carte : pastilles, catégories et dépôts s'alignent d'une carte à l'autre. */}
+      <div className="mt-auto pt-5">
         <ChipList items={project.tech} label={`Technologies de ${project.title}`} />
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
