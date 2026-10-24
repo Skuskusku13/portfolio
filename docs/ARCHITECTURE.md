@@ -1,8 +1,8 @@
 # Architecture du portfolio
 
 Page unique React servie en statique. Ce document décrit le code tel qu'il est sur la
-branche `hero-fix` (octobre 2026) ; le design est documenté dans `DESIGN.md` et le dossier
-de refonte dans `REFONTE.md`.
+branche `hero-fix` (octobre 2026). Les tokens de design (couleurs, typographie, espacements,
+mouvement) sont définis dans `src/index.css`.
 
 ## Vue d'ensemble
 

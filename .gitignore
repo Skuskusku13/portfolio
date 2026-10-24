@@ -46,11 +46,11 @@ Thumbs.db
 # Vite
 /temp/
 
-# Impeccable : captures lourdes et cache local (design.json, surfaces/ et critique/ restent versionnés)
-.impeccable/review/
-.impeccable/critique/
-.impeccable/questions/
-.impeccable/hook.cache.json
+# Documents de travail des sessions de refonte : restent en local, hors dépôt
+.impeccable/
+/PRODUCT.md
+/DESIGN.md
+/REFONTE.md
 
 # Captures avant/après des vérifications UI
 .captures/

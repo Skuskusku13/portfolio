@@ -67,7 +67,7 @@ transiter. Le Dockerfile refuse un build sans URL `https://`.
 - `tests/` : garde-fous hors application (hash CSP, origine de l'API).
 
 Détails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; stratégie de test dans
-[docs/TESTING.md](docs/TESTING.md) ; design dans `DESIGN.md` et `REFONTE.md`.
+[docs/TESTING.md](docs/TESTING.md).
 
 ## Fonctionnalités
 
@@ -84,7 +84,7 @@ Détails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; stratégie de test 
 ## Tests
 
 ```bash
-npm test                 # 182 tests
+npm test                 # 179 tests
 npm run test:coverage    # seuils 80 % sur src/hooks, src/components, src/lib, src/content, src/config.ts
 ```
 

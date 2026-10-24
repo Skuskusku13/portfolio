@@ -30,7 +30,7 @@ const COUNT_WARN_RATIO = 0.9;
 const numberFormat = new Intl.NumberFormat('fr-FR');
 
 const fieldClass =
-  // 16 px sous 640 px : en dessous, iOS Safari zoome sur le champ au focus (DESIGN.md : 15 px, gardé dès sm).
+  // 16 px sous 640 px : en dessous, iOS Safari zoome sur le champ au focus ; 15 px dès sm.
   'w-full rounded-md border border-line-input bg-surface px-3.5 text-[16px] text-ink placeholder:text-ink-3 sm:text-[15px] ' +
   'transition-[border-color,box-shadow] duration-200 ease-out-quint ' +
   'focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25 ' +
