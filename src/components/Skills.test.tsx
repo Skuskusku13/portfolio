@@ -16,12 +16,16 @@ function setViewportWidth(width: number) {
 const headings = () => screen.getAllByRole('heading', { level: 3 });
 
 describe('Skills', () => {
-  it('affiche toutes les familles sur desktop, sans pagination', () => {
+  it('pagine par six sur desktop, comme les projets', async () => {
     setViewportWidth(1280);
+    const user = userEvent.setup();
     render(<Skills />);
+    expect(headings()).toHaveLength(6);
+    expect(screen.getByRole('navigation', { name: 'Pagination' })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent(`${FAMILIES} familles affichées, page 1 sur 2`);
 
-    expect(headings()).toHaveLength(FAMILIES);
-    expect(screen.queryByRole('navigation', { name: 'Pagination' })).not.toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Suivant' }));
+    expect(headings()).toHaveLength(FAMILIES - 6);
   });
 
   it('pagine par cinq sur mobile et annonce la page courante', async () => {

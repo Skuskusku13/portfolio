@@ -40,8 +40,8 @@ const skillSections: SkillSection[] = [
 
 export default function Skills() {
   const [currentPage, setCurrentPage] = useState(1);
-  // Neuf familles : toutes visibles sur desktop (3 × 3), deux pages en dessous.
-  const itemsPerPage = useItemsPerPage({ mobile: 5, tablet: 6, desktop: 9 });
+  // Même rythme que les projets : six familles par page sur desktop (deux rangées), deux pages partout.
+  const itemsPerPage = useItemsPerPage({ mobile: 5, tablet: 6, desktop: 6 });
 
   const activeSections = skillSections.filter((section) => {
     const items = skills[section.key];
