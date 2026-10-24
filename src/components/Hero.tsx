@@ -6,12 +6,7 @@ import { GitHubIcon, LinkedInIcon } from './ui/BrandIcons';
 import DeploymentChain from './DeploymentChain';
 import HeroStatic from './HeroStatic';
 import { GITHUB_URL, LINKEDIN_URL } from '../config';
-
-const facts = [
-  'En CDI chez Meilleurtaux Placement depuis septembre 2026',
-  "Bac+5 Architecte des Systèmes d'Information (CFA INSTA)",
-  'En poste depuis octobre 2021',
-];
+import { site } from '../data';
 
 export default function Hero() {
   return (
@@ -49,7 +44,7 @@ export default function Hero() {
             delay={240}
             className="max-w-[46ch] divide-y divide-line border-y border-line text-[14px] text-ink-2 lg:col-span-7 lg:col-start-1 lg:row-start-2"
           >
-            {facts.map((fact) => (
+            {site.facts.map((fact) => (
               <li key={fact} className="py-2.5">
                 {fact}
               </li>

@@ -1,0 +1,78 @@
+{
+  "backend": [
+    "PHP",
+    "Symfony",
+    "Python",
+    "Django",
+    "Flask",
+    "NestJS",
+    "Java",
+    "Spring Boot",
+    "RabbitMQ"
+  ],
+  "devops": [
+    "Docker",
+    "Docker Compose",
+    "Prometheus",
+    "Grafana",
+    "Datadog",
+    "Portainer",
+    "Logrotate",
+    "CI/CD",
+    "Bash / zsh",
+    "GitLab",
+    "GitHub",
+    "Git"
+  ],
+  "tools": [
+    "n8n",
+    "PhpMyAdmin",
+    "PhpStorm",
+    "PHPUnit",
+    "WordPress"
+  ],
+  "databases": [
+    "MySQL / MariaDB",
+    "MongoDB"
+  ],
+  "self_hosted": [
+    "Joplin",
+    "Cloudflared",
+    "Pi-hole"
+  ],
+  "network_security": [
+    "WireGuard",
+    "Nginx",
+    "TLS"
+  ],
+  "os": [
+    "macOS",
+    "Windows",
+    "Debian",
+    "Ubuntu",
+    "Linux Mint",
+    "Kali",
+    "Raspberry Pi OS"
+  ],
+  "frontend": [
+    "TypeScript",
+    "JavaScript",
+    "Android (Java)",
+    "Angular",
+    "React",
+    "Vite",
+    "Twig",
+    "HTML",
+    "CSS",
+    "SCSS",
+    "Bootstrap"
+  ],
+  "project_management": [
+    "Agile / Scrum",
+    "Kanban",
+    "Jira",
+    "UML (Séquence)",
+    "Merise (MCD, MLD)",
+    "Architecture Technique"
+  ]
+}

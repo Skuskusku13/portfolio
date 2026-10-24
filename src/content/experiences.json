@@ -1,0 +1,53 @@
+[
+  {
+    "company": "Meilleurtaux Placement",
+    "role": "Développeur Back-end & DevOps",
+    "period": "Janv. 2024 - Aujourd'hui",
+    "type": "Alternance",
+    "promotion": "CDI · depuis sept. 2026",
+    "summary": "Développement back-end Symfony et messagerie asynchrone RabbitMQ, conteneurisation Docker, intégration et déploiement continus.",
+    "skills": [
+      "PHP",
+      "Symfony",
+      "Python",
+      "MariaDB",
+      "Docker",
+      "Docker Compose",
+      "Nginx",
+      "RabbitMQ",
+      "CI/CD",
+      "Bash",
+      "PHPUnit",
+      "PhpMyAdmin",
+      "PhpStorm"
+    ]
+  },
+  {
+    "company": "Storyzy",
+    "role": "Développeur Full-stack",
+    "period": "Sept. 2023 - Janv. 2024",
+    "type": "Alternance",
+    "summary": "Développement full-stack : API Node.js et Spring Boot, interfaces Angular.",
+    "skills": [
+      "Node.js",
+      "Angular",
+      "Spring Boot",
+      "SCSS"
+    ]
+  },
+  {
+    "company": "SESAN",
+    "role": "Développeur Web",
+    "period": "Oct. 2021 - Août 2023",
+    "type": "Alternance",
+    "summary": "Développement web : sites WordPress, intégration HTML, CSS et JavaScript, mesure d'audience Piwik Pro.",
+    "skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "WordPress",
+      "Bootstrap",
+      "Piwik Pro"
+    ]
+  }
+]

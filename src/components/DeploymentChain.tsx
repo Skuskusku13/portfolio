@@ -2,21 +2,14 @@ import { useLayoutEffect, useRef, type CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import Tag from './ui/Tag';
 import NewWindowHint from './ui/NewWindowHint';
-
-const REPO = 'https://github.com/Skuskusku13/portfolio';
+import { site } from '../data';
 
 /**
  * La chaîne de production réelle de ce site, de son dépôt à l'écran du visiteur.
- * Chaque étape est un fait du dépôt et, quand c'est public, un lien vers sa preuve.
+ * Chaque étape (src/content/site.json) est un fait du dépôt et, quand c'est public,
+ * un lien vers sa preuve.
  */
-const steps: { title: string; detail: string; href?: string }[] = [
-  { title: 'Code', detail: 'React 19 · TypeScript · Vite · Tailwind CSS', href: REPO },
-  { title: 'CI sécurité', detail: 'Actions : Trivy · Gitleaks · ZAP', href: `${REPO}/tree/main/.github/workflows` },
-  { title: 'Build', detail: 'Docker multi-stage : node:26 → httpd:2.4', href: `${REPO}/blob/main/.docker/Dockerfile` },
-  { title: 'Serveur', detail: 'Apache durci : CSP, COOP / COEP, nosniff', href: `${REPO}/blob/main/.docker/000-default.conf` },
-  { title: 'Réseau', detail: 'Réseau privé · reverse proxy · Cloudflare Tunnel · TLS' },
-  { title: 'dlyhub.com', detail: 'Cette page, servie en production', href: 'https://dlyhub.com/' },
-];
+const steps = site.chain;
 
 const SIGNAL_START_MS = 700;
 const STEP_MS = 380;

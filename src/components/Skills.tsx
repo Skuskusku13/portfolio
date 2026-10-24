@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Server, Database, Code, Monitor, Layout, Wrench, Home, ShieldCheck, ClipboardList, type LucideIcon } from 'lucide-react';
 import { skills } from '../data';
-import type { Skills as SkillsType } from '../types';
+import type { SkillGroupKey } from '../types';
 import Section from './ui/Section';
 import Card from './ui/Card';
 import ChipList from './ui/ChipList';
@@ -9,7 +9,7 @@ import Pagination from './Pagination';
 import { useItemsPerPage } from '../hooks/useItemsPerPage';
 
 interface SkillSection {
-  key: keyof SkillsType;
+  key: SkillGroupKey;
   title: string;
   icon: LucideIcon;
 }

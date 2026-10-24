@@ -1,0 +1,23 @@
+[
+  {
+    "school": "CFA INSTA",
+    "diploma": "Architecte des Systèmes d'Information",
+    "specialization": "Option Logiciel",
+    "period": "Juil. 2024 - Juil. 2026",
+    "level": "Bac +5"
+  },
+  {
+    "school": "CFA INSTA",
+    "diploma": "CDA - Concepteur Développeur d'Applications",
+    "specialization": "Programmation / Développeur informatique",
+    "period": "Juil. 2023 - Juil. 2024",
+    "level": "Bac +3"
+  },
+  {
+    "school": "CFA INSTA",
+    "diploma": "BTS SIO SLAM",
+    "specialization": "Développeur Web",
+    "period": "Oct. 2021 - Juil. 2023",
+    "level": "Bac +2"
+  }
+]
