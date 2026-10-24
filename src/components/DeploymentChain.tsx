@@ -27,19 +27,22 @@ const runStyle = {
 } as CSSProperties;
 
 export default function DeploymentChain() {
+  const trackRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLOListElement>(null);
 
-  // Le point de signal s'arrête sur le dernier repère : on mesure la hauteur de la
-  // dernière étape (elle varie avec le repli du texte) et on l'expose en variable CSS.
+  // Le point de signal descend du premier au dernier repère par une translation (composée
+  // par le GPU, sans relayout) : la distance dépend du repli du texte, on la mesure et on
+  // l'expose en variable CSS sur le rail.
   useLayoutEffect(() => {
+    const track = trackRef.current;
     const list = listRef.current;
-    if (!list) return;
+    if (!track || !list) return undefined;
     const update = () => {
-      const last = list.lastElementChild as HTMLElement | null;
-      if (last) list.style.setProperty('--chain-last-h', `${last.offsetHeight}px`);
+      const last = list.lastElementChild;
+      if (last instanceof HTMLElement) track.style.setProperty('--chain-dist', `${list.offsetHeight - last.offsetHeight}px`);
     };
     update();
-    if (typeof ResizeObserver === 'undefined') return;
+    if (typeof ResizeObserver === 'undefined') return undefined;
     const ro = new ResizeObserver(update);
     ro.observe(list);
     return () => ro.disconnect();
@@ -55,7 +58,7 @@ export default function DeploymentChain() {
       </figcaption>
 
       {/* Le point de signal est hors de la liste : un <ol> n'admet que des <li>. */}
-      <div className="relative mt-5" style={runStyle}>
+      <div ref={trackRef} className="relative mt-5" style={runStyle}>
         <span aria-hidden="true" className="chain-signal absolute left-[2px] size-[7px] rounded-full bg-accent" />
 
         <ol ref={listRef} role="list" className="list-none">

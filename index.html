@@ -11,9 +11,8 @@
     <!-- Thème appliqué avant le premier rendu. Script inline autorisé par son hash sha256 dans la CSP (.docker/000-default.conf) : à recalculer si son contenu change. -->
     <script>(function(){var r=document.documentElement;try{var s=localStorage.getItem("theme");var d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;r.classList.add(d?"dark":"light","js")}catch(e){r.classList.add("light","js")}})();</script>
 
-    <!-- Polices auto-hébergées (CSP font-src 'self') -->
+    <!-- Police du LCP préchargée (auto-hébergée, CSP font-src 'self') ; Red Hat Mono, réservée aux petits textes, se charge à la demande. -->
     <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/red-hat-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Référencement -->
     <title>Dan Levy | Développeur Back-end &amp; DevOps</title>
@@ -100,7 +99,10 @@
       </p>
       <p>Activez JavaScript pour parcourir le portfolio complet.</p>
     </noscript>
-    <div id="root"></div>
+    <!-- Hero statique : le nom et l'énoncé (élément LCP) sont peints avant le JavaScript, dans la même
+         chaîne d'enveloppes que l'application pour ne rien faire bouger au montage. React remplace ce contenu.
+         Garde-fou : src/components/HeroStatic.test.tsx compare ce bloc au rendu de HeroStatic. -->
+    <div id="root"><div class="min-h-screen bg-canvas text-ink"><main id="main" tabindex="-1" class="outline-none"><section id="about" class="pt-24 pb-8 sm:pt-32 sm:pb-10 lg:pt-36 lg:pb-12"><div class="mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-12"><div class="grid items-start gap-x-12 gap-y-8 lg:grid-cols-12 lg:gap-y-10"><div class="lg:col-span-7"><!-- hero-static:start --><h1 class="text-[52px] font-semibold leading-[0.98] sm:text-[64px] lg:text-[72px]">Dan Levy</h1><p class="mt-6 max-w-[26ch] text-[22px] leading-[1.3] text-ink sm:text-[26px]">Développeur Back-end &amp; DevOps. Je construis des back-ends Symfony et l'infrastructure qui les fait tourner.</p><p class="mt-6 max-w-[56ch] text-[17px] leading-[1.55] text-ink-2 sm:text-[18px]">Conteneurs, CI/CD, supervision, sécurité : je conçois et j'exploite des systèmes qui tournent en production, du code au déploiement. Ce site en est un exemple, de son dépôt à votre écran.</p><!-- hero-static:end --></div></div></div></section></main></div></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -29,10 +29,10 @@ describe('DeploymentChain', () => {
     expect(screen.queryByRole('link', { name: 'Réseau' })).toBeNull();
   });
 
-  it('pose la variable CSS --chain-last-h sans ResizeObserver', () => {
+  it('pose la variable CSS --chain-dist du rail sans ResizeObserver', () => {
     const { container } = render(<DeploymentChain />);
     const list = container.querySelector('ol') as HTMLOListElement;
     expect(typeof ResizeObserver).toBe('undefined');
-    expect(list.style.getPropertyValue('--chain-last-h')).toBe('0px');
+    expect((list.parentElement as HTMLElement).style.getPropertyValue('--chain-dist')).toBe('0px');
   });
 });
