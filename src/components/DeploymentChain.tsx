@@ -45,7 +45,7 @@ export default function DeploymentChain() {
   }, []);
 
   return (
-    <figure className="rounded-lg border border-line bg-surface p-5 sm:p-6">
+    <figure className="rounded-lg border border-line bg-surface p-4 sm:p-6">
       <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <span className="min-w-0 text-[15px] font-semibold text-ink">Ce site, du dépôt à votre écran</span>
         <Tag tone="ok" dot className="shrink-0">
@@ -61,18 +61,18 @@ export default function DeploymentChain() {
         {steps.map((step, i) => (
           <li
             key={step.title}
-            className="chain-step relative grid grid-cols-[12px_1fr] gap-x-3 py-2"
+            className="chain-step relative grid grid-cols-[12px_1fr] gap-x-3 py-1.5"
             style={{ '--mark-delay': `${SIGNAL_START_MS + i * STEP_MS}ms` } as CSSProperties}
           >
-            <span aria-hidden="true" className="chain-mark mt-[5px] size-[11px] rounded-full border border-line bg-surface" />
-            {/* Titre et détail sur une même ligne (repli en dessous si la place manque) : la carte reste courte. */}
-            <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-0.5">
+            <span aria-hidden="true" className="chain-mark mt-[7px] size-[11px] rounded-full border border-line bg-surface" />
+            {/* Toujours la même forme : le titre sur une ligne, le détail sur la suivante. */}
+            <div className="min-w-0">
               {step.href ? (
                 <a
                   href={step.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1 text-[14px] font-medium leading-[1.5] text-ink hover:text-accent"
+                  className="group inline-flex items-center gap-1 text-[14px] font-medium leading-[1.4] text-ink hover:text-accent"
                 >
                   {step.title}
                   <NewWindowHint />
@@ -83,9 +83,9 @@ export default function DeploymentChain() {
                   />
                 </a>
               ) : (
-                <span className="text-[14px] font-medium leading-[1.5] text-ink">{step.title}</span>
+                <span className="text-[14px] font-medium leading-[1.4] text-ink">{step.title}</span>
               )}
-              <span className="font-mono text-[12px] leading-[1.5] text-ink-2 tnum">{step.detail}</span>
+              <div className="font-mono text-[11px] leading-[1.4] text-ink-2 tnum sm:text-[12px]">{step.detail}</div>
             </div>
           </li>
         ))}
