@@ -6,6 +6,8 @@
 **/.env.*
 **/*.pem
 **/*.key
+**/.npmrc
+.claude
 
 # Inutiles au build, lourds ou régénérés
 .git

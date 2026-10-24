@@ -35,7 +35,7 @@ describe('Experience', () => {
 
   it('liste les compétences de chaque expérience', () => {
     render(<Experience />);
-    const lists = screen.getAllByRole('list', { name: 'Technologies' });
+    const lists = screen.getAllByRole('list', { name: /^Compétences chez / });
     expect(lists).toHaveLength(experiences.length);
     experiences.forEach((exp, i) => {
       const labels = within(lists[i] as HTMLElement)

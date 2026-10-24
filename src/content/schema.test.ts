@@ -45,6 +45,10 @@ describe('schema du contenu', () => {
     expect(() => parseSite({ facts: [], chain: [{ title: 'C', detail: 'D' }] })).toThrow(/site\.facts/);
   });
 
+  it('refuse un doublon dans une liste de textes (pastilles, faits : clés d’affichage)', () => {
+    expect(() => parseExperiences([{ ...experience, skills: ['PHP', 'PHP'] }])).toThrow(/experiences\[0\]\.skills.*doublon/);
+  });
+
   it('refuse un titre de projet en double (il sert de clé React)', () => {
     expect(() => parseProjects([project, { ...project }])).toThrow(ContentError);
     expect(() => parseProjects([project, { ...project }])).toThrow(/titre en double/);

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import faviconLight from '../assets/favicon-light.svg';
 import faviconDark from '../assets/favicon-dark.svg';
 import { ThemeContext, type Theme } from './themeContext';
@@ -36,6 +36,8 @@ function getInitialTheme(): Theme {
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
+  // Un choix explicite (bascule) prime sur le système pour toute la session, même si le stockage a échoué.
+  const userChose = useRef(readSavedTheme() !== null);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -55,7 +57,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = () => {
-      if (!readSavedTheme()) setTheme(mediaQuery.matches ? 'dark' : 'light');
+      if (!userChose.current) setTheme(mediaQuery.matches ? 'dark' : 'light');
     };
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
@@ -64,6 +66,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   // La persistance est un effet de bord : elle reste hors de l'updater de setState (pur).
   const toggleTheme = useCallback(() => {
     const next: Theme = theme === 'light' ? 'dark' : 'light';
+    userChose.current = true;
     saveTheme(next);
     setTheme(next);
   }, [theme]);

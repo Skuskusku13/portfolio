@@ -14,9 +14,13 @@ export default mergeConfig(
       // tests/ : garde-fous hors application (Node seul), typés par tsconfig.node.json.
       include: ['src/**/*.test.{ts,tsx}', 'tests/**/*.test.ts'],
       css: false,
+      // Aucun mock, stub global ou variable d'environnement ne survit à un test.
+      restoreMocks: true,
+      unstubGlobals: true,
+      unstubEnvs: true,
       coverage: {
         provider: 'v8',
-        include: ['src/hooks/**', 'src/components/**'],
+        include: ['src/hooks/**', 'src/components/**', 'src/lib/**', 'src/content/**', 'src/config.ts'],
         exclude: ['**/*.test.{ts,tsx}', 'src/test/**'],
         reporter: ['text', 'html', 'lcov'],
         reportsDirectory: './coverage',

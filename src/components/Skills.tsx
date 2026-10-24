@@ -24,7 +24,6 @@ const skillSections: SkillSection[] = [
   { key: 'os', title: "Systèmes d'exploitation", icon: Monitor },
   { key: 'frontend', title: 'Front-end', icon: Layout },
   { key: 'project_management', title: 'Gestion & conception', icon: ClipboardList },
-  // { key: 'data_ai', title: 'Data Science & IA', icon: Brain }, // Décommenter pour réactiver
 ];
 
 export default function Skills() {

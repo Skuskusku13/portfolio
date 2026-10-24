@@ -42,7 +42,7 @@ export default function Experience() {
 
               <p className="mt-4 max-w-[64ch] text-[16px] leading-[1.55] text-ink-2">{exp.summary}</p>
 
-              <ChipList items={exp.skills} className="mt-5" />
+              <ChipList items={exp.skills} className="mt-5" label={`Compétences chez ${exp.company}`} />
             </Card>
           );
         })}

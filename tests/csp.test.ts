@@ -42,4 +42,12 @@ describe('CSP et scripts inline', () => {
   it("n'autorise aucun script inline par 'unsafe-inline'", () => {
     expect(scriptSrc).not.toContain('unsafe-inline');
   });
+
+  it("autorise l'origine de l'API de contact par défaut du Dockerfile dans connect-src", () => {
+    const dockerfile = readFileSync(resolve(process.cwd(), '.docker/Dockerfile'), 'utf8');
+    const url = dockerfile.match(/^ARG VITE_MAILER_URL=(\S+)/m)?.[1] ?? '';
+    expect(url).toMatch(/^https:\/\//);
+    const connectSrc = csp.split(';').map((d) => d.trim()).find((d) => d.startsWith('connect-src')) ?? '';
+    expect(connectSrc).toContain(new URL(url).origin);
+  });
 });

@@ -1,6 +1,6 @@
 # Mises à jour automatiques : dépendances npm, images Docker (épinglées par digest
 # dans .docker/Dockerfile) et actions GitHub (actions tierces épinglées par SHA de commit,
-# que Dependabot sait suivre ; les workflows réutilisables du compte restent suivis par tag, ex. @v1.2.1).
+# que Dependabot sait suivre, y compris les workflows réutilisables du compte, épinglés par SHA avec le tag en commentaire).
 version: 2
 updates:
   - package-ecosystem: npm
@@ -28,6 +28,8 @@ updates:
       day: monday
       time: "07:00"
       timezone: Europe/Paris
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: github-actions
     directory: /
@@ -36,3 +38,5 @@ updates:
       day: monday
       time: "07:00"
       timezone: Europe/Paris
+    cooldown:
+      default-days: 7

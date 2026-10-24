@@ -21,7 +21,7 @@ permissions:
 # et Trivy couvre les mêmes avis (GitHub Advisory Database).
 jobs:
   security:
-    uses: Skuskusku13/workflows-reusable/.github/workflows/npm-security.yml@v1.2.1
+    uses: Skuskusku13/workflows-reusable/.github/workflows/npm-security.yml@3ec7f78b10aa9eae037d337681719f50b9e26a6c # v1.2.1
     with:
       project-name: portfolio
       # Node 26 partout (.nvmrc, Dockerfile, zap-*.yml). Input DÉPRÉCIÉ côté

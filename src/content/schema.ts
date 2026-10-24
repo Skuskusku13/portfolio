@@ -15,7 +15,7 @@ import {
 
 /**
  * Validation du contenu JSON (src/content/*.json) au chargement du module de données.
- * Écrite à la main : une centaine de lignes, aucune dépendance (Zod aurait ajouté plusieurs
+ * Écrite à la main, sans dépendance (Zod aurait ajouté plusieurs
  * kilo-octets au bundle pour cinq fichiers). Une erreur nomme le chemin fautif
  * (ex. « projects[3].status ») et fait échouer le démarrage en dev et la suite de tests,
  * jamais silencieusement en production.
@@ -53,10 +53,13 @@ function optionalText(raw: Raw, key: string, path: string): string | undefined {
 function textList(raw: Raw, key: string, path: string, { allowEmpty = false } = {}): string[] {
   const items = list(raw[key], `${path}.${key}`);
   if (!allowEmpty && items.length === 0) throw new ContentError(`${path}.${key}`, 'au moins un élément attendu');
-  return items.map((item, i) => {
+  const texts = items.map((item, i) => {
     if (typeof item !== 'string' || item.trim() === '') throw new ContentError(`${path}.${key}[${i}]`, 'texte non vide attendu');
     return item;
   });
+  const duplicate = texts.find((text, i) => texts.indexOf(text) !== i);
+  if (duplicate !== undefined) throw new ContentError(`${path}.${key}`, `doublon « ${duplicate} » (sert de clé d'affichage)`);
+  return texts;
 }
 
 function oneOf<T extends string>(value: unknown, allowed: readonly T[], path: string): T {
@@ -139,7 +142,7 @@ export function parseProjects(input: unknown): Project[] {
 export function parseSkillGroups(input: unknown): SkillGroups {
   const raw = record(input, 'skills');
   const unknownKey = Object.keys(raw).find((key) => !(SKILL_GROUP_KEYS as readonly string[]).includes(key));
-  if (unknownKey) throw new ContentError(`skills.${unknownKey}`, `famille inconnue (attendu : ${SKILL_GROUP_KEYS.join(', ')})`);
+  if (unknownKey !== undefined) throw new ContentError(`skills.${unknownKey}`, `famille inconnue (attendu : ${SKILL_GROUP_KEYS.join(', ')})`);
   const groups: Partial<Record<(typeof SKILL_GROUP_KEYS)[number], string[]>> = {};
   for (const key of SKILL_GROUP_KEYS) {
     if (raw[key] === undefined) {

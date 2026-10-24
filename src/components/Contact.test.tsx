@@ -21,8 +21,12 @@ beforeEach(() => {
   vi.stubGlobal('fetch', fetchMock);
 });
 
+const clipboardDescriptor = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+
 afterEach(() => {
   vi.unstubAllGlobals();
+  if (clipboardDescriptor) Object.defineProperty(navigator, 'clipboard', clipboardDescriptor);
+  else Reflect.deleteProperty(navigator, 'clipboard');
 });
 
 const jsonResponse = (status: number, type = 'application/json') =>
