@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { experiences } from '../data';
+import { periodDuration } from '../lib/dates';
 import Experience from './Experience';
 
 describe('Experience', () => {
@@ -16,7 +17,14 @@ describe('Experience', () => {
     experiences.forEach((exp, i) => {
       expect(headings[i]?.textContent).toBe(exp.role);
       expect(screen.getAllByText(exp.company).length).toBeGreaterThan(0);
-      expect(screen.getByText(exp.period)).toBeInTheDocument();
+      expect(screen.getByText(exp.period, { exact: false })).toBeInTheDocument();
+    });
+  });
+
+  it('affiche la durée calculée de chaque expérience à côté de la période', () => {
+    render(<Experience />);
+    experiences.forEach((exp) => {
+      expect(screen.getByText(`· ${periodDuration(exp.start, exp.end)}`, { exact: false })).toBeInTheDocument();
     });
   });
 

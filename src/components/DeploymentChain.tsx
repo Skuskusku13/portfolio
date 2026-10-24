@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import Tag from './ui/Tag';
 import NewWindowHint from './ui/NewWindowHint';
 import { site } from '../data';
+import { pageBuildDate } from '../lib/dates';
 
 /**
  * La chaîne de production réelle de ce site, de son dépôt à l'écran du visiteur.
@@ -22,6 +23,8 @@ const runStyle = {
 export default function DeploymentChain() {
   const trackRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLOListElement>(null);
+  // Date de l'index.html servi (Last-Modified) : en production, celle du build de l'image.
+  const buildDate = pageBuildDate();
 
   // Le point de signal descend du premier au dernier repère par une translation (composée
   // par le GPU, sans relayout) : la distance dépend du repli du texte, on la mesure et on
@@ -87,6 +90,12 @@ export default function DeploymentChain() {
         ))}
         </ol>
       </div>
+
+      {buildDate && (
+        <p className="mt-5 border-t border-line pt-4 font-mono text-[12px] leading-[1.5] text-ink-3 tnum">
+          Build servi : {buildDate}
+        </p>
+      )}
     </figure>
   );
 }

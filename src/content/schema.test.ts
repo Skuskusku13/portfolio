@@ -5,6 +5,8 @@ const experience = {
   company: 'Acme',
   role: 'Développeuse',
   period: '2024 - 2026',
+  start: '2024-01',
+  end: '2024-06',
   type: 'CDI',
   summary: 'Back-end.',
   skills: ['PHP'],
@@ -36,6 +38,9 @@ describe('schema du contenu', () => {
   it('nomme le chemin fautif dans l’erreur', () => {
     expect(() => parseExperiences([{ ...experience, company: '' }])).toThrow(/experiences\[0\]\.company/);
     expect(() => parseExperiences([{ ...experience, skills: [] }])).toThrow(/experiences\[0\]\.skills/);
+    expect(() => parseExperiences([{ ...experience, start: 'janv. 2024' }])).toThrow(/experiences\[0\]\.start.*AAAA-MM/);
+    expect(() => parseExperiences([{ ...experience, end: '2023-12' }])).toThrow(/experiences\[0\]\.end.*antérieure/);
+    expect(parseExperiences([{ ...experience, end: undefined }])[0]?.end).toBeUndefined();
     expect(() => parseProjects([{ ...project, status: 'Bientôt' }])).toThrow(/projects\[0\]\.status/);
     expect(() => parseProjects([{ ...project, category: ['interne'] }])).toThrow(/projects\[0\]\.category\[0\]/);
     expect(() => parseProjects([{ ...project, githubLinks: [{ label: 'x', url: 'http://pas-https' }] }])).toThrow(

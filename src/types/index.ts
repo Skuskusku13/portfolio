@@ -7,6 +7,9 @@ export interface Experience {
   company: string;
   role: string;
   period: string;
+  /** Mois de début et de fin « AAAA-MM » ; sans fin, l'expérience est en cours (durée calculée à l'affichage). */
+  start: string;
+  end?: string;
   type: string;
   promotion?: string;
   /** Une phrase : ce qui a été fait, dérivé des technologies réellement pratiquées. */

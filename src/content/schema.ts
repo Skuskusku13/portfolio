@@ -12,6 +12,7 @@ import {
   type SiteContent,
   type SkillGroups,
 } from '../types';
+import { isYearMonth, monthsBetween } from '../lib/dates';
 
 /**
  * Validation du contenu JSON (src/content/*.json) au chargement du module de données.
@@ -50,6 +51,17 @@ function optionalText(raw: Raw, key: string, path: string): string | undefined {
   return text(raw, key, path);
 }
 
+function yearMonth(raw: Raw, key: string, path: string): string {
+  const value = text(raw, key, path);
+  if (!isYearMonth(value)) throw new ContentError(`${path}.${key}`, 'mois attendu au format AAAA-MM');
+  return value;
+}
+
+function optionalYearMonth(raw: Raw, key: string, path: string): string | undefined {
+  if (raw[key] === undefined) return undefined;
+  return yearMonth(raw, key, path);
+}
+
 function textList(raw: Raw, key: string, path: string, { allowEmpty = false } = {}): string[] {
   const items = list(raw[key], `${path}.${key}`);
   if (!allowEmpty && items.length === 0) throw new ContentError(`${path}.${key}`, 'au moins un élément attendu');
@@ -79,10 +91,15 @@ export function parseExperiences(input: unknown): Experience[] {
   return list(input, 'experiences').map((item, i) => {
     const path = `experiences[${i}]`;
     const raw = record(item, path);
+    const start = yearMonth(raw, 'start', path);
+    const end = optionalYearMonth(raw, 'end', path);
+    if (end !== undefined && monthsBetween(start, end) < 1) throw new ContentError(`${path}.end`, 'fin antérieure au début');
     return {
       company: text(raw, 'company', path),
       role: text(raw, 'role', path),
       period: text(raw, 'period', path),
+      start,
+      end,
       type: text(raw, 'type', path),
       promotion: optionalText(raw, 'promotion', path),
       summary: text(raw, 'summary', path),

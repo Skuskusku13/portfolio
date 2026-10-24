@@ -3,6 +3,7 @@
     "company": "Meilleurtaux Placement",
     "role": "Développeur Back-end & DevOps",
     "period": "Janv. 2024 - Aujourd'hui",
+    "start": "2024-01",
     "type": "Alternance",
     "promotion": "CDI · depuis sept. 2026",
     "summary": "Développement back-end Symfony et messagerie asynchrone RabbitMQ, conteneurisation Docker, intégration et déploiement continus.",
@@ -26,6 +27,8 @@
     "company": "Storyzy",
     "role": "Développeur Full-stack",
     "period": "Sept. 2023 - Janv. 2024",
+    "start": "2023-09",
+    "end": "2024-01",
     "type": "Alternance",
     "summary": "Développement full-stack : API Node.js et Spring Boot, interfaces Angular.",
     "skills": [
@@ -39,6 +42,8 @@
     "company": "SESAN",
     "role": "Développeur Web",
     "period": "Oct. 2021 - Août 2023",
+    "start": "2021-10",
+    "end": "2023-08",
     "type": "Alternance",
     "summary": "Développement web : sites WordPress, intégration HTML, CSS et JavaScript, mesure d'audience Piwik Pro.",
     "skills": [

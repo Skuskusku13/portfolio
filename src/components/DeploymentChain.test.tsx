@@ -10,6 +10,11 @@ describe('DeploymentChain', () => {
     expect(within(figure).getByText('En production')).toBeInTheDocument();
   });
 
+  it('affiche la date du build servi, lue dans document.lastModified', () => {
+    render(<DeploymentChain />);
+    expect(screen.getByText(/^Build servi : \d{1,2} \S+ \d{4}$/)).toBeInTheDocument();
+  });
+
   it('liste six étapes dans une liste ordonnée', () => {
     const { container } = render(<DeploymentChain />);
     const list = container.querySelector('ol') as HTMLOListElement;
