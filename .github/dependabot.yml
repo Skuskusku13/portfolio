@@ -1,0 +1,33 @@
+# Mises à jour automatiques : dépendances npm, images Docker (épinglées par digest
+# dans .docker/Dockerfile) et actions GitHub (actions tierces épinglées par SHA de commit ;
+# les workflows réutilisables du compte restent suivis par tag, ex. @v1.2.1).
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "07:00"
+      timezone: Europe/Paris
+    open-pull-requests-limit: 5
+    groups:
+      dev-tooling:
+        dependency-type: development
+        update-types: [minor, patch]
+
+  - package-ecosystem: docker
+    directory: /.docker
+    schedule:
+      interval: weekly
+      day: monday
+      time: "07:00"
+      timezone: Europe/Paris
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "07:00"
+      timezone: Europe/Paris

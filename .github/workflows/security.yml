@@ -24,3 +24,7 @@ jobs:
     uses: Skuskusku13/workflows-reusable/.github/workflows/npm-security.yml@v1.2.1
     with:
       project-name: portfolio
+      # Node 26 partout (.nvmrc, Dockerfile, zap-*.yml). Input DÉPRÉCIÉ côté
+      # workflows-reusable depuis v1.2.1 (npm audit retiré) : ignoré aujourd'hui,
+      # supprimé en v2.0.0 — à retirer d'ici lors du bump de version majeure.
+      node-version: '26'
