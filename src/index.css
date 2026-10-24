@@ -59,6 +59,9 @@
   --ok: #1b8a4e;
   --warn: #9a6400;
   --danger: #b3261e;
+  /* Icônes de la bascule de thème : la lune (mode clair) en bleu nuit, le soleil (mode sombre) en jaune. */
+  --sun: #eab308;
+  --moon: #1b2a5c;
   --shadow-float: 0 16px 40px -16px rgb(20 33 61 / 0.22), 0 2px 8px -2px rgb(20 33 61 / 0.08);
 }
 
@@ -80,6 +83,8 @@
   --ok: #62d08a;
   --warn: #e8bb5f;
   --danger: #ff8f85;
+  --sun: #eab308;
+  --moon: #8fb1ff;
   --shadow-float: 0 16px 40px -16px rgb(2 6 20 / 0.8), 0 2px 8px -2px rgb(2 6 20 / 0.6);
 }
 
@@ -99,6 +104,8 @@
   --color-ok: var(--ok);
   --color-warn: var(--warn);
   --color-danger: var(--danger);
+  --color-sun: var(--sun);
+  --color-moon: var(--moon);
 
   --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "Red Hat Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;

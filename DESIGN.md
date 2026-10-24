@@ -232,6 +232,7 @@ Une palette à deux modes, construite sur un canvas froid légèrement bleuté, 
 - **Vert OK** (`ok`, #1b8a4e / #62d08a) : point du tag « En production » et « CDI ». Jamais en fond ni en texte.
 - **Ambre attention** (`warn`, #9a6400 / #e8bb5f) : point du tag « En cours » et texte du compteur de caractères à 90 % de la limite. Jamais en fond.
 - **Rouge erreur** (`danger`, #b3261e / #ff8f85) : texte des erreurs du formulaire, bordure d'un champ invalide, compteur à la limite.
+- **Soleil et lune** (`sun` #eab308, `moon` #1b2a5c clair / #8fb1ff sombre) : uniquement les deux icônes de la bascule de thème, reprises de la première version du site ; le soleil n'apparaît que sur le canvas sombre, la lune que sur le canvas clair.
 
 ### Named Rules
 **The One Accent Rule.** Le cobalt est la seule couleur chromatique du système en dehors des trois points sémantiques. Il signale une action, un lien ou un état actif ; il ne remplit jamais un fond décoratif, un titre ou un dégradé.
