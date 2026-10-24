@@ -240,6 +240,21 @@
     transform: scaleX(0);
   }
 
+  /* À l'impression, tout est visible et immobile : un bloc jamais entré dans le viewport resterait blanc. */
+  @media print {
+    .js .reveal:not(.is-in) {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal, .rule::before {
+      transition: none;
+    }
+    .js .reveal:not(.is-in).rule::before,
+    .js .reveal:not(.is-in) .rule::before {
+      transform: none;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .js .reveal:not(.is-in) {
       opacity: 1;

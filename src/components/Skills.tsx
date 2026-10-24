@@ -55,7 +55,7 @@ export default function Skills() {
   const displayed = activeSections.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
   return (
-    <Section id="skills" title="Compétences" deck="Ce que je pratique au quotidien : conteneurs, CI/CD, supervision et sécurité d'abord, le back-end ensuite.">
+    <Section id="skills" title="Compétences" deck="Ce que je pratique au quotidien : conteneurs, CI/CD, supervision et sécurité d'abord, le back-end ensuite.">
       <p className="sr-only" role="status" aria-live="polite">
         {activeSections.length} familles affichées{totalPages > 1 ? `, page ${page} sur ${totalPages}` : ''}
       </p>

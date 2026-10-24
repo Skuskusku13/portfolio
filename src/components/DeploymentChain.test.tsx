@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import DeploymentChain from './DeploymentChain';
 
@@ -11,8 +11,14 @@ describe('DeploymentChain', () => {
   });
 
   it('affiche la date du build servi, lue dans document.lastModified', () => {
+    vi.spyOn(document, 'lastModified', 'get').mockReturnValue('10/24/2026 12:04:18');
     render(<DeploymentChain />);
-    expect(screen.getByText(/^Build servi : \d{1,2} \S+ \d{4}$/)).toBeInTheDocument();
+    expect(screen.getByText('Build servi : 24 oct. 2026')).toBeInTheDocument();
+  });
+
+  it('ne montre pas de date quand la page vient d’être générée (pas d’en-tête Last-Modified)', () => {
+    render(<DeploymentChain />);
+    expect(screen.queryByText(/Build servi/)).not.toBeInTheDocument();
   });
 
   it('liste six étapes dans une liste ordonnée', () => {

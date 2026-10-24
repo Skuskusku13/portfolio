@@ -59,7 +59,8 @@ export default function Navbar() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <Button href="#contact" size="sm">
+          {/* Une seule action accent par écran : tant que le hero (et son bouton) est visible, celui-ci reste en retrait. */}
+          <Button href="#contact" size="sm" variant={activeId ? 'primary' : 'secondary'}>
             <span className="hidden sm:inline">Me contacter</span>
             <span className="sm:hidden">Contact</span>
           </Button>

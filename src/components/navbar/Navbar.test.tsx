@@ -134,5 +134,7 @@ describe('Navbar', () => {
     expect(screen.getAllByRole('navigation', { name: 'Sections du site' })).toHaveLength(1);
     expect(screen.getAllByRole('navigation', { name: 'Sections du site', hidden: true })).toHaveLength(2);
     expect(screen.getByRole('link', { name: /^Me contacter/ })).toHaveAttribute('href', '#contact');
+    // Aucune section active (hero à l'écran) : le bouton de la barre reste en retrait, le hero porte l'accent.
+    expect(screen.getByRole('link', { name: /^Me contacter/ })).toHaveClass('bg-surface');
   });
 });

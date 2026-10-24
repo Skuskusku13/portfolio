@@ -39,5 +39,7 @@ describe('dates', () => {
   it('lit la date du build dans lastModified et renvoie null sinon', () => {
     expect(pageBuildDate({ lastModified: '10/24/2026 12:04:18' })).toBe('24 oct. 2026');
     expect(pageBuildDate({ lastModified: '' })).toBeNull();
+    // Page générée à l'instant (serveur de dev, pas d'en-tête) : pas de date.
+    expect(pageBuildDate({ lastModified: '10/24/2026 12:04:18' }, new Date('2026-10-24T12:04:30').getTime())).toBeNull();
   });
 });

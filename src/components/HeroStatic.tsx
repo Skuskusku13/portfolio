@@ -14,7 +14,7 @@ export default function HeroStatic() {
         robustes, sécurisées et automatisées.
       </p>
       <p className="mt-6 max-w-[56ch] text-[17px] leading-[1.55] text-ink-2 sm:text-[18px]">
-        Conteneurs, CI/CD, supervision, sécurité : je conçois et j'exploite des systèmes qui tournent en production, du code
+        Conteneurs, CI/CD, supervision, sécurité{'\u00A0'}: je conçois et j'exploite des systèmes qui tournent en production, du code
         au déploiement. Ce site en est un exemple, de son dépôt à votre écran.
       </p>
     </>

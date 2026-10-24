@@ -12,7 +12,7 @@ type CopyState = 'idle' | 'copied' | 'failed';
 const copyMessages: Record<CopyState, string> = {
   idle: '',
   copied: 'Adresse copiée',
-  failed: "Copie impossible : sélectionnez l'adresse ci-dessus.",
+  failed: "Copie impossible : sélectionnez l'adresse ci-dessus.",
 };
 
 const rowClass = 'flex items-center justify-between gap-4 py-3.5 text-[15px] text-ink-2';

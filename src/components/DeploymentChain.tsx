@@ -93,7 +93,7 @@ export default function DeploymentChain() {
 
       {buildDate && (
         <p className="mt-5 border-t border-line pt-4 font-mono text-[12px] leading-[1.5] text-ink-3 tnum">
-          Build servi : {buildDate}
+          Build servi{'\u00A0'}: {buildDate}
         </p>
       )}
     </figure>

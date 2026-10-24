@@ -1,11 +1,14 @@
 import Container from './ui/Container';
 import { GITHUB_URL, LINKEDIN_URL } from '../config';
+import { site } from '../data';
 import NewWindowHint from './ui/NewWindowHint';
 
 const linkClass = 'inline-block py-1 text-[13px] text-ink-2 transition-colors duration-200 hover:text-ink';
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  // Première étape de la chaîne de production : le dépôt de ce site.
+  const sourceUrl = site.chain[0]?.href;
 
   return (
     <footer className="border-t border-line py-8">
@@ -20,6 +23,12 @@ export default function Footer() {
             LinkedIn
             <NewWindowHint />
           </a>
+          {sourceUrl && (
+            <a href={sourceUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
+              Code source de ce site
+              <NewWindowHint />
+            </a>
+          )}
           <a href="#about" className={linkClass}>
             Haut de page
           </a>
