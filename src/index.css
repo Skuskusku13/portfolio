@@ -44,42 +44,42 @@
    ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
-  --canvas: #f5f5f7;
+  --canvas: #f4f6fb;
   --surface: #ffffff;
-  --surface-2: #fafafb;
-  --ink: #1d1d1f;
-  --ink-2: #515154;
-  --ink-3: #6e6e73;
-  --line: #d2d2d7;
-  --line-strong: #1d1d1f;
-  --line-input: #86868b; /* bordure des champs : >= 3:1 sur la surface et sur le canvas (WCAG 1.4.11) */
-  --accent: #163dcc;
-  --accent-hover: #1234b5;
+  --surface-2: #eef2fa;
+  --ink: #14213d;
+  --ink-2: #46547a;
+  --ink-3: #65718f;
+  --line: #d8deeb;
+  --line-strong: #14213d;
+  --line-input: #7f8aa8; /* bordure des champs : >= 3:1 sur la surface et sur le canvas (WCAG 1.4.11) */
+  --accent: #1a46e0;
+  --accent-hover: #1538bd;
   --accent-ink: #ffffff;
-  --ok: #1f7a3e;
-  --warn: #8a5b00;
+  --ok: #1b8a4e;
+  --warn: #9a6400;
   --danger: #b3261e;
-  --shadow-float: 0 16px 40px -16px rgb(29 29 31 / 0.22), 0 2px 8px -2px rgb(29 29 31 / 0.08);
+  --shadow-float: 0 16px 40px -16px rgb(20 33 61 / 0.22), 0 2px 8px -2px rgb(20 33 61 / 0.08);
 }
 
 .dark {
-  /* Bleu nuit : un sombre qui garde de la profondeur, jamais un noir plat. */
+  /* Bleu nuit : un sombre qui garde de la profondeur et un peu de couleur, jamais un noir plat. */
   color-scheme: dark;
-  --canvas: #0a1020;
-  --surface: #121b30;
-  --surface-2: #18233f;
-  --ink: #eef2f8;
-  --ink-2: #aeb8cc;
-  --ink-3: #8b97ae;
-  --line: #273354;
-  --line-strong: #eef2f8;
-  --line-input: #6b7794;
-  --accent: #7fa2ff;
-  --accent-hover: #99b6ff;
-  --accent-ink: #0a1020;
-  --ok: #5ccb7e;
-  --warn: #e0b35a;
-  --danger: #ff8a80;
+  --canvas: #0a1124;
+  --surface: #141e3a;
+  --surface-2: #1b2745;
+  --ink: #f0f4fb;
+  --ink-2: #b3bdd3;
+  --ink-3: #8f9bb6;
+  --line: #2b3960;
+  --line-strong: #f0f4fb;
+  --line-input: #71809f;
+  --accent: #8fb1ff;
+  --accent-hover: #a9c4ff;
+  --accent-ink: #0a1124;
+  --ok: #62d08a;
+  --warn: #e8bb5f;
+  --danger: #ff8f85;
   --shadow-float: 0 16px 40px -16px rgb(2 6 20 / 0.8), 0 2px 8px -2px rgb(2 6 20 / 0.6);
 }
 

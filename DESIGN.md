@@ -2,36 +2,36 @@
 name: Portfolio Dan Levy
 description: Un portfolio d'ingénieur qui se lit comme un document de référence, à la finition Apple / Stripe, en clair et en bleu nuit.
 colors:
-  canvas: "#f5f5f7"
+  canvas: "#f4f6fb"
   surface: "#ffffff"
-  surface-2: "#fafafb"
-  ink: "#1d1d1f"
-  ink-2: "#515154"
-  ink-3: "#6e6e73"
-  line: "#d2d2d7"
-  line-strong: "#1d1d1f"
-  line-input: "#86868b"
-  accent: "#163dcc"
-  accent-hover: "#1234b5"
+  surface-2: "#eef2fa"
+  ink: "#14213d"
+  ink-2: "#46547a"
+  ink-3: "#65718f"
+  line: "#d8deeb"
+  line-strong: "#14213d"
+  line-input: "#7f8aa8"
+  accent: "#1a46e0"
+  accent-hover: "#1538bd"
   accent-ink: "#ffffff"
-  ok: "#1f7a3e"
-  warn: "#8a5b00"
+  ok: "#1b8a4e"
+  warn: "#9a6400"
   danger: "#b3261e"
-  canvas-dark: "#0a1020"
-  surface-dark: "#121b30"
-  surface-2-dark: "#18233f"
-  ink-dark: "#eef2f8"
-  ink-2-dark: "#aeb8cc"
-  ink-3-dark: "#8b97ae"
-  line-dark: "#273354"
-  line-strong-dark: "#eef2f8"
-  line-input-dark: "#6b7794"
-  accent-dark: "#7fa2ff"
-  accent-hover-dark: "#99b6ff"
-  accent-ink-dark: "#0a1020"
-  ok-dark: "#5ccb7e"
-  warn-dark: "#e0b35a"
-  danger-dark: "#ff8a80"
+  canvas-dark: "#0a1124"
+  surface-dark: "#141e3a"
+  surface-2-dark: "#1b2745"
+  ink-dark: "#f0f4fb"
+  ink-2-dark: "#b3bdd3"
+  ink-3-dark: "#8f9bb6"
+  line-dark: "#2b3960"
+  line-strong-dark: "#f0f4fb"
+  line-input-dark: "#71809f"
+  accent-dark: "#8fb1ff"
+  accent-hover-dark: "#a9c4ff"
+  accent-ink-dark: "#0a1124"
+  ok-dark: "#62d08a"
+  warn-dark: "#e8bb5f"
+  danger-dark: "#ff8f85"
 typography:
   display:
     fontFamily: "Bricolage Grotesque, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
@@ -201,7 +201,7 @@ Le mode sombre est un bleu nuit profond, jamais un noir plat : le canvas, les su
 Le système refuse explicitement les tics par défaut de la catégorie : hero centré sur dégradé, texte en dégradé, halos lumineux, étiquettes au-dessus des titres, cartes qui se soulèvent au survol, icônes sans libellé dans le contenu.
 
 **Key Characteristics:**
-- Un seul accent cobalt (#163dcc clair, #7fa2ff sombre), réservé aux actions, liens, icônes de titre et point de signal.
+- Un seul accent cobalt (#1a46e0 clair, #8fb1ff sombre), réservé aux actions, liens, icônes de titre et point de signal.
 - Filets d'un pixel comme unique séparateur ; une seule ombre, portée uniquement par le menu mobile flottant.
 - Deux familles : Bricolage Grotesque variable (300–700, axe optique) pour le discours, Red Hat Mono pour les données.
 - Cartes inertes à coins 16 px ; pastilles de techno en sans 13 px à coins pleins ; étiquettes de statut en mono 12 px à coins 4 px.
@@ -210,37 +210,37 @@ Le système refuse explicitement les tics par défaut de la catégorie : hero ce
 
 ## Colors
 
-Une palette à deux modes, construite sur un canvas froid, une encre à trois niveaux, un filet, un accent cobalt et trois tons sémantiques ; le sombre n'est pas l'inverse du clair mais un bleu nuit à même structure.
+Une palette à deux modes, construite sur un canvas froid légèrement bleuté, une encre marine à trois niveaux, un filet, un accent cobalt et trois tons sémantiques ; le sombre n'est pas l'inverse du clair mais un bleu nuit à même structure. Valeurs revues le 24 octobre 2026 pour un rendu plus chaleureux sans seconde teinte : canvas et filets teintés, encre marine, accent un peu plus vif.
 
 ### Primary
-- **Cobalt** (`accent`, #163dcc clair / #7fa2ff sombre) : fond du bouton principal, couleur des liens de dépôt (« Code source », liens projet), icônes des titres de compétences, point de signal et repères allumés de la chaîne de production, tag `accent` (niveaux de diplôme), survol des étapes de la chaîne, sélection de texte, caret des champs, anneau de focus. Le logo hexagonal reprend exactement cette valeur dans chaque mode.
-- **Cobalt enfoncé** (`accent-hover`, #1234b5 / #99b6ff) : uniquement le survol du bouton principal.
-- **Encre sur cobalt** (`accent-ink`, #ffffff / #0a1020) : texte posé sur l'accent (bouton principal, texte sélectionné, lien d'évitement).
+- **Cobalt** (`accent`, #1a46e0 clair / #8fb1ff sombre) : fond du bouton principal, couleur des liens de dépôt (« Code source », liens projet), icônes des titres de compétences, point de signal et repères allumés de la chaîne de production, tag `accent` (niveaux de diplôme), survol des étapes de la chaîne, sélection de texte, caret des champs, anneau de focus. Le logo hexagonal reprend exactement cette valeur dans chaque mode.
+- **Cobalt enfoncé** (`accent-hover`, #1538bd / #a9c4ff) : uniquement le survol du bouton principal.
+- **Encre sur cobalt** (`accent-ink`, #ffffff / #0a1124) : texte posé sur l'accent (bouton principal, texte sélectionné, lien d'évitement).
 
 ### Neutral
-- **Canvas froid** (`canvas`, #f5f5f7 / #0a1020) : fond de page et de la barre de navigation (à 85 % avec flou), fond des pastilles de techno posées sur une carte, texte du filtre actif.
-- **Surface** (`surface`, #ffffff / #121b30) : cartes, figure de la chaîne de production, bouton secondaire, filtres au repos, champs du formulaire, repères de la chaîne au repos.
-- **Surface relevée** (`surface-2`, #fafafb / #18233f) : seul usage réel : fond de survol des boutons icône de la barre (thème, menu).
-- **Encre** (`ink`, #1d1d1f / #eef2f8) : titres, nom, énoncé du hero, texte des pastilles, employeurs, libellés des champs, fond du filtre actif, soulignement de navigation.
-- **Encre secondaire** (`ink-2`, #515154 / #aeb8cc) : chapeaux de section, paragraphes descriptifs, périodes en mono, liens de navigation au repos, bouton ghost, faits du hero, pied de page.
-- **Encre tertiaire** (`ink-3`, #6e6e73 / #8b97ae) : catégories de projet, école, flèches sortantes au repos, placeholders, point du tag neutre.
-- **Filet** (`line`, #d2d2d7 / #273354) : toutes les bordures d'un pixel (cartes, pastilles, tags, champs, boutons secondaires, navbar, rails et séparateurs de listes), rail de la chaîne, pouce de la barre de défilement.
-- **Filet fort** (`line-strong`, #1d1d1f / #eef2f8) : bordure de survol du bouton secondaire, et à 40 % celle des filtres au survol.
-- **Bordure de champ** (`line-input`, #86868b / #6b7794) : bordure au repos des champs du formulaire uniquement, assez contrastée sur la surface (≥ 3:1, WCAG 1.4.11) pour qu'un champ soit reconnu comme saisissable. Jamais sur une carte ni un séparateur.
+- **Canvas froid** (`canvas`, #f4f6fb / #0a1124) : fond de page et de la barre de navigation (à 85 % avec flou), fond des pastilles de techno posées sur une carte, texte du filtre actif.
+- **Surface** (`surface`, #ffffff / #141e3a) : cartes, figure de la chaîne de production, bouton secondaire, filtres au repos, champs du formulaire, repères de la chaîne au repos.
+- **Surface relevée** (`surface-2`, #eef2fa / #1b2745) : seul usage réel : fond de survol des boutons icône de la barre (thème, menu).
+- **Encre** (`ink`, #14213d / #f0f4fb) : titres, nom, énoncé du hero, texte des pastilles, employeurs, libellés des champs, fond du filtre actif, soulignement de navigation.
+- **Encre secondaire** (`ink-2`, #46547a / #b3bdd3) : chapeaux de section, paragraphes descriptifs, périodes en mono, liens de navigation au repos, bouton ghost, faits du hero, pied de page.
+- **Encre tertiaire** (`ink-3`, #65718f / #8f9bb6) : catégories de projet, école, flèches sortantes au repos, placeholders, point du tag neutre.
+- **Filet** (`line`, #d8deeb / #2b3960) : toutes les bordures d'un pixel (cartes, pastilles, tags, champs, boutons secondaires, navbar, rails et séparateurs de listes), rail de la chaîne, pouce de la barre de défilement.
+- **Filet fort** (`line-strong`, #14213d / #f0f4fb) : bordure de survol du bouton secondaire, et à 40 % celle des filtres au survol.
+- **Bordure de champ** (`line-input`, #7f8aa8 / #71809f) : bordure au repos des champs du formulaire uniquement, assez contrastée sur la surface (≥ 3:1, WCAG 1.4.11) pour qu'un champ soit reconnu comme saisissable. Jamais sur une carte ni un séparateur.
 
 ### Semantic
-- **Vert OK** (`ok`, #1f7a3e / #5ccb7e) : point du tag « En production » et « CDI ». Jamais en fond ni en texte.
-- **Ambre attention** (`warn`, #8a5b00 / #e0b35a) : point du tag « En cours ». Jamais en fond ni en texte.
-- **Rouge erreur** (`danger`, #b3261e / #ff8a80) : texte du message d'échec d'envoi du formulaire. Seul usage.
+- **Vert OK** (`ok`, #1b8a4e / #62d08a) : point du tag « En production » et « CDI ». Jamais en fond ni en texte.
+- **Ambre attention** (`warn`, #9a6400 / #e8bb5f) : point du tag « En cours » et texte du compteur de caractères à 90 % de la limite. Jamais en fond.
+- **Rouge erreur** (`danger`, #b3261e / #ff8f85) : texte des erreurs du formulaire, bordure d'un champ invalide, compteur à la limite.
 
 ### Named Rules
 **The One Accent Rule.** Le cobalt est la seule couleur chromatique du système en dehors des trois points sémantiques. Il signale une action, un lien ou un état actif ; il ne remplit jamais un fond décoratif, un titre ou un dégradé.
 
-**The Dot-Only Semantics Rule.** `ok` et `warn` n'existent que comme un point de 6 px dans une étiquette à filet neutre ; le texte de l'étiquette reste en encre. `danger` n'apparaît qu'en texte d'erreur.
+**The Dot-Only Semantics Rule.** `ok` et `warn` existent d'abord comme un point de 6 px dans une étiquette à filet neutre, le texte de l'étiquette restant en encre ; seule exception, le compteur de caractères du formulaire passe en `warn` à 90 % de la limite et en `danger` à la limite. `danger` n'apparaît sinon qu'en texte d'erreur et en bordure de champ invalide.
 
 **The Interactive Border Rule.** Un filet décoratif (carte, séparateur, pastille, tag, bouton secondaire) est en `line` ; la bordure d'un composant de saisie est en `line-input`, plus sombre, parce qu'elle doit être perçue à 3:1 pour signaler l'affordance. On ne monte pas `line` pour y parvenir, on ne descend pas `line-input` pour l'harmoniser.
 
-**The Blue Night Rule.** Le sombre est un bleu nuit : canvas #0a1020, surfaces #121b30, filets #273354. Aucune valeur neutre du mode sombre n'est un gris pur ni un noir plat.
+**The Blue Night Rule.** Le sombre est un bleu nuit : canvas #0a1124, surfaces #141e3a, filets #2b3960. Aucune valeur neutre du mode sombre n'est un gris pur ni un noir plat.
 
 ## Typography
 
@@ -316,7 +316,7 @@ Pastille de techno (`ui/ChipList`), l'unique forme de puce du site.
 ### Cards / Containers
 La carte du site (`ui/Card`), inerte, utilisée pour expériences, projets, compétences et formation ; la figure de la chaîne partage exactement le même matériau.
 - **Corner Style:** 16 px.
-- **Background:** surface (blanc / bleu nuit #121b30).
+- **Background:** surface (blanc / bleu nuit #141e3a).
 - **Shadow Strategy:** aucune ; voir The Inert Card Rule.
 - **Border:** filet d'un pixel en `line`.
 - **Internal Padding:** 24 px (28 px pour les cartes d'expérience, 32 px pour la chaîne à partir de 640 px). Les cartes projet et formation sont des colonnes flex avec un pied calé en bas (pastilles, catégorie, dépôts, ou période + tag).
@@ -345,7 +345,7 @@ Une seule entrée pour tout le site (`ui/Reveal`) : opacité 0 → 1 et translat
 ## Do's and Don'ts
 
 ### Do:
-- **Do** réserver le cobalt (#163dcc / #7fa2ff) aux actions, liens, icônes de titre, focus et point de signal ; un seul bouton primaire par écran.
+- **Do** réserver le cobalt (#1a46e0 / #8fb1ff) aux actions, liens, icônes de titre, focus et point de signal ; un seul bouton primaire par écran.
 - **Do** séparer par des filets d'un pixel en `line` (rangées `divide-y`, filets de section, bordures de carte), jamais par des aplats ni des ombres ; réserver `line-input` à la bordure au repos des champs de saisie.
 - **Do** passer toute donnée (date, période, statut, version, pile technique) en Red Hat Mono 12 ou 13 px avec chiffres tabulaires, en graisse 400.
 - **Do** composer sur douze colonnes à gouttière 48 px (7/5, 5/6) alignées à gauche, et replier en une colonne dans l'ordre du DOM sous 1 024 px.

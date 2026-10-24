@@ -3,7 +3,7 @@ import faviconLight from '../assets/favicon-light.svg';
 import faviconDark from '../assets/favicon-dark.svg';
 import { ThemeContext, type Theme } from './themeContext';
 
-const THEME_COLORS: Record<Theme, string> = { light: '#f5f5f7', dark: '#0a1020' };
+const THEME_COLORS: Record<Theme, string> = { light: '#f4f6fb', dark: '#0a1124' };
 
 function readSavedTheme(): Theme | null {
   try {

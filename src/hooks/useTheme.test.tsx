@@ -85,14 +85,14 @@ describe('useTheme', () => {
     expect(document.documentElement).not.toHaveClass('light');
     expect((document.getElementById('favicon') as HTMLLinkElement).getAttribute('href')).not.toBe('initial.svg');
     const metas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
-    expect(Array.from(metas).map((m) => m.content)).toEqual(['#0a1020', '#0a1020']);
+    expect(Array.from(metas).map((m) => m.content)).toEqual(['#0a1124', '#0a1124']);
   });
 
   it('met à jour la couleur de thème en clair', () => {
     mockSystemTheme(false);
     document.head.innerHTML = '<meta name="theme-color" content="#000">';
     renderHook(() => useTheme(), { wrapper });
-    expect(document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.content).toBe('#f5f5f7');
+    expect(document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.content).toBe('#f4f6fb');
   });
 
   it('bascule le thème et le persiste dans localStorage', () => {
