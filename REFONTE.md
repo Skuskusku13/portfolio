@@ -103,7 +103,7 @@ Revue de finition du skill (agent dédié) : disposition **ship** sur l'ensemble
 - `PRODUCT.md` : vérité produit (audience, positionnement, contraintes, engagements de marque).
 - `DESIGN.md` et `.impeccable/design.json` : système de design dérivé du code livré (écrits par le documenteur du skill).
 - `.impeccable/surfaces/src-app-tsx.md` : contrat de direction (THESIS, OWN-WORLD, STORY, FIRST VIEWPORT, FORM, FINISH, registre des sections).
-- `.impeccable/critique/` : deux snapshots de critique (avant / après), lus par `/impeccable polish`.
+- `.impeccable/critique/` : deux snapshots de critique (avant / après) ont existé, retirés du dépôt le 24 octobre 2026 (artefacts de session, sans usage).
 - `.impeccable/review/` : captures de référence et résultats du détecteur.
 - Les esquisses HTML du tirage de direction refusé ont été supprimées (elles n'avaient aucune valeur d'approbation).
 
