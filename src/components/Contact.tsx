@@ -1,102 +1,146 @@
-import { useState } from 'react';
-import { Mail, Send, Loader2, Check } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './Icons';
-import { MAILER_URL } from '../config';
+import { useState, type FormEvent, type ChangeEvent } from 'react';
+import { ArrowUpRight, Loader2 } from 'lucide-react';
+import { MAILER_URL, EMAIL, GITHUB_URL, LINKEDIN_URL } from '../config';
+import Section from './ui/Section';
+import Button from './ui/Button';
+import Reveal from './ui/Reveal';
+import { GitHubIcon, LinkedInIcon } from './ui/BrandIcons';
+
+type Status = 'idle' | 'loading' | 'success' | 'error';
+
+/** Le mailer attend un champ `html` : on échappe le texte saisi et on conserve les retours à la ligne. */
+function toSafeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/\r\n|\r|\n/g, '<br>');
+}
+
+const fieldClass =
+  'w-full rounded-md border border-line-input bg-surface px-3.5 text-[15px] text-ink placeholder:text-ink-3 ' +
+  'transition-[border-color,box-shadow] duration-200 ease-out-quint ' +
+  'focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [showCopyFeedback, setShowCopyFeedback] = useState(false);
+  const [formData, setFormData] = useState({ email: '', subject: '', message: '' });
+  const [status, setStatus] = useState<Status>('idle');
+  const [copied, setCopied] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (status === 'loading') return;
     setStatus('loading');
 
     try {
       const response = await fetch(MAILER_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           from: formData.email,
           subject: formData.subject,
-          html: formData.message,
+          html: toSafeHtml(formData.message),
         }),
       });
-
-      if (!response.ok) throw new Error('Failed to send email');
-
+      if (!response.ok) throw new Error(`Mailer HTTP ${response.status}`);
       setStatus('success');
       setFormData({ email: '', subject: '', message: '' });
-      setTimeout(() => setStatus('idle'), 5000);
     } catch (error) {
       console.error(error);
       setStatus('error');
-      setTimeout(() => setStatus('idle'), 5000);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  const handleEmailAction = async () => {
+  const copyEmail = async () => {
     try {
-      await navigator.clipboard.writeText('danlevy149@gmail.com');
-      setShowCopyFeedback(true);
-      setTimeout(() => setShowCopyFeedback(false), 2000);
-      window.location.href = 'mailto:danlevy149@gmail.com';
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy email:', err);
-      window.location.href = 'mailto:danlevy149@gmail.com';
+      console.error("Impossible de copier l'adresse :", err);
     }
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-900 transition-colors duration-300 relative">
-      {showCopyFeedback && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 z-50 animate-in fade-in slide-in-from-bottom-2">
-          <Check className="w-4 h-4" />
-          <span className="font-medium">Email copié !</span>
-        </div>
-      )}
+    <Section id="contact" title="Contact" deck="Ouvert aux opportunités professionnelles et aux échanges techniques.">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
+        {/* Canaux directs */}
+        <Reveal className="lg:col-span-5">
+          <div className="rule pt-6">
+            <p className="text-[14px] text-ink-2">Par email</p>
+            <a href={`mailto:${EMAIL}`} className="mt-1 inline-block text-[18px] font-medium text-ink hover:underline">
+              {EMAIL}
+            </a>
+            <div className="mt-4">
+              <Button variant="secondary" size="sm" onClick={copyEmail}>
+                Copier l'adresse
+              </Button>
+              <p role="status" aria-live="polite" className="mt-2 min-h-5 text-[14px] text-ink-2">
+                {copied ? 'Adresse copiée' : ''}
+              </p>
+            </div>
+          </div>
 
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">Restons en contact</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
-            Ouvert aux opportunités professionnelles et aux échanges techniques
-          </p>
-        </div>
+          <ul className="mt-8 divide-y divide-line border-y border-line">
+            <li>
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between py-3.5 text-[15px] text-ink-2 transition-colors duration-200 hover:text-ink"
+              >
+                <span className="inline-flex items-center gap-2.5">
+                  <LinkedInIcon className="size-4" />
+                  LinkedIn
+                </span>
+                <ArrowUpRight className="size-3.5 text-ink-3" strokeWidth={1.5} aria-hidden="true" />
+              </a>
+            </li>
+            <li>
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between py-3.5 text-[15px] text-ink-2 transition-colors duration-200 hover:text-ink"
+              >
+                <span className="inline-flex items-center gap-2.5">
+                  <GitHubIcon className="size-4" />
+                  GitHub
+                </span>
+                <ArrowUpRight className="size-3.5 text-ink-3" strokeWidth={1.5} aria-hidden="true" />
+              </a>
+            </li>
+          </ul>
+        </Reveal>
 
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 shadow-lg max-w-2xl mx-auto mb-12">
-          <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Formulaire */}
+        <Reveal delay={60} className="lg:col-span-6 lg:col-start-7">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Email
+              <label htmlFor="email" className="mb-1.5 block text-[14px] font-medium text-ink">
+                Votre email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
+                autoComplete="email"
                 required
+                maxLength={254}
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                placeholder="votre@email.com"
+                placeholder="prenom.nom@exemple.fr"
+                className={`${fieldClass} h-11`}
               />
             </div>
 
             <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="subject" className="mb-1.5 block text-[14px] font-medium text-ink">
                 Sujet
               </label>
               <input
@@ -104,74 +148,58 @@ export default function Contact() {
                 id="subject"
                 name="subject"
                 required
+                maxLength={150}
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                placeholder="Sujet de votre message"
+                placeholder="Proposition, question technique, échange"
+                className={`${fieldClass} h-11`}
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label htmlFor="message" className="mb-1.5 block text-[14px] font-medium text-ink">
                 Message
               </label>
               <textarea
                 id="message"
                 name="message"
                 required
-                rows={4}
+                rows={5}
+                maxLength={4000}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
-                placeholder="Votre message..."
+                placeholder="Quelques lignes suffisent."
+                className={`${fieldClass} resize-y py-2.5 leading-[1.5]`}
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={status === 'loading'}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white hover:bg-blue-700 rounded-lg font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {status === 'loading' ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  Envoi en cours...
-                </>
-              ) : status === 'success' ? (
-                'Message envoyé !'
-              ) : status === 'error' ? (
-                'Erreur, réessayez'
-              ) : (
-                <>
-                  <Send className="w-5 h-5" />
-                  Envoyer
-                </>
-              )}
-            </button>
+            <div>
+              <Button type="submit" disabled={status === 'loading'} className="w-full sm:w-auto">
+                {status === 'loading' ? (
+                  <>
+                    <Loader2 className="size-4 motion-safe:animate-spin" strokeWidth={1.5} aria-hidden="true" />
+                    Envoi en cours
+                  </>
+                ) : (
+                  'Envoyer'
+                )}
+              </Button>
+              <p role="status" aria-live="polite" className="mt-3 min-h-5 text-[14px] leading-[1.5]">
+                {status === 'success' && <span className="text-ink">Message envoyé. Merci, je vous réponds par email.</span>}
+                {status === 'error' && (
+                  <span className="text-danger">
+                    L'envoi a échoué. Écrivez-moi directement à{' '}
+                    <a href={`mailto:${EMAIL}`} className="font-medium underline">
+                      {EMAIL}
+                    </a>
+                    .
+                  </span>
+                )}
+              </p>
+            </div>
           </form>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-4">
-          <button
-            onClick={handleEmailAction}
-            className="flex items-center gap-2 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 text-gray-700 dark:text-gray-300 rounded-lg font-semibold transition cursor-pointer"
-          >
-            <Mail className="w-5 h-5" />
-            Email
-          </button>
-          
-          <a href="https://github.com/Skuskusku13" target="_blank" rel="noopener noreferrer"
-             className="flex items-center gap-2 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 text-gray-700 dark:text-gray-300 rounded-lg font-semibold transition">
-            <GithubIcon className="w-5 h-5" />
-            GitHub
-          </a>
-          <a href="https://www.linkedin.com/in/dan-levy-a736a2150/" target="_blank" rel="noopener noreferrer"
-             className="flex items-center gap-2 px-6 py-3 border-2 border-gray-300 dark:border-gray-600 hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 text-gray-700 dark:text-gray-300 rounded-lg font-semibold transition">
-            <LinkedinIcon className="w-5 h-5" />
-            LinkedIn
-          </a>
-        </div>
+        </Reveal>
       </div>
-    </section>
+    </Section>
   );
 }
