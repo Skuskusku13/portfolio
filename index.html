@@ -14,6 +14,10 @@
     <!-- Police du LCP préchargée (auto-hébergée, CSP font-src 'self') ; Red Hat Mono, réservée aux petits textes, se charge à la demande. -->
     <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
 
+    <!-- Feuille de style référencée ici (et non importée par main.tsx) : elle bloque le rendu jusqu'à son
+         arrivée, en dev comme en prod, donc le hero statique n'est jamais peint sans ses styles. -->
+    <link rel="stylesheet" href="/src/index.css">
+
     <!-- Référencement -->
     <title>Dan Levy | Développeur Back-end &amp; DevOps</title>
     <meta name="description" content="Dan Levy, développeur back-end & DevOps (Symfony, PHP, Python, Docker, CI/CD), Architecte des SI Bac+5. Parcours, projets et contact.">
