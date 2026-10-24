@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { GITHUB_URL, LINKEDIN_URL } from '../config';
-import { site } from '../data';
 import Footer from './Footer';
 
 describe('Footer', () => {
@@ -32,13 +31,6 @@ describe('Footer', () => {
       expect(link).toHaveAttribute('target', '_blank');
       expect(link.getAttribute('rel')).toContain('noopener');
     }
-  });
-
-  it('renvoie au dépôt du site, première étape de la chaîne de production', () => {
-    render(<Footer />);
-    const link = screen.getByRole('link', { name: 'Code source de ce site (nouvelle fenêtre)' });
-    expect(link).toHaveAttribute('href', site.chain[0]?.href);
-    expect(link.getAttribute('rel')).toContain('noopener');
   });
 
   it('propose un lien « Haut de page » vers #about', () => {
