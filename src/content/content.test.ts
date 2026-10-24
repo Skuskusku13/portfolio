@@ -22,6 +22,5 @@ describe('contenu du site', () => {
   it('décrit la chaîne de production en six étapes, dont cinq avec une preuve publique', () => {
     expect(site.chain).toHaveLength(6);
     expect(site.chain.filter((step) => step.href)).toHaveLength(5);
-    expect(site.facts).toHaveLength(3);
   });
 });

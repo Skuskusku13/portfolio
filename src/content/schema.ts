@@ -166,5 +166,5 @@ export function parseSite(input: unknown): SiteContent {
     };
   });
   if (chain.length === 0) throw new ContentError('site.chain', 'au moins une étape attendue');
-  return { facts: textList(raw, 'facts', 'site'), chain };
+  return { chain };
 }

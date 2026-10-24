@@ -30,7 +30,7 @@ describe('schema du contenu', () => {
     expect(parsed[0]?.githubLinks?.[0]?.url).toBe('https://github.com/x');
     expect(parseSkillGroups(skills).data_ai).toBeUndefined();
     expect(parseSkillGroups({ ...skills, data_ai: ['Pandas'] }).data_ai).toEqual(['Pandas']);
-    expect(parseSite({ facts: ['F'], chain: [{ title: 'Code', detail: 'React' }] }).chain[0]?.href).toBeUndefined();
+    expect(parseSite({ chain: [{ title: 'Code', detail: 'React' }] }).chain[0]?.href).toBeUndefined();
   });
 
   it('nomme le chemin fautif dans l’erreur', () => {
@@ -41,8 +41,7 @@ describe('schema du contenu', () => {
     expect(() => parseProjects([{ ...project, githubLinks: [{ label: 'x', url: 'http://pas-https' }] }])).toThrow(
       /githubLinks\[0\]\.url.*https/,
     );
-    expect(() => parseSite({ facts: ['F'], chain: [] })).toThrow(/site\.chain/);
-    expect(() => parseSite({ facts: [], chain: [{ title: 'C', detail: 'D' }] })).toThrow(/site\.facts/);
+    expect(() => parseSite({ chain: [] })).toThrow(/site\.chain/);
   });
 
   it('refuse un doublon dans une liste de textes (pastilles, faits : clés d’affichage)', () => {

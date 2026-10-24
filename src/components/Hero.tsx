@@ -6,17 +6,15 @@ import { GitHubIcon, LinkedInIcon } from './ui/BrandIcons';
 import DeploymentChain from './DeploymentChain';
 import HeroStatic from './HeroStatic';
 import { GITHUB_URL, LINKEDIN_URL } from '../config';
-import { site } from '../data';
 
 export default function Hero() {
   return (
     <section id="about" className="pt-24 pb-8 sm:pt-32 sm:pb-10 lg:pt-36 lg:pb-12">
       <Container>
-        {/* Ordre DOM = ordre mobile : texte et actions, puis la preuve (chaîne), puis les faits.
-            Sur desktop la chaîne occupe la colonne droite sur deux rangées. */}
-        <div className="grid items-start gap-x-12 gap-y-8 lg:grid-cols-12 lg:gap-y-10">
+        {/* Ordre DOM = ordre mobile : texte et actions, puis la preuve (chaîne). Sur desktop la chaîne occupe la colonne droite. */}
+        <div className="grid items-start gap-x-12 gap-y-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            {/* Nom, énoncé et paragraphe : peints avant le JavaScript (copie statique dans index.html), jamais animés (LCP). */}
+            {/* Rôle, nom, énoncé et paragraphe : peints avant le JavaScript (copie statique dans index.html), jamais animés (LCP). */}
             <HeroStatic />
             <Reveal delay={120} className="mt-8 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
               <Button href="#contact" className="col-span-2 sm:col-auto">
@@ -34,21 +32,8 @@ export default function Hero() {
             </Reveal>
           </div>
 
-          <Reveal delay={180} className="lg:col-span-5 lg:col-start-8 lg:row-span-2 lg:row-start-1">
+          <Reveal delay={180} className="lg:col-span-5 lg:col-start-8">
             <DeploymentChain />
-          </Reveal>
-
-          <Reveal
-            as="ul"
-            role="list"
-            delay={240}
-            className="max-w-[46ch] divide-y divide-line border-y border-line text-[14px] text-ink-2 lg:col-span-7 lg:col-start-1 lg:row-start-2"
-          >
-            {site.facts.map((fact) => (
-              <li key={fact} className="py-2.5">
-                {fact}
-              </li>
-            ))}
           </Reveal>
         </div>
       </Container>

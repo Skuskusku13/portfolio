@@ -66,8 +66,7 @@ export interface ChainStep {
   href?: string;
 }
 
-/** Contenu du hero : faits vérifiables et chaîne de production du site. */
+/** Contenu du hero : la chaîne de production du site. */
 export interface SiteContent {
-  facts: string[];
   chain: ChainStep[];
 }

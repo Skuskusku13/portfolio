@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { GITHUB_URL, LINKEDIN_URL } from '../config';
 import Hero from './Hero';
 
@@ -27,13 +27,10 @@ describe('Hero', () => {
     }
   });
 
-  it('affiche les trois faits', () => {
+  it('affiche le rôle au-dessus du nom et l’énoncé', () => {
     render(<Hero />);
-    const facts = screen
-      .getAllByRole('list')
-      .find((list) => within(list).queryByText(/En CDI chez Meilleurtaux Placement/));
-    expect(facts).toBeDefined();
-    expect(within(facts as HTMLElement).getAllByRole('listitem')).toHaveLength(3);
+    expect(screen.getByText('Développeur Back-end & DevOps')).toBeInTheDocument();
+    expect(screen.getByText(/Architecte des Systèmes d'Information\. Conception d'architectures/)).toBeInTheDocument();
   });
 
   it('inclut la chaîne de déploiement', () => {
