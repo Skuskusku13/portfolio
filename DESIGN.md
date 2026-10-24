@@ -222,7 +222,7 @@ Une palette à deux modes, construite sur un canvas froid légèrement bleuté, 
 - **Surface** (`surface`, #ffffff / #141e3a) : cartes, figure de la chaîne de production, bouton secondaire, filtres au repos, champs du formulaire, repères de la chaîne au repos.
 - **Surface relevée** (`surface-2`, #eef2fa / #1b2745) : seul usage réel : fond de survol des boutons icône de la barre (thème, menu).
 - **Encre** (`ink`, #14213d / #f0f4fb) : titres, nom, énoncé du hero, texte des pastilles, employeurs, libellés des champs, fond du filtre actif, soulignement de navigation.
-- **Encre secondaire** (`ink-2`, #46547a / #b3bdd3) : chapeaux de section, paragraphes descriptifs, périodes en mono, liens de navigation au repos, bouton ghost, faits du hero, pied de page.
+- **Encre secondaire** (`ink-2`, #46547a / #b3bdd3) : paragraphes descriptifs, périodes en mono, liens de navigation au repos, bouton ghost, faits du hero, pied de page.
 - **Encre tertiaire** (`ink-3`, #65718f / #8f9bb6) : catégories de projet, école, flèches sortantes au repos, placeholders, point du tag neutre.
 - **Filet** (`line`, #d8deeb / #2b3960) : toutes les bordures d'un pixel (cartes, pastilles, tags, champs, boutons secondaires, navbar, rails et séparateurs de listes), rail de la chaîne, pouce de la barre de défilement.
 - **Filet fort** (`line-strong`, #14213d / #f0f4fb) : bordure de survol du bouton secondaire, et à 40 % celle des filtres au survol.
@@ -253,9 +253,9 @@ Une palette à deux modes, construite sur un canvas froid légèrement bleuté, 
 ### Hierarchy
 - **Display** (600, 52 px → 64 px (sm) → 72 px (lg), 0.98, -0,02 em) : le nom seul, dans le hero. Peint immédiatement, jamais animé (c'est le LCP).
 - **Statement** (400, 22 px → 26 px (sm), 1.3, encre pleine, mesure 26 ch) : l'énoncé du hero sous le nom. Une graisse normale à grande taille, pas un sous-titre gras.
-- **Headline** (600, 28 px → 32 px (sm), 1.1, -0,02 em) : titres de section, calés à gauche sur 5 colonnes, chapeau de 17 px en encre secondaire sur 6 colonnes à droite.
+- **Headline** (600, 28 px → 32 px (sm), 1.1, -0,02 em) : titres de section, calés à gauche, sans chapeau.
 - **Title** (600, 18 px, 1.3) : titres de cartes projet et formation ; variantes 22 → 24 px pour le poste actuel et 19 → 20 px pour les postes passés dans Expériences ; 16 px avec icône pour les familles de compétences ; 15 px pour le titre de la chaîne et 16 px pour le nom de la marque.
-- **Body** (400, 16–18 px, 1.5–1.55, encre secondaire sauf énoncé) : 18 px pour le paragraphe du hero (mesure 56 ch), 17 px pour les chapeaux (58 ch), 16 px pour les résumés d'expérience (64 ch), 15 px pour les descriptions de projet et de formation.
+- **Body** (400, 16–18 px, 1.5–1.55, encre secondaire sauf énoncé) : 18 px pour le paragraphe du hero (mesure 56 ch), 16 px pour les résumés d'expérience (64 ch), 15 px pour les descriptions de projet et de formation.
 - **Meta** (400 / 500, 13–15 px, 1.5) : liens de navigation (14 px), boutons (15 px md, 14 px sm, graisse 500), libellés de champs (14 px, 500), faits du hero (14 px), catégories (13 px), pied de page (13 px), menu mobile (20 px, 500).
 - **Data** (Red Hat Mono 400, 13 px, 1.6, chiffres tabulaires) : périodes d'expérience et de formation, compteur de pagination.
 - **Label** (Red Hat Mono 400, 12 px, line-height 1, chiffres tabulaires) : étiquettes de statut et de type, détails techniques des étapes de la chaîne. Casse normale, jamais en capitales espacées.
@@ -334,7 +334,7 @@ La carte du site (`ui/Card`), inerte, utilisée pour expériences, projets, comp
 - **Skip link:** « Aller au contenu », visible au focus seulement, bouton cobalt à coins 10 px en haut à gauche.
 
 ### Section Header
-Gabarit commun des sections (`ui/Section`) : filet d'en-tête qui se trace de gauche à droite (720 ms ease-out-quint) à l'arrivée dans le viewport, 24 px sous le filet, titre Headline sur 5 colonnes, chapeau 17 px en encre secondaire sur 6 colonnes à droite (mesure 58 ch). Jamais de titre centré, jamais de carte englobante.
+Gabarit commun des sections (`ui/Section`) : filet d'en-tête qui se trace de gauche à droite (720 ms ease-out-quint) à l'arrivée dans le viewport, 24 px sous le filet, titre Headline seul. Jamais de chapeau, jamais de titre centré, jamais de carte englobante. La pagination qui suit une grille n'a pas de filet au-dessus.
 
 ### Production Chain (signature)
 Figure à matériau de carte (16 px, filet, surface, padding 24 → 32 px) : titre 15 px graisse 600 et tag `ok` « En production » en tête. Six étapes en liste, chacune sur une grille 12 px + texte : repère de 11 px (cercle, filet, surface) qui s'allume en cobalt avec un œil intérieur de 2 px en surface ; rail vertical d'un pixel en `line` entre les repères ; libellé 15 px graisse 500 (lien avec flèche sortante 14 px qui glisse d'un pixel en diagonale et passe en cobalt au survol) ; détail en mono 12 px encre secondaire. Un point de signal de 7 px en cobalt descend le rail une fois au chargement : départ à 700 ms, 380 ms par étape (1 900 ms pour six), chaque repère s'allume à son passage en 320 ms. Sous `prefers-reduced-motion`, le point est posé sur le dernier repère et tous les repères sont allumés d'emblée.
