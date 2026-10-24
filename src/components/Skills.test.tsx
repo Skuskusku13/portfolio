@@ -28,18 +28,18 @@ describe('Skills', () => {
     expect(headings()).toHaveLength(FAMILIES - 6);
   });
 
-  it('pagine par cinq sur mobile et annonce la page courante', async () => {
+  it('pagine par trois sur mobile, comme les projets, et annonce la page courante', async () => {
     setViewportWidth(500);
     const user = userEvent.setup();
     render(<Skills />);
-    const pages = Math.ceil(FAMILIES / 5);
+    const pages = Math.ceil(FAMILIES / 3);
 
-    expect(headings()).toHaveLength(5);
+    expect(headings()).toHaveLength(3);
     expect(screen.getByRole('status')).toHaveTextContent(`${FAMILIES} familles affichées, page 1 sur ${pages}`);
 
     await user.click(screen.getByRole('button', { name: 'Suivant' }));
 
-    expect(headings()).toHaveLength(FAMILIES - 5);
+    expect(headings()).toHaveLength(Math.min(3, FAMILIES - 3));
     expect(screen.getByRole('status')).toHaveTextContent(`page 2 sur ${pages}`);
   });
 
