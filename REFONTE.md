@@ -114,8 +114,8 @@ Revue de finition du skill (agent dédié) : disposition **ship** sur l'ensemble
 - **Statut « En cours » du projet Pipeline CI/CD** : des versions de `workflows-reusable` sont publiées et utilisées par ce site ; « En production » serait plus juste.
 - **Échelle typographique non tokenisée** : 43 tailles en `text-[Npx]` dans les composants ; à passer en tokens `--text-*` si le système doit vivre longtemps. Depuis que `DESIGN.md` existe, le détecteur Impeccable émet 40 avis (`design-system-font-size`, non bloquants) sur ces classes, plus un avis sur le rayon de 2 px de l'anneau de focus ; ils disparaîtront avec la tokenisation.
 - **Cibles tactiles de 36 px** (boutons `sm`) : conformes WCAG AA (24 px), sous la recommandation de 44 px.
-- **Impression** : les sections animées restent visibles sans JS, mais aucune feuille `@media print` n'a été écrite.
-- `docs/ARCHITECTURE.md` est périmé (il ne connaît ni `src/hooks/`, ni `src/components/ui/`, ni la logique de thème) et `CLAUDE.md` y renvoie ; à mettre à jour, ainsi que `CLAUDE.md` lui-même (`/save-claudemd`).
+- **Impression** : réglé le 24 octobre 2026 (bloc `@media print` dans `src/index.css`, voir §7).
+- `docs/ARCHITECTURE.md` : réécrit le 24 octobre 2026, à jour.
 
 ## 6. Pour reprendre
 
@@ -124,3 +124,15 @@ Revue de finition du skill (agent dédié) : disposition **ship** sur l'ensemble
 2. Vérifier `npm run build`, `npm run lint`, `npx tsc -b` (tous verts au moment de la passation).
 3. Commiter en excluant comme d'habitude `.docker/docker-compose.yml`, `BACKLOG.md`, `CLAUDE.md`. Les nouveaux fichiers à inclure : `PRODUCT.md`, `DESIGN.md`, `REFONTE.md`, `.impeccable/` (ou seulement `design.json` et `surfaces/` si l'on ne veut pas versionner les captures), `public/fonts/`, `src/components/ui/`, `src/components/DeploymentChain.tsx`, `src/hooks/useActiveSection.ts`, `src/hooks/useItemsPerPage.ts`, `.github/dependabot.yml`. Modifiés et à inclure aussi : `.docker/Dockerfile`, `.docker/000-default.conf`, `.dockerignore`, `.github/workflows/create-branch-from-issue.yml`. Le durcissement de `.docker/docker-compose.yml` reste hors git : le reporter sur le serveur.
 4. Après déploiement, contrôler dans le navigateur que la CSP n'émet aucune violation (script de thème inline hashé, polices locales).
+
+## 7. Ajustements du 24 octobre 2026 (demandes du propriétaire et revue de finition)
+
+Ce qui suit prime sur les sections 1 et 2 quand elles se contredisent.
+
+- **Hero** : l'énoncé reprend la phrase du site en ligne, « Architecte des Systèmes d'Information. Conception d'architectures Back-end et DevOps pour des solutions robustes, sécurisées et automatisées. » ; le rôle « Développeur Back-end & DevOps » passe en ligne mono au-dessus du nom. Les trois faits sous le hero sont supprimés (contenu, type, validateur, copie statique). La chaîne de production affiche la date du build servi (`document.lastModified`, masquée quand la page vient d'être générée).
+- **Expériences** : plus de chapeau ; la carte Meilleurtaux affiche le contrat d'origine (Alternance) et le tag CDI côte à côte ; la durée de chaque expérience est calculée depuis des mois `start` / `end` du contenu (bornes incluses, façon LinkedIn) et recalculée chaque mois pour le poste en cours ; sur desktop un rail relie les cartes, repère plein à l'accent pour le poste actuel.
+- **Projets** : chapeau « Infrastructure, pipelines et services : des projets menés au travail, en perso et en formation. »
+- **Compétences** : chapeau orienté DevOps, familles d'exploitation en tête (DevOps, outils, auto-hébergement, réseau et sécurité), icône conteneur pour DevOps.
+- **Contact** : adresse email en tête de colonne (22/24 px), copie avec icône, troisième rangée « Paris » avec l'heure locale à la minute (lieu issu du JSON-LD, aucune autre affirmation) ; formulaire aligné sur le même filet, bordure rouge sur champ invalide, champs en lecture seule pendant l'envoi, compteur de caractères (message toujours, sujet à partir de 120) relié par `aria-describedby`, icône sur le bouton d'envoi, panneau de succès qui remplace les champs (focus programmatique, « Envoyer un autre message »).
+- **Finitions** : lien « Code source de ce site » dans le pied de page ; bouton « Me contacter » de la barre en variante secondaire tant qu'aucune section n'est active (une seule action accent par écran) ; `@media print` pour la grammaire Reveal ; espaces insécables avant les deux-points, demi-cadratins dans les périodes, graphie « Bac +5 ».
+- **Règle tenue** : aucun texte « dynamique » n'affirme un fait absent du dépôt (pas de délai de réponse, pas de disponibilité) ; tout dérive du contenu JSON, de l'en-tête de la page ou du JSON-LD.

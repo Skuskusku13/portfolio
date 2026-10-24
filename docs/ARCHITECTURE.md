@@ -15,17 +15,19 @@ src/
 ├── index.css              tokens clair / sombre (@theme inline), polices, grammaire de mouvement
 ├── config.ts              VITE_MAILER_URL validée (https ; null → repli email), EMAIL, GITHUB_URL, LINKEDIN_URL
 ├── content/               CONTENU ÉDITABLE : experiences.json, formations.json, projects.json,
-│   │                      skills.json, site.json (faits du hero, chaîne de production)
+│   │                      skills.json, site.json (chaîne de production)
 │   └── schema.ts          validateurs maison : chemin fautif nommé, unions fermées, URL https, unicité
 ├── data/index.ts          point d'entrée : exporte experiences, formations, projects, skills, site (validés)
 ├── types/index.ts         contrats du contenu (Experience, Project, SkillGroups, SiteContent…)
 ├── lib/contact.ts         logique pure du formulaire : validation, échappement, envoi, erreurs typées
+├── lib/dates.ts           mois « AAAA-MM », durées calculées, date du build servi (Last-Modified)
 ├── hooks/
 │   ├── themeContext.ts    contexte du thème
 │   ├── useTheme.tsx       ThemeProvider (classe sur <html>, favicon, theme-color, suivi système)
 │   ├── useThemeContext.ts useTheme()
 │   ├── useActiveSection.ts section visible (IntersectionObserver) pour la navigation
-│   └── useItemsPerPage.ts éléments par page selon la largeur (useSyncExternalStore)
+│   ├── useItemsPerPage.ts éléments par page selon la largeur (useSyncExternalStore)
+│   └── useParisTime.ts    heure de Paris à la minute (useSyncExternalStore), section Contact
 ├── components/
 │   ├── navbar/            Navbar, NavLinks, MobileMenu, NavbarBrand, items
 │   ├── ui/                primitives : Button, Card, ChipList, Container, NewWindowHint,
@@ -50,8 +52,9 @@ public/                    favicons, og-image.png, 404.html + 404.css, robots.tx
    `src/content/schema.ts`. Une donnée invalide lève une `ContentError` qui nomme le chemin
    (« projects[3].status ») : le serveur de dev et la suite de tests échouent immédiatement.
 3. Les composants consomment les exports typés (`experiences`, `formations`, `projects`,
-   `skills`, `site`). `site.json` porte aussi les faits du hero et les six étapes de la chaîne
-   de production affichée dans `DeploymentChain`.
+   `skills`, `site`). `site.json` porte les six étapes de la chaîne de production affichée dans
+   `DeploymentChain`. Les expériences portent des mois `start` / `end` (« AAAA-MM ») : la durée
+   affichée est calculée au rendu, une expérience en cours se recalcule chaque mois.
 
 Règles vérifiées par le schéma : textes non vides, catégories de projet parmi `pro | perso |
 formation`, statuts parmi `En production | En cours | Terminé | Livré`, liens en `https://`,
@@ -80,6 +83,11 @@ d'emblée. Le nom, l'énoncé et le paragraphe du hero (élément LCP) ne s'anim
 recopiés statiquement dans `index.html` (test `HeroStatic.test.tsx`).
 
 ## Formulaire de contact
+
+La section pose l'adresse email en tête de la colonne gauche (copiable, avec LinkedIn, GitHub
+et le lieu, Paris, dont l'heure locale s'affiche à la minute). Le formulaire occupe la colonne
+droite : compteur de caractères relié par `aria-describedby`, champs en lecture seule pendant
+l'envoi, panneau de succès qui remplace les champs et reçoit le focus.
 
 `ContactForm` valide en direct (format signalé au départ du champ, champ vide reproché à
 l'envoi, puis validation à chaque frappe), avec `aria-invalid`, `aria-describedby` et une région

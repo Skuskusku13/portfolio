@@ -57,7 +57,7 @@ transiter. Le Dockerfile refuse un build sans URL `https://`.
 
 ## Architecture
 
-- `src/content/` : le contenu du site (expériences, formations, projets, compétences, hero,
+- `src/content/` : le contenu du site (expériences, formations, projets, compétences,
   chaîne de production) en JSON, validé au chargement par `src/content/schema.ts`. C'est ici
   qu'on modifie un texte.
 - `src/components/` : un composant par section, primitives dans `ui/`, navigation dans `navbar/`.
@@ -73,7 +73,10 @@ Détails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; stratégie de test 
 
 - Navigation par ancres avec section active, menu mobile accessible au clavier.
 - Projets filtrables par catégorie (pro, perso, formation) et paginés ; compétences paginées.
-- Formulaire de contact validé en direct, erreurs d'envoi explicites, repli email.
+- Formulaire de contact validé en direct, compteur de caractères, panneau de succès, erreurs
+  d'envoi explicites, repli email ; heure de Paris à la minute à côté des canaux directs.
+- Durée de chaque expérience calculée depuis le contenu, date du build servi lue dans
+  l'en-tête de la page.
 - Thème clair / sombre sans flash (script inline hashé en CSP), suivi du système.
 - Hero peint avant le JavaScript, animations d'entrée désactivées sous `prefers-reduced-motion`.
 - Polices auto-hébergées, Open Graph, JSON-LD, sitemap, page 404.
