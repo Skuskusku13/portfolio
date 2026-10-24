@@ -9,11 +9,17 @@ import { periodDuration } from '../lib/dates';
 export default function Experience() {
   return (
     <Section id="experiences" title="Expériences">
-      <ol role="list" className="grid gap-5">
+      {/* Sur desktop, un rail relie les cartes (écho de la chaîne du hero) ; repère plein pour le poste actuel. */}
+      <ol role="list" className="timeline grid gap-5">
         {experiences.map((exp, idx) => {
           const isCurrent = idx === 0;
           return (
-            <Card as="li" key={`${exp.company}-${exp.period}`} delay={idx * 60} className="sm:p-7">
+            <Card
+              as="li"
+              key={`${exp.company}-${exp.period}`}
+              delay={idx * 60}
+              className={`timeline-item sm:p-7 ${isCurrent ? 'timeline-item--current' : ''}`}
+            >
               <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
                 <div className="min-w-0 flex-1 basis-[22rem]">
                   <h3
