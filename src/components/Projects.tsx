@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Briefcase, GraduationCap, Wrench, type LucideIcon } from 'lucide-react';
 import { projects } from '../data';
 import type { Project, ProjectStatus } from '../types';
 import { useItemsPerPage } from '../hooks/useItemsPerPage';
@@ -20,6 +20,13 @@ const categoryLabels: Record<Category, string> = {
   formation: 'Formation',
 };
 
+// Icônes de catégorie en tête de carte (reprises de la première version du site).
+const categoryIcons: Record<Category, LucideIcon> = {
+  pro: Briefcase,
+  perso: Wrench,
+  formation: GraduationCap,
+};
+
 const filters: { id: Filter; label: string }[] = [
   { id: 'all', label: 'Tous' },
   { id: 'pro', label: 'Professionnels' },
@@ -34,20 +41,27 @@ function statusTone(status: ProjectStatus): 'ok' | 'warn' | 'neutral' {
 }
 
 /**
- * Carte projet : titre et statut en tête, description, puis un pied calé en bas
- * (pastilles de technologies, catégorie, dépôts) pour s'aligner d'une carte à l'autre.
+ * Carte projet : icônes de catégorie et statut en tête, titre, description, puis un pied
+ * (pastilles de technologies, tags de catégorie, dépôts) pour s'aligner d'une carte à l'autre.
  */
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const links = project.githubLinks ?? [];
 
   return (
     <Card as="li" delay={index * 60} className="flex flex-col">
-      <div className="flex items-start justify-between gap-x-3">
-        <h3 className="min-w-0 flex-1 text-[18px] font-semibold leading-[1.3] text-ink">{project.title}</h3>
-        <Tag tone={statusTone(project.status)} dot className="mt-0.5 shrink-0">
+      <div className="flex items-center justify-between gap-x-3">
+        {/* Décoratives : la catégorie est écrite en tag au pied de la carte. */}
+        <span aria-hidden="true" className="flex items-center gap-2 text-accent">
+          {project.category.map((cat) => {
+            const Icon = categoryIcons[cat];
+            return <Icon key={cat} className="size-[18px]" strokeWidth={1.5} />;
+          })}
+        </span>
+        <Tag tone={statusTone(project.status)} dot className="shrink-0">
           {project.status}
         </Tag>
       </div>
+      <h3 className="mt-3 text-[18px] font-semibold leading-[1.3] text-ink">{project.title}</h3>
       <p className="mt-2 text-[15px] leading-[1.5] text-ink-2">{project.description}</p>
 
       {/* Le pied suit le contenu : pas de vide au milieu de la carte quand la rangée est plus haute. */}
@@ -55,7 +69,13 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
         <ChipList items={project.tech} label={`Technologies de ${project.title}`} />
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-          <span className="text-[13px] text-ink-3">{project.category.map((cat) => categoryLabels[cat]).join(' · ')}</span>
+          <ul role="list" aria-label={`Catégories de ${project.title}`} className="flex flex-wrap gap-1.5">
+            {project.category.map((cat) => (
+              <li key={cat}>
+                <Tag>{categoryLabels[cat]}</Tag>
+              </li>
+            ))}
+          </ul>
           {links.length > 0 && (
             <ul className="flex flex-wrap gap-x-4 gap-y-1.5">
               {links.map((link) => (

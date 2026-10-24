@@ -37,14 +37,14 @@ export default function Experience() {
                     {/* Durée dérivée des mois du contenu ; une expérience en cours se recalcule chaque mois. */}
                     <span className="text-ink-3"> · {periodDuration(exp.start, exp.end)}</span>
                   </p>
-                  {/* Le contrat d'origine reste affiché ; la promotion s'ajoute à côté. */}
+                  {/* La promotion d'abord, le contrat d'origine à sa droite. */}
                   <div className="flex flex-wrap items-center gap-2 sm:justify-end">
-                    <Tag>{exp.type}</Tag>
                     {exp.promotion && (
                       <Tag tone="ok" dot>
                         {exp.promotion}
                       </Tag>
                     )}
+                    <Tag>{exp.type}</Tag>
                   </div>
                 </div>
               </div>
