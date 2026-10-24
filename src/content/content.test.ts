@@ -10,8 +10,8 @@ describe('contenu du site', () => {
   });
 
   it('place le poste actuel en premier, avec sa promotion', () => {
-    expect(experiences[0].company).toBe('Meilleurtaux Placement');
-    expect(experiences[0].promotion).toMatch(/CDI/);
+    expect(experiences[0]?.company).toBe('Meilleurtaux Placement');
+    expect(experiences[0]?.promotion).toMatch(/CDI/);
   });
 
   it('expose neuf familles de compétences actives', () => {

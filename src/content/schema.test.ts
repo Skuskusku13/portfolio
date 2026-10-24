@@ -24,13 +24,13 @@ const skills = {
 
 describe('schema du contenu', () => {
   it('accepte des données valides et conserve les champs optionnels', () => {
-    expect(parseExperiences([{ ...experience, promotion: 'CDI' }])[0].promotion).toBe('CDI');
+    expect(parseExperiences([{ ...experience, promotion: 'CDI' }])[0]?.promotion).toBe('CDI');
     expect(parseFormations([{ school: 'S', diploma: 'D', specialization: 'Sp', period: 'P', level: 'Bac +5' }])).toHaveLength(1);
     const parsed = parseProjects([{ ...project, githubLinks: [{ label: 'Code', url: 'https://github.com/x' }] }]);
-    expect(parsed[0].githubLinks?.[0].url).toBe('https://github.com/x');
+    expect(parsed[0]?.githubLinks?.[0]?.url).toBe('https://github.com/x');
     expect(parseSkillGroups(skills).data_ai).toBeUndefined();
     expect(parseSkillGroups({ ...skills, data_ai: ['Pandas'] }).data_ai).toEqual(['Pandas']);
-    expect(parseSite({ facts: ['F'], chain: [{ title: 'Code', detail: 'React' }] }).chain[0].href).toBeUndefined();
+    expect(parseSite({ facts: ['F'], chain: [{ title: 'Code', detail: 'React' }] }).chain[0]?.href).toBeUndefined();
   });
 
   it('nomme le chemin fautif dans l’erreur', () => {

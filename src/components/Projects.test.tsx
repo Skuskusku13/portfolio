@@ -56,7 +56,7 @@ describe('Projects', () => {
     await user.click(filterButton('Professionnels'));
 
     expect(screen.getByRole('status')).not.toHaveTextContent('page 2');
-    expect(cards()[0]).toHaveTextContent(projects.filter((p) => p.category.includes('pro'))[0].title);
+    expect(cards()[0]).toHaveTextContent(projects.filter((p) => p.category.includes('pro'))[0]?.title ?? '');
   });
 
   it('recadre la page courante quand la largeur réduit le nombre de pages', async () => {

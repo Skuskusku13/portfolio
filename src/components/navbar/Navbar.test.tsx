@@ -98,7 +98,7 @@ describe('Navbar', () => {
     const lastLink = links[links.length - 1];
     const outside = screen.getByRole('button', { name: 'Hors en-tête' });
 
-    fireEvent.focusOut(lastLink, { relatedTarget: outside });
+    fireEvent.focusOut(lastLink as HTMLElement, { relatedTarget: outside });
 
     expect(panel()).toHaveAttribute('hidden');
   });
@@ -109,7 +109,7 @@ describe('Navbar', () => {
     await user.click(menuButton());
     const [first, second] = within(panel()).getAllByRole('link');
 
-    fireEvent.focusOut(first, { relatedTarget: second });
+    fireEvent.focusOut(first as HTMLElement, { relatedTarget: second });
 
     expect(panel()).not.toHaveAttribute('hidden');
   });

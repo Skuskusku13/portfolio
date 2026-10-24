@@ -83,7 +83,8 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
       setTouched({ email: true, subject: true, message: true });
       setState({ kind: 'invalid', count: invalid.length });
       const focusTargets = { email: emailRef, subject: subjectRef, message: messageRef };
-      focusTargets[invalid[0]].current?.focus();
+      const first = invalid[0];
+      if (first) focusTargets[first].current?.focus();
       return;
     }
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { projects } from '../data';
-import type { Project } from '../types';
+import type { Project, ProjectStatus } from '../types';
 import { useItemsPerPage } from '../hooks/useItemsPerPage';
 import Section from './ui/Section';
 import Reveal from './ui/Reveal';
@@ -27,7 +27,7 @@ const filters: { id: Filter; label: string }[] = [
   { id: 'formation', label: 'Formation' },
 ];
 
-function statusTone(status: string): 'ok' | 'warn' | 'neutral' {
+function statusTone(status: ProjectStatus): 'ok' | 'warn' | 'neutral' {
   if (status === 'En production') return 'ok';
   if (status === 'En cours') return 'warn';
   return 'neutral';

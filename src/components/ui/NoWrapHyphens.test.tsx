@@ -7,7 +7,7 @@ describe('NoWrapHyphens', () => {
     const { container } = render(<NoWrapHyphens text="Développeur Back-end & DevOps" />);
     const spans = container.querySelectorAll('span.whitespace-nowrap');
     expect(spans).toHaveLength(1);
-    expect(spans[0].textContent).toBe('Back-end');
+    expect(spans[0]?.textContent).toBe('Back-end');
   });
 
   it('n’enveloppe pas les mots sans tiret et conserve les espaces', () => {

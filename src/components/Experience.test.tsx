@@ -14,7 +14,7 @@ describe('Experience', () => {
     render(<Experience />);
     const headings = screen.getAllByRole('heading', { level: 3 });
     experiences.forEach((exp, i) => {
-      expect(headings[i].textContent).toBe(exp.role);
+      expect(headings[i]?.textContent).toBe(exp.role);
       expect(screen.getAllByText(exp.company).length).toBeGreaterThan(0);
       expect(screen.getByText(exp.period)).toBeInTheDocument();
     });
@@ -23,8 +23,8 @@ describe('Experience', () => {
   it('affiche le tag de promotion sur la première expérience', () => {
     render(<Experience />);
     const first = experiences[0];
-    expect(first.promotion).toBeDefined();
-    expect(screen.getByText(first.promotion as string)).toBeInTheDocument();
+    expect(first?.promotion).toBeDefined();
+    expect(screen.getByText(first?.promotion ?? '')).toBeInTheDocument();
   });
 
   it('affiche le tag de type sur les expériences sans promotion', () => {
@@ -38,7 +38,7 @@ describe('Experience', () => {
     const lists = screen.getAllByRole('list', { name: 'Technologies' });
     expect(lists).toHaveLength(experiences.length);
     experiences.forEach((exp, i) => {
-      const labels = within(lists[i])
+      const labels = within(lists[i] as HTMLElement)
         .getAllByRole('listitem')
         .map((li) => li.textContent);
       expect(labels).toEqual(exp.skills);

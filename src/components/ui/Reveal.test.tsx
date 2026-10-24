@@ -19,23 +19,23 @@ describe('Reveal', () => {
       render(<Reveal>Contenu</Reveal>);
       const el = screen.getByText('Contenu');
       expect(el).not.toHaveClass('is-in');
-      expect(FakeIntersectionObserver.instances[0].observe).toHaveBeenCalledWith(el);
+      expect(FakeIntersectionObserver.instances[0]?.observe).toHaveBeenCalledWith(el);
     });
 
     it('devient visible puis se déconnecte à l’intersection', () => {
       installFakeIntersectionObserver();
       render(<Reveal>Contenu</Reveal>);
       const el = screen.getByText('Contenu');
-      act(() => FakeIntersectionObserver.instances[0].trigger([{ target: el, isIntersecting: true }]));
+      act(() => FakeIntersectionObserver.instances[0]?.trigger([{ target: el, isIntersecting: true }]));
       expect(el).toHaveClass('is-in');
-      expect(FakeIntersectionObserver.instances[0].disconnect).toHaveBeenCalled();
+      expect(FakeIntersectionObserver.instances[0]?.disconnect).toHaveBeenCalled();
     });
 
     it('reste masqué quand l’entrée n’intersecte pas', () => {
       installFakeIntersectionObserver();
       render(<Reveal>Contenu</Reveal>);
       const el = screen.getByText('Contenu');
-      act(() => FakeIntersectionObserver.instances[0].trigger([{ target: el, isIntersecting: false }]));
+      act(() => FakeIntersectionObserver.instances[0]?.trigger([{ target: el, isIntersecting: false }]));
       expect(el).not.toHaveClass('is-in');
     });
   });

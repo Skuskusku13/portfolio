@@ -5,6 +5,13 @@ import { FakeIntersectionObserver, installFakeIntersectionObserver } from '../te
 
 const IDS = ['about', 'experiences', 'contact'];
 
+/** Section ajoutée par addSections ; lève si elle manque (les tests supposent sa présence). */
+function section(sections: Record<string, HTMLElement>, id: string): HTMLElement {
+  const el = sections[id];
+  if (!el) throw new Error(`section ${id} manquante`);
+  return el;
+}
+
 function addSections(ids: string[]): Record<string, HTMLElement> {
   const map: Record<string, HTMLElement> = {};
   for (const id of ids) {
@@ -36,14 +43,14 @@ describe('useActiveSection', () => {
     it('observe chaque section présente dans le DOM', () => {
       addSections(IDS);
       renderHook(() => useActiveSection(IDS));
-      const [io] = FakeIntersectionObserver.instances;
+      const io = FakeIntersectionObserver.instances[0] as FakeIntersectionObserver;
       expect(io.observe).toHaveBeenCalledTimes(3);
     });
 
     it('ignore les ids absents du DOM', () => {
       addSections(['about']);
       renderHook(() => useActiveSection(IDS));
-      const [io] = FakeIntersectionObserver.instances;
+      const io = FakeIntersectionObserver.instances[0] as FakeIntersectionObserver;
       expect(io.observe).toHaveBeenCalledTimes(1);
     });
 
@@ -55,7 +62,7 @@ describe('useActiveSection', () => {
     it('active la section visible', () => {
       const sections = addSections(IDS);
       const { result } = renderHook(() => useActiveSection(IDS));
-      act(() => FakeIntersectionObserver.instances[0].trigger([{ target: sections.experiences, isIntersecting: true }]));
+      act(() => FakeIntersectionObserver.instances[0]?.trigger([{ target: section(sections, 'experiences'), isIntersecting: true }]));
       expect(result.current).toBe('experiences');
     });
 
@@ -63,9 +70,9 @@ describe('useActiveSection', () => {
       const sections = addSections(IDS);
       const { result } = renderHook(() => useActiveSection(IDS));
       act(() =>
-        FakeIntersectionObserver.instances[0].trigger([
-          { target: sections.contact, isIntersecting: true },
-          { target: sections.experiences, isIntersecting: true },
+        FakeIntersectionObserver.instances[0]?.trigger([
+          { target: section(sections, 'contact'), isIntersecting: true },
+          { target: section(sections, 'experiences'), isIntersecting: true },
         ]),
       );
       expect(result.current).toBe('experiences');
@@ -74,16 +81,16 @@ describe('useActiveSection', () => {
     it('repasse à null quand plus aucune section n’est visible', () => {
       const sections = addSections(IDS);
       const { result } = renderHook(() => useActiveSection(IDS));
-      const io = FakeIntersectionObserver.instances[0];
-      act(() => io.trigger([{ target: sections.about, isIntersecting: true }]));
-      act(() => io.trigger([{ target: sections.about, isIntersecting: false }]));
+      const io = FakeIntersectionObserver.instances[0] as FakeIntersectionObserver;
+      act(() => io.trigger([{ target: section(sections, 'about'), isIntersecting: true }]));
+      act(() => io.trigger([{ target: section(sections, 'about'), isIntersecting: false }]));
       expect(result.current).toBeNull();
     });
 
     it('déconnecte l’observateur au démontage', () => {
       addSections(IDS);
       const { unmount } = renderHook(() => useActiveSection(IDS));
-      const [io] = FakeIntersectionObserver.instances;
+      const io = FakeIntersectionObserver.instances[0] as FakeIntersectionObserver;
       unmount();
       expect(io.disconnect).toHaveBeenCalled();
     });
