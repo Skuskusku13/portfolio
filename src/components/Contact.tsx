@@ -49,7 +49,7 @@ function DirectChannels() {
   };
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 text-center">
       <p className="text-[15px] leading-[1.5] text-ink-2">
         Ou directement à{' '}
         <a href={`mailto:${EMAIL}`} className="font-medium text-ink hover:underline">
@@ -57,7 +57,7 @@ function DirectChannels() {
         </a>
         .
       </p>
-      <div className="mt-4 flex flex-wrap items-center gap-3">
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
         <Button variant="secondary" onClick={copyEmail}>
           {copy === 'copied' ? (
             <Check className="size-4 text-ok" strokeWidth={2} aria-hidden="true" />
@@ -85,8 +85,8 @@ function DirectChannels() {
 export default function Contact() {
   return (
     <Section id="contact" title="Contact" deck="Ouvert aux opportunités professionnelles et aux échanges techniques.">
-      {/* Une seule colonne : le formulaire dans un panneau, les canaux directs dessous. */}
-      <Reveal className="max-w-[680px]">
+      {/* Une seule colonne centrée : le formulaire dans un panneau, les canaux directs dessous. */}
+      <Reveal className="mx-auto max-w-[680px]">
         <div className="rounded-lg border border-line bg-surface p-6 sm:p-8">
           {MAILER_URL ? <ContactForm mailerUrl={MAILER_URL} /> : <ContactUnavailable />}
         </div>
