@@ -45,7 +45,7 @@ jobs:
       - name: Tests et couverture (seuils 80 %)
         run: npm run test:coverage
 
-      - name: Build de production
+      # Sans VITE_MAILER_URL : le build vérifie que le site compile, le formulaire
+      # bascule sur le repli email. L'URL de production vit dans .docker/Dockerfile.
+      - name: Build
         run: npm run build
-        env:
-          VITE_MAILER_URL: https://back.dlyhub.com/api/contact
