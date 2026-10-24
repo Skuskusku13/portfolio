@@ -53,8 +53,7 @@
     "TLS / Let's Encrypt",
     "WireGuard",
     "Fail2ban",
-    "iptables / ip6tables",
-    "SSH durci",
+    "iptables",
     "Trivy · Gitleaks · ZAP",
     "git-crypt"
   ],
