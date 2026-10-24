@@ -26,7 +26,8 @@ const FIELDS: readonly ContactField[] = ['email', 'subject', 'message'];
 const EMPTY: ContactValues = { email: '', subject: '', message: '' };
 
 const fieldClass =
-  'w-full rounded-md border border-line-input bg-surface px-3.5 text-[15px] text-ink placeholder:text-ink-3 ' +
+  // 16 px sous 640 px : en dessous, iOS Safari zoome sur le champ au focus (DESIGN.md : 15 px, gardé dès sm).
+  'w-full rounded-md border border-line-input bg-surface px-3.5 text-[16px] text-ink placeholder:text-ink-3 sm:text-[15px] ' +
   'transition-[border-color,box-shadow] duration-200 ease-out-quint ' +
   'focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25 ' +
   'forced-colors:focus:outline-2 forced-colors:focus:outline-offset-2';
