@@ -8,7 +8,10 @@ export default function HeroStatic() {
   return (
     <>
       <h1 className="text-[52px] font-semibold leading-[0.98] sm:text-[64px] lg:text-[72px]">Dan Levy</h1>
-      <p className="mt-4 text-[24px] font-medium leading-[1.2] text-ink sm:text-[28px]">Développeur Back-end &amp; DevOps</p>
+      {/* Rôle en encre secondaire ; l'esperluette en cobalt relie les deux métiers (seul accent du hero hors boutons). */}
+      <p className="mt-4 text-[24px] font-medium leading-[1.2] text-ink-2 sm:text-[28px]">
+        Développeur Back-end <span className="text-accent">&amp;</span> DevOps
+      </p>
       <p className="mt-5 max-w-[48ch] text-[18px] leading-[1.4] text-ink sm:text-[20px]">
         Architecte des Systèmes d'Information. Conception d'architectures Back-end et DevOps pour des solutions
         robustes, sécurisées et automatisées.
