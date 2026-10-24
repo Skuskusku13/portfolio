@@ -11,7 +11,8 @@ export default mergeConfig(
     test: {
       environment: 'jsdom',
       setupFiles: ['./src/test/setup.ts'],
-      include: ['src/**/*.test.{ts,tsx}'],
+      // tests/ : garde-fous hors application (Node seul), typés par tsconfig.node.json.
+      include: ['src/**/*.test.{ts,tsx}', 'tests/**/*.test.ts'],
       css: false,
       coverage: {
         provider: 'v8',

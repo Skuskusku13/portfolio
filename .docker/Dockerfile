@@ -21,15 +21,16 @@ COPY . .
 ARG VITE_MAILER_URL=https://back.dlyhub.com/api/contact
 ENV VITE_MAILER_URL=$VITE_MAILER_URL
 
-# Refuser un build sans URL : un bundle avec fetch(void 0) a déjà été déployé en prod,
-# le formulaire postait vers /undefined et affichait un faux succès.
-RUN test -n "$VITE_MAILER_URL" || { echo "ERREUR : VITE_MAILER_URL est vide" >&2; exit 1; }
+# Refuser un build sans URL https : un bundle avec fetch(void 0) a déjà été déployé en prod,
+# le formulaire postait vers /undefined et affichait un faux succès. (Le code, lui, bascule
+# sur le repli email si l'URL est absente ou invalide : src/config.ts.)
+RUN case "$VITE_MAILER_URL" in https://*) ;; *) echo "ERREUR : VITE_MAILER_URL doit être une URL https (reçu : '$VITE_MAILER_URL')" >&2; exit 1 ;; esac
 
 # Build de production
 RUN npm run build
 
 # Vérifier que Vite a bien inliné l'URL dans le bundle
-RUN grep -rq -- "$VITE_MAILER_URL" dist/assets/ || { echo "ERREUR : VITE_MAILER_URL absente du bundle" >&2; exit 1; }
+RUN grep -rqF -- "$VITE_MAILER_URL" dist/assets/ || { echo "ERREUR : VITE_MAILER_URL absente du bundle" >&2; exit 1; }
 
 # Étape 2 : Servir avec Apache (IMAGE FINALE DE PRODUCTION)
 FROM httpd:2.4-alpine@sha256:3440c39d8d6f54fa9ad2549e5a60c19ddd435faadc29c1ad28aa795f71888889
