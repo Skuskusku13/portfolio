@@ -3,18 +3,17 @@ import { useTheme } from '../hooks/useTheme';
 
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
+  const label = theme === 'light' ? 'Passer en mode sombre' : 'Passer en mode clair';
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
-      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-      aria-label="Toggle Dark Mode"
+      aria-label={label}
+      title={label}
+      className="inline-flex size-9 items-center justify-center rounded-md text-ink-2 transition-colors duration-200 hover:bg-surface-2 hover:text-ink"
     >
-      {theme === 'light' ? (
-        <Moon className="w-5 h-5 text-gray-700 dark:text-gray-300" />
-      ) : (
-        <Sun className="w-5 h-5 text-yellow-500" />
-      )}
+      {theme === 'light' ? <Moon className="size-[18px]" strokeWidth={1.5} /> : <Sun className="size-[18px]" strokeWidth={1.5} />}
     </button>
   );
 }

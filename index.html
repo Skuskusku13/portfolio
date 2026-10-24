@@ -5,19 +5,22 @@
     
     <!-- Viewport & Accessibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#030712" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0a1020" media="(prefers-color-scheme: dark)">
 
-    <!-- Speed & Resource Hints -->
-    <link rel="preconnect" href="https://dlyhub.com">
-    <link rel="dns-prefetch" href="https://dlyhub.com/">
+    <!-- Thème appliqué avant le premier rendu. Script inline autorisé par son hash sha256 dans la CSP (.docker/000-default.conf) : à recalculer si son contenu change. -->
+    <script>(function(){var r=document.documentElement;try{var s=localStorage.getItem("theme");var d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;r.classList.add(d?"dark":"light","js")}catch(e){r.classList.add("light","js")}})();</script>
+
+    <!-- Polices auto-hébergées (CSP font-src 'self') -->
+    <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/red-hat-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Primary Meta Tags -->
     <title>Dan Levy | Développeur Back-end, DevOps</title>
     <meta name="title" content="Dan Levy | Développeur Back-end, DevOps">
-    <meta name="description" content="Portfolio de Dan Levy, Architecte des Systèmes d'Information (Bac+5). Expert en Symfony, PHP, Python, Docker, DevOps, et administration système. Découvrez mes projets et compétences.">
+    <meta name="description" content="Portfolio de Dan Levy, développeur back-end & DevOps, Architecte des Systèmes d'Information (Bac+5) : Symfony, PHP, Python, Docker, CI/CD, administration système. Parcours, projets et contact.">
     <meta name="author" content="Dan Levy">
-    <meta name="keywords" content="Dan Levy, Back-end, Full Stack, DevOps, Développeur Web, Automatisations, Symfony, PHP, Python, Docker, CI/CD, React, Linux, Portfolio, Freelance, Paris, France">
+    <meta name="keywords" content="Dan Levy, Back-end, DevOps, Développeur Web, Automatisations, Symfony, PHP, Python, Docker, CI/CD, React, Linux, Portfolio, Paris, France">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
 
@@ -36,14 +39,14 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dlyhub.com/">
     <meta property="og:title" content="Dan Levy | Développeur Back-end & DevOps">
-    <meta property="og:description" content="Développeur passionné par l'architecture logicielle, le DevOps et l'auto-hébergement. Expert Symfony, Docker.">
+    <meta property="og:description" content="Développeur back-end & DevOps. Symfony, Docker, CI/CD et infrastructure auto-hébergée en production.">
     <meta property="og:image" content="https://dlyhub.com/icon-512.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary">
     <meta property="twitter:url" content="https://dlyhub.com/">
     <meta property="twitter:title" content="Dan Levy | Développeur Back-end & DevOps">
-    <meta property="twitter:description" content="Développeur passionné par l'architecture logicielle, le DevOps et l'auto-hébergement. Expert Symfony, Docker.">
+    <meta property="twitter:description" content="Développeur back-end & DevOps. Symfony, Docker, CI/CD et infrastructure auto-hébergée en production.">
     <meta property="twitter:image" content="https://dlyhub.com/icon-512.png">
     
         <!-- Structured Data (JSON-LD) for Google Knowledge Graph -->
