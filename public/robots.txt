@@ -1,23 +1,16 @@
 User-agent: *
 Allow: /
 
-# Blocage des robots d'IA
+# Robots qui collectent pour entraîner des modèles d'IA : pas de collecte.
+# (Les agents de recherche et de réponse à la demande restent autorisés par la règle générale,
+# sauf ChatGPT-User, bloqué par choix.)
 User-agent: GPTBot
-Disallow: /
 User-agent: ChatGPT-User
-Disallow: /
-User-agent: Google-Extended
-Disallow: /
+User-agent: ClaudeBot
 User-agent: CCBot
-Disallow: /
-User-agent: Anthropic-ai
-Disallow: /
-User-agent: Claude-Web
-Disallow: /
+User-agent: Google-Extended
 User-agent: Applebot-Extended
-Disallow: /
-User-agent: FacebookBot
-Disallow: /
+User-agent: Meta-ExternalAgent
 User-agent: Bytespider
 Disallow: /
 

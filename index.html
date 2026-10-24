@@ -15,17 +15,11 @@
     <link rel="preload" href="/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/red-hat-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-    <!-- Primary Meta Tags -->
-    <title>Dan Levy | Développeur Back-end, DevOps</title>
-    <meta name="title" content="Dan Levy | Développeur Back-end, DevOps">
-    <meta name="description" content="Portfolio de Dan Levy, développeur back-end & DevOps, Architecte des Systèmes d'Information (Bac+5) : Symfony, PHP, Python, Docker, CI/CD, administration système. Parcours, projets et contact.">
+    <!-- Référencement -->
+    <title>Dan Levy | Développeur Back-end &amp; DevOps</title>
+    <meta name="description" content="Dan Levy, développeur back-end & DevOps (Symfony, PHP, Python, Docker, CI/CD), Architecte des SI Bac+5. Parcours, projets et contact.">
     <meta name="author" content="Dan Levy">
-    <meta name="keywords" content="Dan Levy, Back-end, DevOps, Développeur Web, Automatisations, Symfony, PHP, Python, Docker, CI/CD, React, Linux, Portfolio, Paris, France">
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-
-    <!-- Canonical -->
-    <link rel="canonical" href="https://dlyhub.com/" />
+    <link rel="canonical" href="https://dlyhub.com/">
 
     <!-- Favicons -->
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -35,42 +29,77 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Aperçus sociaux (Open Graph ; X/Twitter se replie sur og:*) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dlyhub.com/">
+    <meta property="og:site_name" content="Dan Levy">
+    <meta property="og:locale" content="fr_FR">
     <meta property="og:title" content="Dan Levy | Développeur Back-end & DevOps">
-    <meta property="og:description" content="Développeur back-end & DevOps. Symfony, Docker, CI/CD et infrastructure auto-hébergée en production.">
-    <meta property="og:image" content="https://dlyhub.com/icon-512.png">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="https://dlyhub.com/">
-    <meta property="twitter:title" content="Dan Levy | Développeur Back-end & DevOps">
-    <meta property="twitter:description" content="Développeur back-end & DevOps. Symfony, Docker, CI/CD et infrastructure auto-hébergée en production.">
-    <meta property="twitter:image" content="https://dlyhub.com/icon-512.png">
-    
-        <!-- Structured Data (JSON-LD) for Google Knowledge Graph -->
+    <meta property="og:description" content="Développeur back-end & DevOps : back-ends Symfony, conteneurs, CI/CD et infrastructure auto-hébergée en production.">
+    <meta property="og:image" content="https://dlyhub.com/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Dan Levy, développeur back-end & DevOps — dlyhub.com">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Données structurées (schema.org). Bloc de données : non soumis à la CSP, aucun hash à maintenir. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Dan Levy",
-      "url": "https://dlyhub.com",
-      "jobTitle": "Développeur Back-end & DevOps",
-      "alumniOf": {
-        "@type": "EducationalOrganization",
-        "name": "CFA INSTA"
-      },
-      "sameAs": [
-        "https://github.com/Skuskusku13",
-        "https://www.linkedin.com/in/dan-levy-a736a2150/"
-      ],
-      "knowsAbout": ["PHP", "Symfony", "Python", "Docker", "BackEnd", "DevOps", "FullStack", "Linux", "CI/CD", "Automatisations", "SQL", "Network Security"]
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://dlyhub.com/#website",
+          "url": "https://dlyhub.com/",
+          "name": "Dan Levy",
+          "alternateName": "Dan Levy - Portfolio",
+          "inLanguage": "fr-FR",
+          "publisher": { "@id": "https://dlyhub.com/#person" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://dlyhub.com/#profile",
+          "url": "https://dlyhub.com/",
+          "name": "Dan Levy | Développeur Back-end & DevOps",
+          "isPartOf": { "@id": "https://dlyhub.com/#website" },
+          "mainEntity": { "@id": "https://dlyhub.com/#person" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://dlyhub.com/#person",
+          "name": "Dan Levy",
+          "url": "https://dlyhub.com/",
+          "image": "https://dlyhub.com/og-image.png",
+          "description": "Développeur back-end & DevOps : back-ends Symfony, conteneurs, CI/CD, supervision et infrastructure en production.",
+          "jobTitle": "Développeur Back-end & DevOps",
+          "worksFor": { "@type": "Organization", "name": "Meilleurtaux Placement" },
+          "alumniOf": { "@type": "EducationalOrganization", "name": "CFA INSTA" },
+          "hasCredential": {
+            "@type": "EducationalOccupationalCredential",
+            "name": "Architecte des Systèmes d'Information",
+            "educationalLevel": "Bac+5"
+          },
+          "address": { "@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR" },
+          "knowsAbout": ["PHP", "Symfony", "Python", "Docker", "Docker Compose", "RabbitMQ", "CI/CD", "Linux", "DevOps", "Développement back-end", "Sécurité des réseaux", "SQL"],
+          "sameAs": ["https://github.com/Skuskusku13", "https://www.linkedin.com/in/dan-levy-a736a2150/"]
+        }
+      ]
     }
     </script>
   </head>
   <body>
-    <noscript>Vous devez activer JavaScript pour visualiser ce site correctement.</noscript>
+    <noscript>
+      <h1>Dan Levy</h1>
+      <p>Développeur Back-end &amp; DevOps. Back-ends Symfony, conteneurs, CI/CD, supervision et sécurité, en production chez Meilleurtaux Placement (CDI depuis septembre 2026).</p>
+      <p>Bac+5 Architecte des Systèmes d'Information (CFA INSTA). Expériences : Meilleurtaux Placement, Storyzy, SESAN.</p>
+      <p>
+        <a href="mailto:danlevy149@gmail.com">danlevy149@gmail.com</a> ·
+        <a href="https://github.com/Skuskusku13">GitHub</a> ·
+        <a href="https://www.linkedin.com/in/dan-levy-a736a2150/">LinkedIn</a>
+      </p>
+      <p>Activez JavaScript pour parcourir le portfolio complet.</p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
