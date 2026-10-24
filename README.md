@@ -1,79 +1,121 @@
 # Portfolio - Dan Levy
 
-Ce projet est le portfolio professionnel de Dan Levy, Développeur Back-end & DevOps. Il présente mon parcours, mes compétences techniques, ainsi que mes projets réalisés en entreprise et en formation.
+Portfolio professionnel de Dan Levy, Développeur Back-end & DevOps : parcours, compétences,
+projets réalisés en entreprise et en formation, formulaire de contact. Page unique, servie en
+statique, sans suivi ni cookie.
 
-C'est une application web moderne, rapide et responsive ("Mobile First"), conçue pour être facilement maintenable et extensible.
+## Stack
 
-## 🚀 Technologies Utilisées
+| Couche | Outil |
+|---|---|
+| Interface | [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) (strict) |
+| Build | [Vite 8](https://vite.dev/) (Rolldown), un seul chunk JS |
+| Styles | [Tailwind CSS v4](https://tailwindcss.com/), tokens dans `src/index.css`, thème clair / sombre |
+| Icônes | [Lucide React](https://lucide.dev/) |
+| Tests | [Vitest 5](https://vitest.dev/) + [React Testing Library](https://testing-library.com/) sous jsdom, couverture V8 |
+| Qualité | ESLint 10 (flat config, typescript-eslint, react-hooks, react-refresh) |
+| Service | Apache `httpd:2.4-alpine` dans une image Docker multi-stage, derrière nginx-proxy et Cloudflare |
 
-Ce projet repose sur une stack technique moderne et performante :
+Node 26 (`.nvmrc`, `engines.node >= 26`), npm.
 
-*   **[React 19](https://react.dev/)** : Bibliothèque JavaScript pour la construction de l'interface utilisateur.
-*   **[TypeScript](https://www.typescriptlang.org/)** : Superset de JavaScript ajoutant un typage statique pour un code plus robuste et maintenable.
-*   **[Vite](https://vitejs.dev/)** : Outil de build nouvelle génération, offrant un démarrage instantané et un HMR (Hot Module Replacement) ultra-rapide.
-*   **[Tailwind CSS v4](https://tailwindcss.com/)** : Framework CSS utilitaire pour un design rapide, cohérent et responsive.
-*   **[Lucide React](https://lucide.dev/)** : Bibliothèque d'icônes légère et cohérente.
+## Installation et lancement
 
-## 🛠 Installation et Lancement
-
-Pour lancer ce projet localement sur votre machine :
-
-1.  **Cloner le dépôt :**
-    ```bash
-    git clone
-    cd portfolio
-    ```
-
-2.  **Installer les dépendances :**
-    ```bash
-    npm install
-    ```
-
-3.  **Lancer le serveur de développement :**
-    ```bash
-    npm run dev
-    ```
-    L'application sera accessible à l'adresse indiquée dans le terminal (généralement `http://localhost:5173`).
-
-4.  **Construire pour la production :**
-    ```bash
-    npm run build
-    ```
-
-## 📂 Architecture
-
-Le projet a été structuré pour séparer clairement la logique, les données et la vue.
-
-*   `src/data/` : Contient toutes les données textuelles (Expériences, Projets...). C'est ici qu'il faut aller pour modifier le contenu du site.
-*   `src/components/` : Contient les composants React isolés (Hero, Navbar, etc.).
-*   `src/types/` : Définit les types TypeScript pour garantir la cohérence des données.
-
-Pour plus de détails techniques, consultez la [Documentation de l'Architecture](docs/ARCHITECTURE.md).
-
-## ✨ Fonctionnalités
-
-*   **Navigation Fluide** : Smooth scroll natif entre les sections.
-*   **Filtrage Dynamique** : Tri des projets par catégorie (Pro, Perso, Formation) sans rechargement de page.
-*   **Responsive Design** : Interface adaptée aux mobiles, tablettes et ordinateurs.
-*   **Mode Sombre (Dark Mode)** : (Préparé via Tailwind, suit les préférences système par défaut).
-
-## 🔒 CSP et hash du script JSON-LD
-
-Le bloc `<script type="application/ld+json">` de `index.html` est autorisé dans la Content-Security-Policy (`.docker/000-default.conf`) via un hash `sha256-...`. Si ce bloc change, il faut recalculer le hash et mettre à jour la CSP.
-
-Méthode recommandée : la console du navigateur affiche le hash exact attendu quand la CSP bloque le script (message d'erreur `Refused to execute inline script...`).
-
-Alternative en ligne de commande :
 ```bash
-node -e "
-const fs = require('fs');
-const crypto = require('crypto');
-const html = fs.readFileSync('index.html', 'utf8');
-const match = html.match(/<script type=\"application\/ld\+json\">([\s\S]*?)<\/script>/);
-const hash = crypto.createHash('sha256').update(match[1]).digest('base64');
-console.log('sha256-' + hash);
-"
+git clone https://github.com/Skuskusku13/portfolio.git
+cd portfolio
+nvm use                                   # Node 26
+npm ci
+echo 'VITE_MAILER_URL=https://...' > .env  # optionnel en local, voir plus bas
+npm run dev
 ```
 
+Le serveur de développement est accessible sur `http://localhost:5173`.
+
+## Scripts
+
+<!-- AUTO-GENERATED: package.json scripts -->
+| Commande | Rôle |
+|---|---|
+| `npm run dev` | Serveur de développement Vite avec rechargement à chaud |
+| `npm run build` | Vérification des types (`tsc -b`) puis build de production dans `dist/` |
+| `npm run preview` | Sert `dist/` en local (base des mesures Lighthouse) |
+| `npm run lint` | ESLint sur tout le dépôt |
+| `npm run typecheck` | Vérification des types seule (`tsc -b`) |
+| `npm test` | Suite de tests Vitest, une passe |
+| `npm run test:watch` | Tests en mode surveillance |
+| `npm run test:coverage` | Tests avec rapport de couverture et seuils (80 %) |
+<!-- /AUTO-GENERATED -->
+
+## Variables d'environnement
+
+| Variable | Obligatoire | Rôle |
+|---|---|---|
+| `VITE_MAILER_URL` | non (prod : oui) | URL `https://` de l'API de contact. Absente ou invalide : le formulaire est remplacé par l'adresse email. Inlinée au build, donc publique. |
+
+Toute variable `VITE_*` finit dans le bundle livré au navigateur : aucun secret ne doit y
+transiter. Le Dockerfile refuse un build sans URL `https://`.
+
+## Architecture
+
+- `src/content/` : le contenu du site (expériences, formations, projets, compétences, hero,
+  chaîne de production) en JSON, validé au chargement par `src/content/schema.ts`. C'est ici
+  qu'on modifie un texte.
+- `src/components/` : un composant par section, primitives dans `ui/`, navigation dans `navbar/`.
+- `src/hooks/` : thème, section active, nombre d'éléments par page.
+- `src/lib/contact.ts` : validation, envoi et erreurs typées du formulaire, sans React.
+- `src/types/` : contrats TypeScript du contenu.
+- `tests/` : garde-fous hors application (hash CSP, origine de l'API).
+
+Détails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; stratégie de test dans
+[docs/TESTING.md](docs/TESTING.md) ; design dans `DESIGN.md` et `REFONTE.md`.
+
+## Fonctionnalités
+
+- Navigation par ancres avec section active, menu mobile accessible au clavier.
+- Projets filtrables par catégorie (pro, perso, formation) et paginés ; compétences paginées.
+- Formulaire de contact validé en direct, erreurs d'envoi explicites, repli email.
+- Thème clair / sombre sans flash (script inline hashé en CSP), suivi du système.
+- Hero peint avant le JavaScript, animations d'entrée désactivées sous `prefers-reduced-motion`.
+- Polices auto-hébergées, Open Graph, JSON-LD, sitemap, page 404.
+
+## Tests
+
+```bash
+npm test                 # 171 tests
+npm run test:coverage    # seuils 80 % sur src/hooks, src/components, src/lib, src/content, src/config.ts
+```
+
+Les tests vivent à côté des sources (`*.test.tsx`), interrogent le DOM par rôle et nom
+accessible, et couvrent le formulaire de contact (succès, erreur réseau, délai, validation).
+
+## Mesures (octobre 2026, `npm run preview`, Lighthouse 12)
+
+| | Performance | Accessibilité | Bonnes pratiques | SEO |
+|---|---|---|---|---|
+| Mobile | 99 | 100 | 100 | 100 |
+| Desktop | 100 | 100 | 100 | 100 |
+
+JavaScript initial : 85 ko gzip. Couverture de tests : 98 % des instructions.
+Aucune erreur ni avertissement console, aucune requête en échec.
+
+## CSP et script inline
+
+Apache (`.docker/000-default.conf`) sert une Content-Security-Policy avec `script-src 'self'`
+plus le hash sha256 du seul script inline de `index.html`, celui qui pose le thème avant le
+premier rendu. Le bloc JSON-LD est un bloc de données, il n'a pas besoin de hash.
+
+`tests/csp.test.ts` recalcule le hash à chaque `npm test` : si le script change sans la CSP,
+la suite échoue avec le nouveau hash à reporter dans la configuration.
+
+## Déploiement
+
+```bash
+make build   # image multi-stage node:26-alpine → httpd:2.4-alpine (digests épinglés)
+make up      # compose derrière le réseau nginx-proxy
+```
+
+Retour arrière : relancer le conteneur sur l'image précédente. Le site est statique, il n'y a
+aucune donnée à migrer.
+
 ---
-© 2025 Dan Levy
+© 2026 Dan Levy
