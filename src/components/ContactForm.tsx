@@ -1,5 +1,5 @@
-import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
-import { Loader2 } from 'lucide-react';
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
+import { Loader2, Send } from 'lucide-react';
 import { EMAIL } from '../config';
 import {
   ContactError,
@@ -19,20 +19,37 @@ type SendState =
   | { kind: 'idle' }
   | { kind: 'invalid'; count: number }
   | { kind: 'sending' }
-  | { kind: 'sent' }
+  | { kind: 'sent'; to: string }
   | { kind: 'failed'; reason: ContactErrorKind };
 
 const FIELDS: readonly ContactField[] = ['email', 'subject', 'message'];
 const EMPTY: ContactValues = { email: '', subject: '', message: '' };
+/** Le compteur du sujet n'apparaît qu'à l'approche de la limite ; celui du message est toujours là. */
+const SUBJECT_COUNT_FROM = 120;
+const COUNT_WARN_RATIO = 0.9;
+const numberFormat = new Intl.NumberFormat('fr-FR');
 
 const fieldClass =
   // 16 px sous 640 px : en dessous, iOS Safari zoome sur le champ au focus (DESIGN.md : 15 px, gardé dès sm).
   'w-full rounded-md border border-line-input bg-surface px-3.5 text-[16px] text-ink placeholder:text-ink-3 sm:text-[15px] ' +
   'transition-[border-color,box-shadow] duration-200 ease-out-quint ' +
   'focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25 ' +
+  'aria-invalid:border-danger aria-invalid:focus:ring-danger/25 read-only:text-ink-2 ' +
   'forced-colors:focus:outline-2 forced-colors:focus:outline-offset-2';
 
-const labelClass = 'mb-1.5 block text-[14px] font-medium text-ink';
+const labelClass = 'block text-[14px] font-medium text-ink';
+const labelRowClass = 'mb-1.5 flex items-baseline justify-between gap-4';
+
+/** Compteur « 120 / 4 000 » : discret, puis ambre à 90 % de la limite et rouge à la limite. */
+function Counter({ id, value, max }: { id: string; value: number; max: number }) {
+  const ratio = value / max;
+  const tone = value >= max ? 'text-danger' : ratio >= COUNT_WARN_RATIO ? 'text-warn' : 'text-ink-3';
+  return (
+    <span id={id} role={ratio >= COUNT_WARN_RATIO ? 'status' : undefined} className={`font-mono text-[12px] tnum ${tone}`}>
+      {numberFormat.format(value)} / {numberFormat.format(max)}
+    </span>
+  );
+}
 
 function FieldError({ id, message }: { id: string; message: string | undefined }) {
   if (!message) return null;
@@ -58,6 +75,17 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
   const emailRef = useRef<HTMLInputElement>(null);
   const subjectRef = useRef<HTMLInputElement>(null);
   const messageRef = useRef<HTMLTextAreaElement>(null);
+  const sentRef = useRef<HTMLDivElement>(null);
+  const focusEmailOnIdle = useRef(false);
+
+  // Le panneau de succès prend le focus à son apparition ; « Envoyer un autre message » le rend au premier champ.
+  useEffect(() => {
+    if (state.kind === 'sent') sentRef.current?.focus();
+    if (state.kind === 'idle' && focusEmailOnIdle.current) {
+      focusEmailOnIdle.current = false;
+      emailRef.current?.focus();
+    }
+  }, [state.kind]);
 
   const handleChange = (field: ContactField) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -92,7 +120,7 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
     // Champ piège rempli : un robot. On feint le succès sans rien envoyer.
     if (trap !== '') {
       setValues(EMPTY);
-      setState({ kind: 'sent' });
+      setState({ kind: 'sent', to: values.email });
       return;
     }
 
@@ -103,7 +131,7 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
       setValues(EMPTY);
       setTouched({});
       setErrors({});
-      setState({ kind: 'sent' });
+      setState({ kind: 'sent', to: values.email });
     } catch (error) {
       setState({ kind: 'failed', reason: error instanceof ContactError ? error.kind : 'network' });
     } finally {
@@ -112,14 +140,47 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
   };
 
   const sending = state.kind === 'sending';
-  const describedBy = (field: ContactField) => (errors[field] ? `${field}-error` : undefined);
+  const showSubjectCount = values.subject.length >= SUBJECT_COUNT_FROM;
+  const describedBy = (field: ContactField) => {
+    const ids = [
+      field === 'message' || (field === 'subject' && showSubjectCount) ? `${field}-count` : undefined,
+      errors[field] ? `${field}-error` : undefined,
+    ].filter(Boolean);
+    return ids.length > 0 ? ids.join(' ') : undefined;
+  };
+
+  const writeAnother = () => {
+    focusEmailOnIdle.current = true;
+    setState({ kind: 'idle' });
+  };
+
+  if (state.kind === 'sent') {
+    return (
+      <form aria-label="Formulaire de contact" noValidate onSubmit={(e) => e.preventDefault()} className="rule pt-6">
+        <div ref={sentRef} tabIndex={-1} role="status" className="rounded-lg border border-line bg-surface p-6 outline-none">
+          <div className="flex items-start gap-3">
+            <span aria-hidden="true" className="mt-2 size-2 shrink-0 rounded-full bg-ok" />
+            <div className="min-w-0">
+              <h3 className="text-[18px] font-semibold leading-[1.3] text-ink">Message envoyé</h3>
+              <p className="mt-1 text-[15px] leading-[1.5] text-ink-2">
+                Merci. Je vous réponds à l'adresse <span className="break-all text-ink">{state.to}</span>.
+              </p>
+            </div>
+          </div>
+          <Button type="button" variant="secondary" size="sm" className="mt-5" onClick={writeAnother}>
+            Envoyer un autre message
+          </Button>
+        </div>
+      </form>
+    );
+  }
 
   return (
-    <form aria-label="Formulaire de contact" noValidate onSubmit={handleSubmit} className="space-y-5">
+    <form aria-label="Formulaire de contact" noValidate onSubmit={handleSubmit} className="rule space-y-5 pt-6">
       <p className="text-[14px] text-ink-2">Tous les champs sont obligatoires.</p>
 
       <div>
-        <label htmlFor="email" className={labelClass}>
+        <label htmlFor="email" className={`${labelClass} mb-1.5`}>
           Votre email
         </label>
         <input
@@ -130,6 +191,7 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
           autoComplete="email"
           required
           maxLength={LIMITS.email}
+          readOnly={sending}
           value={values.email}
           onChange={handleChange('email')}
           onBlur={handleBlur('email')}
@@ -142,9 +204,12 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
       </div>
 
       <div>
-        <label htmlFor="subject" className={labelClass}>
-          Sujet
-        </label>
+        <div className={labelRowClass}>
+          <label htmlFor="subject" className={labelClass}>
+            Sujet
+          </label>
+          {showSubjectCount && <Counter id="subject-count" value={values.subject.length} max={LIMITS.subject} />}
+        </div>
         <input
           ref={subjectRef}
           type="text"
@@ -152,6 +217,7 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
           name="subject"
           required
           maxLength={LIMITS.subject}
+          readOnly={sending}
           value={values.subject}
           onChange={handleChange('subject')}
           onBlur={handleBlur('subject')}
@@ -164,9 +230,12 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
       </div>
 
       <div>
-        <label htmlFor="message" className={labelClass}>
-          Message
-        </label>
+        <div className={labelRowClass}>
+          <label htmlFor="message" className={labelClass}>
+            Message
+          </label>
+          <Counter id="message-count" value={values.message.length} max={LIMITS.message} />
+        </div>
         <textarea
           ref={messageRef}
           id="message"
@@ -174,6 +243,7 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
           required
           rows={5}
           maxLength={LIMITS.message}
+          readOnly={sending}
           value={values.message}
           onChange={handleChange('message')}
           onBlur={handleBlur('message')}
@@ -208,7 +278,10 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
               Envoi en cours
             </>
           ) : (
-            'Envoyer'
+            <>
+              <Send className="size-4" strokeWidth={1.5} aria-hidden="true" />
+              Envoyer
+            </>
           )}
         </Button>
         <p role="status" aria-live="polite" className="mt-3 min-h-5 text-[14px] leading-[1.5]">
@@ -218,7 +291,6 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
               {state.count} champ{state.count > 1 ? 's' : ''} à corriger.
             </span>
           )}
-          {state.kind === 'sent' && <span className="text-ink">Message envoyé. Merci, je vous réponds par email.</span>}
           {state.kind === 'failed' && (
             <span className="text-danger">
               {describeError(state.reason)}{' '}

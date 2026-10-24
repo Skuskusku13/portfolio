@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Contact from './Contact';
-import { MESSAGES } from '../lib/contact';
+import { LIMITS, MESSAGES } from '../lib/contact';
 
 const MAILER = 'https://api.exemple.fr/contact';
 const EMAIL = 'danlevy149@gmail.com';
@@ -33,6 +33,10 @@ const jsonResponse = (status: number, type = 'application/json') =>
   new Response('{"ok":true}', { status, headers: { 'content-type': type } });
 
 const form = () => screen.getByRole('form', { name: 'Formulaire de contact' });
+// La description accessible du message commence par son compteur : on vérifie la fin.
+const endsWithError = (message: string) => new RegExp(`Erreur : ${message.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`);
+// Les nombres fr-FR portent une espace fine insécable ; getByText normalise en espace simple.
+const num = (n: number) => new Intl.NumberFormat('fr-FR').format(n).replace(/\s/g, ' ');
 const field = (name: string) => within(form()).getByRole('textbox', { name });
 const submitButton = () => within(form()).getByRole('button', { name: /Envoyer|Envoi en cours/ });
 const status = () => within(form()).getByRole('status');
@@ -57,7 +61,7 @@ describe('Contact — validation en direct', () => {
     expect(field('Votre email')).toHaveAttribute('aria-invalid', 'true');
     expect(field('Votre email')).toHaveAccessibleDescription(`Erreur : ${MESSAGES.emailRequired}`);
     expect(field('Sujet')).toHaveAccessibleDescription(`Erreur : ${MESSAGES.subjectRequired}`);
-    expect(field('Message')).toHaveAccessibleDescription(`Erreur : ${MESSAGES.messageRequired}`);
+    expect(field('Message')).toHaveAccessibleDescription(endsWithError(MESSAGES.messageRequired));
     expect(field('Votre email')).toHaveFocus();
     expect(status()).toHaveTextContent('3 champs à corriger');
   });
@@ -98,8 +102,23 @@ describe('Contact — validation en direct', () => {
     await user.click(submitButton());
 
     expect(fetchMock).not.toHaveBeenCalled();
-    expect(field('Message')).toHaveAccessibleDescription(`Erreur : ${MESSAGES.messageRequired}`);
+    expect(field('Message')).toHaveAccessibleDescription(endsWithError(MESSAGES.messageRequired));
     expect(field('Message')).toHaveFocus();
+  });
+
+  it('compte les caractères du message, et ceux du sujet à partir de 120', async () => {
+    const user = userEvent.setup();
+    render(<Contact />);
+    expect(within(form()).getByText(`0 / ${num(LIMITS.message)}`)).toBeInTheDocument();
+    // La description accessible garde l'espace fine insécable du format fr-FR.
+    expect(field('Message')).toHaveAccessibleDescription(`0 / ${new Intl.NumberFormat('fr-FR').format(LIMITS.message)}`);
+
+    await user.type(field('Message'), 'Bonjour');
+    expect(within(form()).getByText(`7 / ${num(LIMITS.message)}`)).toBeInTheDocument();
+    expect(within(form()).queryByText(new RegExp(`/ ${num(LIMITS.subject)}$`))).not.toBeInTheDocument();
+
+    fireEvent.change(field('Sujet'), { target: { value: 'a'.repeat(135) } });
+    expect(within(form()).getByText(`135 / ${num(LIMITS.subject)}`)).toHaveAttribute('role', 'status');
   });
 });
 
@@ -121,8 +140,14 @@ describe('Contact — envoi', () => {
       subject: 'Bonjour',
       html: 'Première ligne<br>Deuxième &lt;ligne&gt;',
     });
-    expect(await within(form()).findByText('Message envoyé. Merci, je vous réponds par email.')).toBeInTheDocument();
+    const sent = await within(form()).findByRole('status');
+    expect(sent).toHaveTextContent('Message envoyé');
+    expect(sent).toHaveTextContent("Je vous réponds à l'adresse jean@exemple.fr");
+    expect(sent).toHaveFocus();
+
+    await user.click(within(sent).getByRole('button', { name: 'Envoyer un autre message' }));
     expect(field('Votre email')).toHaveValue('');
+    expect(field('Votre email')).toHaveFocus();
     expect(field('Message')).toHaveValue('');
   });
 
@@ -243,6 +268,12 @@ describe('Contact — canaux directs', () => {
     await user.click(screen.getByRole('button', { name: "Copier l'adresse" }));
 
     expect(await screen.findByText(/Copie impossible/)).toBeInTheDocument();
+  });
+
+  it('affiche le lieu et l’heure de Paris, à la minute', () => {
+    render(<Contact />);
+    expect(screen.getByText('Paris')).toBeInTheDocument();
+    expect(screen.getByText(/^\d{2}:\d{2}$/)).toBeInTheDocument();
   });
 
   it('expose l’email, LinkedIn et GitHub en liens nommés', () => {
