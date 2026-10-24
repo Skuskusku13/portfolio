@@ -19,6 +19,7 @@ export default mergeConfig(
         exclude: ['**/*.test.{ts,tsx}', 'src/test/**'],
         reporter: ['text', 'html', 'lcov'],
         reportsDirectory: './coverage',
+        thresholds: { statements: 80, branches: 80, functions: 80, lines: 80 },
       },
     },
   }),
