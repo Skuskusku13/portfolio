@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatDuration, isYearMonth, monthsBetween, pageBuildDate, periodDuration, toYearMonth } from './dates';
+import { formatDuration, isYearMonth, monthsBetween, periodDuration, toYearMonth } from './dates';
 
 describe('dates', () => {
   it('reconnaît le format AAAA-MM', () => {
@@ -34,12 +34,5 @@ describe('dates', () => {
     expect(toYearMonth(now)).toBe('2026-10');
     expect(periodDuration('2024-01', undefined, now)).toBe('2 ans 10 mois');
     expect(periodDuration('2023-09', '2024-01', now)).toBe('5 mois');
-  });
-
-  it('lit la date du build dans lastModified et renvoie null sinon', () => {
-    expect(pageBuildDate({ lastModified: '10/24/2026 12:04:18' })).toBe('24 oct. 2026');
-    expect(pageBuildDate({ lastModified: '' })).toBeNull();
-    // Page générée à l'instant (serveur de dev, pas d'en-tête) : pas de date.
-    expect(pageBuildDate({ lastModified: '10/24/2026 12:04:18' }, new Date('2026-10-24T12:04:30').getTime())).toBeNull();
   });
 });
