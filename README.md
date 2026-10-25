@@ -75,8 +75,7 @@ Détails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; stratégie de test 
 - Projets filtrables par catégorie (pro, perso, formation) et paginés ; compétences paginées.
 - Formulaire de contact validé en direct, compteur de caractères, panneau de succès, erreurs
   d'envoi explicites, repli email ; copie de l'adresse, LinkedIn et GitHub sous le formulaire.
-- Durée de chaque expérience calculée depuis le contenu, date du build servi lue dans
-  l'en-tête de la page.
+- Durée de chaque expérience calculée depuis le contenu.
 - Thème clair / sombre sans flash (script inline hashé en CSP), suivi du système.
 - Hero peint avant le JavaScript, animations d'entrée désactivées sous `prefers-reduced-motion`.
 - Polices auto-hébergées, Open Graph, JSON-LD, sitemap, page 404.
@@ -84,7 +83,7 @@ Détails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; stratégie de test 
 ## Tests
 
 ```bash
-npm test                 # 179 tests
+npm test                 # 176 tests
 npm run test:coverage    # seuils 80 % sur src/hooks, src/components, src/lib, src/content, src/config.ts
 ```
 

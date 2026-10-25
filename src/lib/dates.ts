@@ -1,6 +1,5 @@
 /**
- * Dates et durées affichées. Tout dérive de données existantes : les mois « AAAA-MM » du contenu
- * (src/content/*.json) et l'en-tête Last-Modified de la page servie (la date du build en production).
+ * Dates et durées affichées. Tout dérive des mois « AAAA-MM » du contenu (src/content/*.json).
  */
 
 const YEAR_MONTH = /^(\d{4})-(0[1-9]|1[0-2])$/;
@@ -40,18 +39,4 @@ export function formatDuration(months: number): string {
 /** Durée d'une période ; sans fin, elle court jusqu'au mois de `now`. */
 export function periodDuration(start: string, end?: string, now: Date = new Date()): string {
   return formatDuration(monthsBetween(start, end ?? toYearMonth(now)));
-}
-
-const BUILD_DATE_FORMAT = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
-/** Sans en-tête Last-Modified (serveur de dev), le navigateur renvoie l'instant présent : rien à montrer. */
-const FRESH_MS = 60_000;
-
-/**
- * Date du build servi, lue dans `document.lastModified` (en-tête Last-Modified d'index.html,
- * c'est-à-dire la date de construction de l'image en production). Null si le navigateur ne la donne pas.
- */
-export function pageBuildDate(doc: Pick<Document, 'lastModified'> = document, now: number = Date.now()): string | null {
-  const parsed = new Date(doc.lastModified);
-  if (Number.isNaN(parsed.getTime()) || Math.abs(now - parsed.getTime()) < FRESH_MS) return null;
-  return BUILD_DATE_FORMAT.format(parsed);
 }

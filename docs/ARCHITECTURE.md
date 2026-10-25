@@ -20,7 +20,7 @@ src/
 ├── data/index.ts          point d'entrée : exporte experiences, formations, projects, skills, site (validés)
 ├── types/index.ts         contrats du contenu (Experience, Project, SkillGroups, SiteContent…)
 ├── lib/contact.ts         logique pure du formulaire : validation, échappement, envoi, erreurs typées
-├── lib/dates.ts           mois « AAAA-MM », durées calculées, date du build servi (Last-Modified)
+├── lib/dates.ts           mois « AAAA-MM », durées calculées
 ├── hooks/
 │   ├── themeContext.ts    contexte du thème
 │   ├── useTheme.tsx       ThemeProvider (classe sur <html>, favicon, theme-color, suivi système)
