@@ -114,6 +114,25 @@ describe('Navbar', () => {
     expect(panel()).not.toHaveAttribute('hidden');
   });
 
+  it('garde le menu ouvert quand le focus est retiré sans destination, puis suit le lien tapé (Safari)', async () => {
+    // Safari ne donne pas le focus aux liens au tap : au mousedown, le lien focalisé perd le focus avec un
+    // relatedTarget nul, avant que le click n'atteigne le lien tapé. Fermer le menu à cet instant masquait
+    // le lien sous le doigt et le clic n'arrivait jamais à l'ancre.
+    const user = userEvent.setup();
+    renderNavbar();
+    await user.click(menuButton());
+    const first = within(panel()).getAllByRole('link')[0] as HTMLElement;
+    expect(first).toHaveFocus();
+
+    fireEvent.focusOut(first, { relatedTarget: null });
+
+    expect(panel()).not.toHaveAttribute('hidden');
+
+    await user.click(within(panel()).getByRole('link', { name: 'Projets' }));
+
+    expect(panel()).toHaveAttribute('hidden');
+  });
+
   it('ferme le menu quand la fenêtre passe en largeur desktop', async () => {
     const handlers = installMatchMedia();
     const user = userEvent.setup();

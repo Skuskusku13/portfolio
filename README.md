@@ -83,7 +83,7 @@ Détails dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) ; stratégie de test 
 ## Tests
 
 ```bash
-npm test                 # 176 tests
+npm test                 # 177 tests
 npm run test:coverage    # seuils 80 % sur src/hooks, src/components, src/lib, src/content, src/config.ts
 ```
 

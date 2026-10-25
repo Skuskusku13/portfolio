@@ -41,8 +41,12 @@ export default function Navbar() {
   }, [menuOpen]);
 
   // Le focus clavier qui quitte l'en-tête ferme le menu : rien ne reste masqué sous le panneau (WCAG 2.4.11).
+  // Seul un focus qui atterrit hors de l'en-tête compte. Safari ne donne pas le focus aux liens au tap : il retire
+  // celui du lien focalisé au mousedown, sans destination (relatedTarget nul), avant le click. Fermer à cet
+  // instant masquait le lien sous le doigt et le clic n'atteignait jamais l'ancre. Le tap hors de l'en-tête
+  // est couvert par l'écouteur pointerdown ci-dessus.
   const onHeaderBlur = (e: FocusEvent<HTMLElement>) => {
-    if (menuOpen && !(e.relatedTarget instanceof Node && e.currentTarget.contains(e.relatedTarget))) setMenuOpen(false);
+    if (menuOpen && e.relatedTarget instanceof Node && !e.currentTarget.contains(e.relatedTarget)) setMenuOpen(false);
   };
 
   return (
