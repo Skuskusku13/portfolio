@@ -2,7 +2,7 @@ import Container from './ui/Container';
 import { GITHUB_URL, LINKEDIN_URL } from '../config';
 import NewWindowHint from './ui/NewWindowHint';
 
-const linkClass = 'inline-block py-1 text-[13px] text-ink-2 transition-colors duration-200 hover:text-ink';
+const linkClass = 'inline-block py-1 text-[0.8125rem] text-ink-2 transition-colors duration-200 hover:text-ink';
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -10,7 +10,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-line py-8">
       <Container className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-[13px] text-ink-2">© {year} Dan Levy · Développeur Back-end &amp; DevOps</p>
+        <p className="text-[0.8125rem] text-ink-2">© {year} Dan Levy · Développeur Back-end &amp; DevOps</p>
         <nav aria-label="Liens de pied de page" className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
             GitHub

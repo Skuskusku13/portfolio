@@ -35,7 +35,7 @@ export default function Pagination({ currentPage, totalPages, onPageChange, scro
         Précédent
       </Button>
 
-      <p className="font-mono text-[13px] text-ink-2 tnum">
+      <p className="font-mono text-[0.8125rem] text-ink-2 tnum">
         Page {currentPage} sur {totalPages}
       </p>
 

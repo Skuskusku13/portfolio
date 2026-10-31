@@ -155,9 +155,12 @@
   }
 
   h1, h2, h3 {
-    letter-spacing: -0.02em;
     text-wrap: balance;
   }
+  /* Tracking propre à la taille : plus serré à mesure que le titre grandit, presque nul vers 16 px. */
+  h1 { letter-spacing: -0.03em; }
+  h2 { letter-spacing: -0.02em; }
+  h3 { letter-spacing: -0.01em; }
 
   p {
     text-wrap: pretty;
@@ -296,6 +299,10 @@
     top: 15px;
     opacity: 0;
     will-change: transform;
+  }
+  /* L'animation ne part qu'à l'entrée du bloc dans le viewport (classe is-in posée par Reveal) :
+     sous le pli sur mobile, elle jouait hors écran et le visiteur n'en voyait que l'état final. */
+  .is-in .chain-signal {
     animation:
       chain-signal-run var(--signal-duration, 1900ms) var(--ease-out-quint) var(--signal-delay, 700ms) 1 forwards,
       chain-signal-show 200ms linear var(--signal-delay, 700ms) 1 forwards;
@@ -314,6 +321,8 @@
     background-color: var(--accent);
     box-shadow: inset 0 0 0 2px var(--surface);
     opacity: 0;
+  }
+  .is-in .chain-mark::after {
     animation: chain-mark-on 320ms var(--ease-out-quint) var(--mark-delay, 0ms) 1 forwards;
   }
   @keyframes chain-signal-run {
@@ -327,13 +336,15 @@
   @keyframes chain-mark-on {
     to { opacity: 1; }
   }
-  @media (prefers-reduced-motion: reduce) {
-    .chain-signal {
+  @media (prefers-reduced-motion: reduce), print {
+    .chain-signal,
+    .is-in .chain-signal {
       animation: none;
       opacity: 1;
       transform: translateY(var(--chain-dist, 0px));
     }
-    .chain-mark::after {
+    .chain-mark::after,
+    .is-in .chain-mark::after {
       animation: none;
       opacity: 1;
     }
@@ -378,5 +389,17 @@
       width: 1px;
       background-color: var(--line);
     }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Hors couche (prime sur les utilitaires) : l'en-tête translucide devient
+   opaque pour qui a demandé moins de transparence.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-transparency: reduce) {
+  .site-header {
+    background-color: var(--canvas);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }

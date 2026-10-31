@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { flushSync } from 'react-dom';
 import faviconLight from '../assets/favicon-light.svg';
 import faviconDark from '../assets/favicon-dark.svg';
 import { ThemeContext, type Theme } from './themeContext';
@@ -64,11 +65,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // La persistance est un effet de bord : elle reste hors de l'updater de setState (pur).
+  // La bascule est un fondu enchaîné (View Transitions) plutôt qu'un saut de luminosité ;
+  // sans l'API ou sous prefers-reduced-motion, le changement reste immédiat.
   const toggleTheme = useCallback(() => {
     const next: Theme = theme === 'light' ? 'dark' : 'light';
     userChose.current = true;
     saveTheme(next);
-    setTheme(next);
+    const apply = () => flushSync(() => setTheme(next));
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion && typeof document.startViewTransition === 'function') document.startViewTransition(apply);
+    else apply();
   }, [theme]);
 
   const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);

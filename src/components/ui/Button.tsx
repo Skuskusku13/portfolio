@@ -19,18 +19,19 @@ export type ButtonProps = AnchorProps | NativeButtonProps;
 const base =
   'inline-flex items-center justify-center gap-2 rounded-md font-medium whitespace-nowrap select-none ' +
   'transition-[background-color,color,border-color,transform] duration-200 ease-out-quint ' +
-  'active:translate-y-px disabled:pointer-events-none disabled:opacity-50 ' +
+  // Le retour de pression est immédiat (75 ms) ; le relâchement et les autres transitions gardent 200 ms.
+  'active:translate-y-px active:duration-75 disabled:pointer-events-none disabled:opacity-50 ' +
   'aria-disabled:pointer-events-none aria-disabled:opacity-50';
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-accent text-accent-ink hover:bg-accent-hover',
-  secondary: 'bg-surface text-ink border border-line hover:border-line-strong',
-  ghost: 'text-ink-2 hover:text-ink',
+  primary: 'bg-accent text-accent-ink hover:bg-accent-hover active:bg-accent-hover',
+  secondary: 'bg-surface text-ink border border-line hover:border-line-strong active:border-line-strong active:bg-surface-2',
+  ghost: 'text-ink-2 hover:text-ink active:bg-surface-2 active:text-ink',
 };
 
 const sizes: Record<Size, string> = {
-  sm: 'h-9 px-3.5 text-[14px]',
-  md: 'h-11 px-5 text-[15px]',
+  sm: 'h-9 px-3.5 text-[0.875rem]',
+  md: 'h-11 px-5 text-[0.9375rem]',
 };
 
 /**

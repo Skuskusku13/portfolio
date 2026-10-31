@@ -18,7 +18,7 @@ export default function Section({ id, title, className = '', children }: Section
     <section id={id} className={`pt-12 pb-6 sm:pt-16 sm:pb-8 lg:pt-20 lg:pb-10 ${className}`}>
       <Container>
         <Reveal as="header" className="rule mb-8 pt-6 sm:mb-10">
-          <h2 className="text-[28px] font-semibold leading-[1.1] sm:text-[32px]">{title}</h2>
+          <h2 className="text-[1.75rem] font-semibold leading-[1.1] sm:text-[2rem]">{title}</h2>
         </Reveal>
         {children}
       </Container>

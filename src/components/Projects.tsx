@@ -61,8 +61,8 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           {project.status}
         </Tag>
       </div>
-      <h3 className="mt-3 text-[18px] font-semibold leading-[1.3] text-ink">{project.title}</h3>
-      <p className="mt-2 text-[15px] leading-[1.5] text-ink-2">{project.description}</p>
+      <h3 className="mt-3 text-[1.125rem] font-semibold leading-[1.3] text-ink">{project.title}</h3>
+      <p className="mt-2 text-[0.9375rem] leading-[1.5] text-ink-2">{project.description}</p>
 
       {/* Pied calé en bas de la carte : pastilles, catégories et dépôts s'alignent d'une carte à l'autre. */}
       <div className="mt-auto pt-5">
@@ -84,7 +84,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-1 py-1 text-[14px] text-accent hover:underline"
+                    className="group inline-flex items-center gap-1 py-1 text-[0.875rem] text-accent hover:underline"
                   >
                     {links.length === 1 ? 'Code source' : link.label}
                     {links.length === 1 && (
@@ -139,10 +139,10 @@ export default function Projects() {
                 type="button"
                 onClick={() => handleFilter(f.id)}
                 aria-pressed={active}
-                className={`h-9 rounded-md border px-3.5 text-[14px] font-medium transition-colors duration-200 ${
+                className={`h-9 rounded-md border px-3.5 text-[0.875rem] font-medium transition-colors duration-200 active:duration-75 ${
                   active
                     ? 'border-ink bg-ink text-canvas'
-                    : 'border-line bg-surface text-ink-2 hover:border-line-strong/40 hover:text-ink'
+                    : 'border-line bg-surface text-ink-2 hover:border-line-strong/40 hover:text-ink active:bg-surface-2 active:text-ink'
                 }`}
               >
                 {f.label}
@@ -158,7 +158,7 @@ export default function Projects() {
       </p>
 
       {filtered.length === 0 ? (
-        <p className="rule pt-6 text-[15px] leading-[1.5] text-ink-2">Aucun projet dans cette catégorie pour le moment.</p>
+        <p className="rule pt-6 text-[0.9375rem] leading-[1.5] text-ink-2">Aucun projet dans cette catégorie pour le moment.</p>
       ) : (
         <ul role="list" aria-label="Liste des projets" className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {displayed.map((project, index) => (

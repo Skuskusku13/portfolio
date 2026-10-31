@@ -31,13 +31,13 @@ const numberFormat = new Intl.NumberFormat('fr-FR');
 
 const fieldClass =
   // 16 px sous 640 px : en dessous, iOS Safari zoome sur le champ au focus ; 15 px dès sm.
-  'w-full rounded-md border border-line-input bg-surface px-3.5 text-[16px] text-ink placeholder:text-ink-3 sm:text-[15px] ' +
+  'w-full rounded-md border border-line-input bg-surface px-3.5 text-[1rem] text-ink placeholder:text-ink-3 sm:text-[0.9375rem] ' +
   'transition-[border-color,box-shadow] duration-200 ease-out-quint ' +
   'focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25 ' +
   'aria-invalid:border-danger aria-invalid:focus:ring-danger/25 read-only:text-ink-2 ' +
   'forced-colors:focus:outline-2 forced-colors:focus:outline-offset-2';
 
-const labelClass = 'block text-[14px] font-medium text-ink';
+const labelClass = 'block text-[0.875rem] font-medium text-ink';
 const labelRowClass = 'mb-1.5 flex items-baseline justify-between gap-4';
 
 /** Compteur « 120 / 4 000 » : discret, puis ambre à 90 % de la limite et rouge à la limite. */
@@ -45,7 +45,7 @@ function Counter({ id, value, max }: { id: string; value: number; max: number })
   const ratio = value / max;
   const tone = value >= max ? 'text-danger' : ratio >= COUNT_WARN_RATIO ? 'text-warn' : 'text-ink-3';
   return (
-    <span id={id} role={ratio >= COUNT_WARN_RATIO ? 'status' : undefined} className={`font-mono text-[12px] tnum ${tone}`}>
+    <span id={id} role={ratio >= COUNT_WARN_RATIO ? 'status' : undefined} className={`font-mono text-[0.75rem] tnum ${tone}`}>
       {numberFormat.format(value)} / {numberFormat.format(max)}
     </span>
   );
@@ -54,7 +54,7 @@ function Counter({ id, value, max }: { id: string; value: number; max: number })
 function FieldError({ id, message }: { id: string; message: string | undefined }) {
   if (!message) return null;
   return (
-    <p id={id} className="mt-1.5 text-[14px] leading-[1.5] text-danger">
+    <p id={id} className="mt-1.5 text-[0.875rem] leading-[1.5] text-danger">
       Erreur : {message}
     </p>
   );
@@ -161,8 +161,8 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
           <div className="flex items-start gap-3">
             <span aria-hidden="true" className="mt-2 size-2 shrink-0 rounded-full bg-ok" />
             <div className="min-w-0">
-              <h3 className="text-[18px] font-semibold leading-[1.3] text-ink">Message envoyé</h3>
-              <p className="mt-1 text-[15px] leading-[1.5] text-ink-2">
+              <h3 className="text-[1.125rem] font-semibold leading-[1.3] text-ink">Message envoyé</h3>
+              <p className="mt-1 text-[0.9375rem] leading-[1.5] text-ink-2">
                 Merci. Je vous réponds à l'adresse <span className="break-all text-ink">{state.to}</span>.
               </p>
             </div>
@@ -177,7 +177,7 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
 
   return (
     <form aria-label="Formulaire de contact" noValidate onSubmit={handleSubmit} className="space-y-5">
-      <p className="text-[14px] text-ink-2">Tous les champs sont obligatoires.</p>
+      <p className="text-[0.875rem] text-ink-2">Tous les champs sont obligatoires.</p>
 
       <div>
         <label htmlFor="email" className={`${labelClass} mb-1.5`}>
@@ -284,7 +284,7 @@ export default function ContactForm({ mailerUrl }: { mailerUrl: string }) {
             </>
           )}
         </Button>
-        <p role="status" aria-live="polite" className="mt-3 min-h-5 text-[14px] leading-[1.5]">
+        <p role="status" aria-live="polite" className="mt-3 min-h-5 text-[0.875rem] leading-[1.5]">
           {state.kind === 'sending' && <span className="sr-only">Envoi en cours</span>}
           {state.kind === 'invalid' && (
             <span className="text-danger">
