@@ -24,15 +24,15 @@ export default function Experience() {
                 <div className="min-w-0 flex-1 basis-[22rem]">
                   <h3
                     className={`font-semibold leading-[1.15] text-ink ${
-                      isCurrent ? 'text-[22px] sm:text-[24px]' : 'text-[19px] sm:text-[20px]'
+                      isCurrent ? 'text-[1.375rem] sm:text-[1.5rem]' : 'text-[1.1875rem] sm:text-[1.25rem]'
                     }`}
                   >
                     <NoWrapHyphens text={exp.role} />
                   </h3>
-                  <p className="mt-1 text-[15px] leading-[1.5] text-ink">{exp.company}</p>
+                  <p className="mt-1 text-[0.9375rem] leading-[1.5] text-ink">{exp.company}</p>
                 </div>
                 <div className="flex shrink-0 flex-col items-start gap-2 sm:items-end">
-                  <p className="font-mono text-[13px] leading-[1.6] text-ink-2 tnum">
+                  <p className="font-mono text-[0.8125rem] leading-[1.6] text-ink-2 tnum">
                     {exp.period}
                     {/* Durée dérivée des mois du contenu ; une expérience en cours se recalcule chaque mois. */}
                     <span className="text-ink-3"> · {periodDuration(exp.start, exp.end)}</span>
@@ -49,7 +49,7 @@ export default function Experience() {
                 </div>
               </div>
 
-              <p className="mt-4 max-w-[64ch] text-[16px] leading-[1.55] text-ink-2">{exp.summary}</p>
+              <p className="mt-4 max-w-[64ch] text-[1rem] leading-[1.55] text-ink-2">{exp.summary}</p>
 
               <ChipList items={exp.skills} className="mt-5" label={`Compétences chez ${exp.company}`} />
             </Card>

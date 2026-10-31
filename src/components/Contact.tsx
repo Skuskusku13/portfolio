@@ -19,7 +19,7 @@ const copyMessages: Record<CopyState, string> = {
 /** Sans API de contact configurée, on ne rend pas un formulaire qui ne peut pas envoyer. */
 function ContactUnavailable() {
   return (
-    <p className="text-[15px] leading-[1.55] text-ink-2">
+    <p className="text-[0.9375rem] leading-[1.55] text-ink-2">
       Le formulaire est indisponible pour le moment. Écrivez-moi directement à{' '}
       <a href={`mailto:${EMAIL}`} className="font-medium text-ink underline">
         {EMAIL}
@@ -50,7 +50,7 @@ function DirectChannels() {
 
   return (
     <div className="mt-6 text-center">
-      <p className="text-[15px] leading-[1.5] text-ink-2">
+      <p className="text-[0.9375rem] leading-[1.5] text-ink-2">
         Ou directement à{' '}
         <a href={`mailto:${EMAIL}`} className="font-medium text-ink hover:underline">
           {EMAIL}
@@ -75,7 +75,7 @@ function DirectChannels() {
           GitHub
         </Button>
       </div>
-      <p role="status" aria-live="polite" className="mt-3 min-h-5 text-[14px] text-ink-2">
+      <p role="status" aria-live="polite" className="mt-3 min-h-5 text-[0.875rem] text-ink-2">
         {copyMessages[copy]}
       </p>
     </div>

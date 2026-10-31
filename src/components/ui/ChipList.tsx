@@ -15,7 +15,7 @@ export default function ChipList({ items, className = '', label = 'Technologies'
       {items.map((item) => (
         <li
           key={item}
-          className="inline-flex items-center rounded-full border border-line bg-canvas px-2.5 py-1 text-[13px] leading-[1.3] text-ink"
+          className="inline-flex items-center rounded-full border border-line bg-canvas px-2.5 py-1 text-[0.8125rem] leading-[1.3] text-ink"
         >
           {item}
         </li>

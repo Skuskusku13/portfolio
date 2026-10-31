@@ -53,7 +53,7 @@ export default function Navbar() {
     <header
       ref={headerRef}
       onBlur={onHeaderBlur}
-      className="fixed inset-x-0 top-0 z-50 border-b border-line bg-canvas/85 backdrop-blur-md"
+      className="site-header fixed inset-x-0 top-0 z-50 border-b border-line bg-canvas/85 backdrop-blur-md"
     >
       <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12">
         <NavbarBrand />

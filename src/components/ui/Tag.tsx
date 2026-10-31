@@ -24,7 +24,7 @@ export default function Tag({ tone = 'neutral', dot = false, className = '', chi
   const t = tones[tone];
   return (
     <span
-      className={`inline-flex h-6 items-center gap-1.5 whitespace-nowrap rounded-xs border px-2 font-mono text-[12px] leading-none tnum ${t.box} ${className}`}
+      className={`inline-flex h-6 items-center gap-1.5 whitespace-nowrap rounded-xs border px-2 font-mono text-[0.75rem] leading-none tnum ${t.box} ${className}`}
     >
       {dot && <span aria-hidden="true" className={`size-1.5 rounded-full ${t.dot}`} />}
       {children}

@@ -44,7 +44,7 @@ export default function DeploymentChain() {
   return (
     <figure className="rounded-lg border border-line bg-surface p-4 sm:p-6">
       <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <span className="min-w-0 text-[15px] font-semibold text-ink">Ce site, du dépôt à votre écran</span>
+        <span className="min-w-0 text-[0.9375rem] font-semibold text-ink">Ce site, du dépôt à votre écran</span>
         <Tag tone="ok" dot className="shrink-0">
           En production
         </Tag>
@@ -69,7 +69,7 @@ export default function DeploymentChain() {
                   href={step.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1 text-[14px] font-medium leading-[1.4] text-ink hover:text-accent"
+                  className="group inline-flex items-center gap-1 text-[0.875rem] font-medium leading-[1.4] text-ink hover:text-accent"
                 >
                   {step.title}
                   <NewWindowHint />
@@ -80,9 +80,9 @@ export default function DeploymentChain() {
                   />
                 </a>
               ) : (
-                <span className="text-[14px] font-medium leading-[1.4] text-ink">{step.title}</span>
+                <span className="text-[0.875rem] font-medium leading-[1.4] text-ink">{step.title}</span>
               )}
-              <div className="font-mono text-[11px] leading-[1.4] text-ink-2 tnum sm:text-[12px]">{step.detail}</div>
+              <div className="font-mono text-[0.6875rem] leading-[1.4] text-ink-2 tnum sm:text-[0.75rem]">{step.detail}</div>
             </div>
           </li>
         ))}

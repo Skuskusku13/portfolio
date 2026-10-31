@@ -18,10 +18,10 @@ export default function NavLinks({ activeId = null, onItemClick, variant = 'desk
     <>
       {menuItems.map((item) => {
         const isActive = activeId === item.href.slice(1);
-        const desktop = `relative py-1 text-[14px] ${isActive ? 'text-ink' : 'text-ink-2 hover:text-ink'} ${DESKTOP_UNDERLINE} ${
+        const desktop = `relative py-1 text-[0.875rem] ${isActive ? 'text-ink' : 'text-ink-2 hover:text-ink'} ${DESKTOP_UNDERLINE} ${
           isActive ? 'after:scale-x-100' : 'after:scale-x-0 hover:after:scale-x-100'
         }`;
-        const mobile = `block border-l py-3 pl-4 text-[20px] font-medium ${
+        const mobile = `block border-l py-3 pl-4 text-[1.25rem] font-medium ${
           isActive ? 'border-ink text-ink' : 'border-transparent text-ink-2'
         }`;
         return (

@@ -68,7 +68,7 @@ export default function Skills() {
 
           return (
             <Card as="li" key={section.key} delay={index * 60}>
-              <h3 className="flex items-center gap-2.5 text-[16px] font-semibold text-ink">
+              <h3 className="flex items-center gap-2.5 text-[1rem] font-semibold text-ink">
                 <Icon className="size-[18px] text-accent" strokeWidth={1.5} aria-hidden="true" />
                 {section.title}
               </h3>
