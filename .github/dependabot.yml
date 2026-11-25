@@ -3,6 +3,11 @@
 # que Dependabot sait suivre, y compris les workflows réutilisables du compte, épinglés par SHA avec le tag en commentaire).
 # Les majeures npm et Docker sont ignorées (elles demandent des tests manuels) ; les PR
 # mineures et patchs sont fusionnées automatiquement par workflows/dependabot-auto-merge.yml.
+#
+# Préfixes des commits (lus par release-please) : ce qui change l'artefact livré est un
+# `fix` et déclenche une release de correctif (images de base du Dockerfile, dépendances
+# npm de production qui finissent dans le bundle) ; le reste (outils de dev, actions) est
+# `chore`/`ci`, invisible du CHANGELOG et sans release.
 version: 2
 updates:
   - package-ecosystem: npm
@@ -13,6 +18,9 @@ updates:
       time: "07:00"
       timezone: Europe/Paris
     open-pull-requests-limit: 5
+    commit-message:
+      prefix: "fix(deps)"
+      prefix-development: "chore(deps-dev)"
     # Délai de refroidissement : une version fraîchement publiée (et potentiellement compromise)
     # n'est proposée qu'après 7 jours (14 pour une majeure). Les correctifs de sécurité ne sont pas retardés.
     cooldown:
@@ -36,6 +44,8 @@ updates:
       day: monday
       time: "07:00"
       timezone: Europe/Paris
+    commit-message:
+      prefix: "fix(docker)"
     cooldown:
       default-days: 7
     # Pas de changement de tag majeur (node:27-alpine…) : Node est fixé par .nvmrc et engines.
@@ -50,5 +60,7 @@ updates:
       day: monday
       time: "07:00"
       timezone: Europe/Paris
+    commit-message:
+      prefix: "ci(actions)"
     cooldown:
       default-days: 7
