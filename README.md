@@ -125,7 +125,11 @@ la scanne avec Trivy et la publie sur `ghcr.io/skuskusku13/portfolio` (tags `X.Y
 doit être connecté au registre (`docker login ghcr.io`, jeton en lecture seule sur les paquets)
 avant de tirer l'image.
 
-Sur le serveur :
+Le workflow signale ensuite la version au dépôt privé `homelab-deploy`, dont le runner
+self-hosted sur le serveur tire l'image et relance le conteneur. Déploiement à la main ou
+retour arrière : workflow « Deploy » de `homelab-deploy`, service `portfolio`, tag voulu.
+
+Sur le serveur, en secours (registre déjà connecté) :
 
 ```bash
 PORTFOLIO_TAG=1.0.0 make deploy   # pull de l'image GHCR puis up -d (latest si PORTFOLIO_TAG absent)
