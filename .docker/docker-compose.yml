@@ -5,6 +5,10 @@ networks:
 services:
 
   portfolio:
+    # Image publiée sur GHCR par .github/workflows/image.yml à chaque release.
+    # PORTFOLIO_TAG (ex. 1.0.0) choisit la version déployée ; sans valeur, latest.
+    # `build:` reste là pour un build local de secours (make build), tagué du même nom.
+    image: ghcr.io/skuskusku13/portfolio:${PORTFOLIO_TAG:-latest}
     build:
       context: ../
       dockerfile: ./.docker/Dockerfile

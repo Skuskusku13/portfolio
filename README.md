@@ -119,12 +119,26 @@ Au merge, le tag `vX.Y.Z` et la Release GitHub sont créés.
 
 ## Déploiement
 
+À chaque release (merge de la PR release-please), `.github/workflows/image.yml` construit l'image,
+la scanne avec Trivy et la publie sur `ghcr.io/skuskusku13/portfolio` (tags `X.Y.Z`, `X.Y`, `latest`,
+`sha-…`) avec une attestation de provenance signée par GitHub. Le paquet est privé : le serveur
+doit être connecté au registre (`docker login ghcr.io`, jeton en lecture seule sur les paquets)
+avant de tirer l'image.
+
+Sur le serveur :
+
+```bash
+PORTFOLIO_TAG=1.0.0 make deploy   # pull de l'image GHCR puis up -d (latest si PORTFOLIO_TAG absent)
+```
+
+Build local de secours, sans passer par GHCR :
+
 ```bash
 make build   # image multi-stage node:26-alpine → httpd:2.4-alpine (digests épinglés)
 make up      # compose derrière le réseau nginx-proxy
 ```
 
-Retour arrière : relancer le conteneur sur l'image précédente. Le site est statique, il n'y a
+Retour arrière : `PORTFOLIO_TAG=<version précédente> make deploy`. Le site est statique, il n'y a
 aucune donnée à migrer.
 
 ---

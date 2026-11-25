@@ -1,0 +1,175 @@
+name: Image Docker
+
+# Construit l'image de production et la publie sur GHCR à chaque release publiée
+# (merge d'une PR release-please) : ghcr.io/skuskusku13/portfolio en X.Y.Z, X.Y, latest
+# et sha-<commit>. L'image est scannée par Trivy AVANT d'être poussée, puis une attestation
+# de provenance signée par GitHub est attachée au digest publié (vérifiable avec
+# `gh attestation verify oci://ghcr.io/skuskusku13/portfolio:X.Y.Z --owner Skuskusku13`).
+# Le déclencheur manuel reconstruit un tag existant (reprise après échec) sans déplacer latest.
+#
+# Le paquet GHCR est privé (visibilité par défaut à la première publication, à ne jamais
+# passer en public : irréversible). Le serveur s'authentifie pour le tirer, voir README.
+# Rien de secret n'entre dans l'image de toute façon : le site compilé et la conf Apache
+# uniquement (.dockerignore exclut .env* à toute profondeur, VITE_MAILER_URL est publique).
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag git à construire, par exemple v1.0.0"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+# Une construction à la fois par tag, jamais annulée : un push partiel laisserait un tag incohérent.
+concurrency:
+  group: image-${{ inputs.tag || github.event.release.tag_name }}
+  cancel-in-progress: false
+
+env:
+  IMAGE: ghcr.io/skuskusku13/portfolio
+  TAG: ${{ inputs.tag || github.event.release.tag_name }}
+  # Version du binaire Trivy (alignée sur le défaut de trivy-action v0.36.0). Pas suivie par
+  # Dependabot : à bumper à la main avec trivy-action.
+  TRIVY_VERSION: v0.70.0
+
+jobs:
+  image:
+    name: Construire, scanner, publier
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write      # push sur GHCR
+      id-token: write      # signature OIDC de l'attestation
+      attestations: write  # enregistrement de l'attestation sur GitHub
+    steps:
+      - name: Checkout du tag
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ env.TAG }}
+          persist-credentials: false
+
+      # Le commit réellement construit (github.sha pointerait sur main en déclenchement manuel).
+      - name: Commit construit
+        id: rev
+        run: echo "short=$(git rev-parse --short=12 HEAD)" >> "$GITHUB_OUTPUT"
+
+      # Le serveur est un Raspberry Pi (arm64) : QEMU émule l'étape finale Apache (apk upgrade),
+      # l'étape de compilation Node reste native grâce à --platform=$BUILDPLATFORM du Dockerfile.
+      - name: QEMU (arm64)
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
+        with:
+          platforms: linux/arm64
+
+      - name: Buildx
+        uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+
+      - name: Connexion à GHCR
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # v4.8.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # latest ne bouge qu'à une vraie release : une reconstruction manuelle d'un ancien tag
+      # ne doit pas le faire reculer.
+      - name: Tags et labels OCI
+        id: meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=semver,pattern={{version}},value=${{ env.TAG }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ env.TAG }}
+            type=raw,value=latest,enable=${{ github.event_name == 'release' }}
+            type=raw,value=sha-${{ steps.rev.outputs.short }}
+
+      # Première passe : image chargée dans le daemon local, sans push, pour le scan.
+      # Le cache GHA (mode=max) rend la seconde passe quasi instantanée.
+      - name: Construire l'image (locale, pour le scan)
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: .docker/Dockerfile
+          platforms: linux/arm64
+          load: true
+          tags: ${{ env.IMAGE }}:scan
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: false
+          sbom: false
+
+      # Le script d'installation de trivy-action interroge github.com sans authentification
+      # ni relance et échoue par intermittence (« unable to find 'v0.70.0' »). Le binaire est
+      # donc téléchargé avec gh (API authentifiée, fiable), sa somme SHA-256 vérifiée contre
+      # le fichier de sommes publié avec la release, puis trivy-action l'utilise tel quel.
+      - name: Installer Trivy
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          v="${TRIVY_VERSION#v}"
+          work="$RUNNER_TEMP/trivy" && mkdir -p "$work" && cd "$work"
+          gh release download "$TRIVY_VERSION" --repo aquasecurity/trivy \
+            --pattern "trivy_${v}_Linux-64bit.tar.gz" --pattern "trivy_${v}_checksums.txt"
+          sha256sum --check --ignore-missing "trivy_${v}_checksums.txt"
+          tar -xzf "trivy_${v}_Linux-64bit.tar.gz" trivy
+          mkdir -p "$HOME/.local/bin" && install -m 0755 trivy "$HOME/.local/bin/trivy"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/trivy" --version
+
+      # Même politique que security.yml : CRITICAL/HIGH corrigeables bloquants.
+      # Mirrors ECR en priorité : la DB sur ghcr.io est régulièrement rate-limitée.
+      - name: Scanner l'image avec Trivy
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: image
+          image-ref: ${{ env.IMAGE }}:scan
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: '1'
+          skip-setup-trivy: true
+          cache: 'true'
+        env:
+          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db,ghcr.io/aquasecurity/trivy-db
+          TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db,ghcr.io/aquasecurity/trivy-java-db
+
+      # provenance/sbom buildx désactivés : un manifeste simple (pas d'index OCI) et c'est
+      # l'étape suivante qui produit l'attestation, signée par GitHub.
+      - name: Publier sur GHCR
+        id: push
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: .docker/Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          provenance: false
+          sbom: false
+
+      - name: Attester la provenance
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-name: ${{ env.IMAGE }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+      - name: Résumé
+        env:
+          TAGS: ${{ steps.meta.outputs.tags }}
+          DIGEST: ${{ steps.push.outputs.digest }}
+        run: |
+          {
+            echo "## Image publiée"
+            echo '```'
+            echo "$TAGS"
+            echo "digest : $DIGEST"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
