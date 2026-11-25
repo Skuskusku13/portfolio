@@ -2,7 +2,7 @@ DOCKER_COMPOSE_FILE=.docker/docker-compose.yml
 PROJECT_NAME=portfolio
 SERVICE_NAME=portfolio
 
-.PHONY: build up down exec logs
+.PHONY: build up down exec logs pull deploy
 
 build:
 	docker compose -f $(DOCKER_COMPOSE_FILE) -p $(PROJECT_NAME) build
@@ -18,3 +18,9 @@ exec:
 
 logs:
 	docker compose -f $(DOCKER_COMPOSE_FILE) -p $(PROJECT_NAME) logs -f
+
+# Tire l'image GHCR de la version PORTFOLIO_TAG (latest par défaut) puis relance le conteneur.
+pull:
+	docker compose -f $(DOCKER_COMPOSE_FILE) -p $(PROJECT_NAME) pull
+
+deploy: pull up

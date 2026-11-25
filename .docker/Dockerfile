@@ -1,6 +1,9 @@
 # Étape 1 : Build de l'application React + Vite
 # Images épinglées par digest (supply chain) ; Dependabot (.github/dependabot.yml) propose les mises à jour.
-FROM node:26-alpine@sha256:6f08a523443ddedf52941874c203475b0ad503e859ad70cb26ab8be9a517dbd5 AS builder
+# --platform=$BUILDPLATFORM : cette étape ne produit que des fichiers statiques, elle tourne
+# donc nativement sur la machine qui construit (amd64 en CI, arm64 sur le Pi) sans émulation ;
+# seule l'image finale est produite pour la plateforme cible (linux/arm64, le serveur).
+FROM --platform=$BUILDPLATFORM node:26-alpine@sha256:6f08a523443ddedf52941874c203475b0ad503e859ad70cb26ab8be9a517dbd5 AS builder
 WORKDIR /app
 
 # Copier les fichiers de dépendances
