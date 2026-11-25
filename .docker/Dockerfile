@@ -36,7 +36,7 @@ RUN npm run build
 RUN grep -rqF -- "$VITE_MAILER_URL" dist/assets/ || { echo "ERREUR : VITE_MAILER_URL absente du bundle" >&2; exit 1; }
 
 # Étape 2 : Servir avec Apache (IMAGE FINALE DE PRODUCTION)
-FROM httpd:2.4-alpine@sha256:070da7661f0be8a05430b2c125c0cde9e53176b4048c813024021969a0e3893c
+FROM httpd:2.4-alpine@sha256:32bd0639bcc4917ef1fd9363a1d9dd2dd9c498565118b062a10d51e43a5c3a24
 
 # Correctifs de sécurité Alpine publiés depuis la construction de l'image de base
 RUN apk upgrade --no-cache
