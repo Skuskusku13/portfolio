@@ -1,0 +1,39 @@
+name: Release Please
+
+# Ouvre et tient à jour une PR de release (« chore(main): release X.Y.Z ») à partir
+# des commits conventionnels poussés sur main : CHANGELOG.md et version de package.json.
+# Rien n'est publié tant que cette PR n'est pas mergée. Au merge, release-please pose le
+# tag vX.Y.Z et publie la Release GitHub : c'est cet événement « release published » qui
+# déclenchera la construction de l'image et le déploiement.
+#
+# Le secret RELEASE_PLEASE_TOKEN est un PAT fine-grained limité à ce dépôt (Contents,
+# Issues et Pull requests en écriture). Une PR ouverte avec GITHUB_TOKEN ne déclencherait
+# aucun workflow, donc jamais les checks requis par la protection de main.
+# Prérequis côté dépôt : Settings → Actions → General → « Allow GitHub Actions to create
+# and approve pull requests » coché.
+on:
+  push:
+    branches: [main]
+
+# Une exécution à la fois, sans annulation : deux pushs rapprochés se mettent en file.
+concurrency:
+  group: release-please
+  cancel-in-progress: false
+
+# Tout passe par le PAT. GITHUB_TOKEN reste en lecture seule : si le secret manque ou a
+# expiré, le job échoue franchement au lieu d'ouvrir une PR sans CI.
+permissions:
+  contents: read
+
+jobs:
+  release-please:
+    name: PR de release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Ouvrir ou mettre à jour la PR de release
+        uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

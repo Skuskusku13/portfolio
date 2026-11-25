@@ -109,6 +109,14 @@ premier rendu. Le bloc JSON-LD est un bloc de données, il n'a pas besoin de has
 `tests/csp.test.ts` recalcule le hash à chaque `npm test` : si le script change sans la CSP,
 la suite échoue avec le nouveau hash à reporter dans la configuration.
 
+## Versions et releases
+
+Les versions sont gérées par [release-please](https://github.com/googleapis/release-please-action)
+(`.github/workflows/release-please.yml`). À chaque push sur `main`, il ouvre ou met à jour une PR
+« chore(main): release X.Y.Z » à partir des commits conventionnels (`feat`, `fix`, `perf`) :
+CHANGELOG.md et version de `package.json`. Rien n'est publié tant que cette PR n'est pas mergée.
+Au merge, le tag `vX.Y.Z` et la Release GitHub sont créés.
+
 ## Déploiement
 
 ```bash
