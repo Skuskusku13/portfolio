@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.1](https://github.com/Skuskusku13/portfolio/compare/v1.0.0...v1.0.1) (2026-11-25)
+
+
+### Corrections
+
+* **deps:** bump lucide-react from 1.73.0 to 1.75.0 ([7ee62af](https://github.com/Skuskusku13/portfolio/commit/7ee62af37bfea5a1209bc665d89977dbb344730b))
+* **deps:** bump lucide-react from 1.73.0 to 1.75.0 ([4c27f49](https://github.com/Skuskusku13/portfolio/commit/4c27f49735efc0156676b331cdd8c3ade2812004))
+* **docker:** bump httpd from `070da76` to `32bd063` in /.docker ([d097bb0](https://github.com/Skuskusku13/portfolio/commit/d097bb03cf53ab2786d72ca389ce5a509ba9ba2a))
+* **docker:** bump httpd from `070da76` to `32bd063` in /.docker ([937722c](https://github.com/Skuskusku13/portfolio/commit/937722c2b42c6ce877bd25a263220b7bc5a65a07))
+* **docker:** bump node from `6f08a52` to `6bd9ab4` in /.docker ([1bb4c1f](https://github.com/Skuskusku13/portfolio/commit/1bb4c1f166d7f8bdfc099fe309987757f1207a74))
+* **docker:** bump node from `6f08a52` to `6bd9ab4` in /.docker ([3094f1a](https://github.com/Skuskusku13/portfolio/commit/3094f1a457666a6e9bb41dc36973a51b3e580e33))
+
 ## 1.0.0 (2026-11-25)
 
 
