@@ -173,3 +173,21 @@ jobs:
             echo "digest : $DIGEST"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+
+      # Déploiement sur le Pi : signal au dépôt privé homelab-deploy, dont le runner
+      # self-hosted tire l'image et relance le conteneur. Seulement pour une vraie release :
+      # pour déployer ou revenir en arrière à la main, lancer le workflow Deploy de
+      # homelab-deploy. HOMELAB_DEPLOY_TOKEN : PAT fine-grained limité à homelab-deploy,
+      # permission Contents en écriture (exigée par l'API des dispatches).
+      - name: Déclencher le déploiement sur le Pi
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ secrets.HOMELAB_DEPLOY_TOKEN }}
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          gh api repos/Skuskusku13/homelab-deploy/dispatches \
+            -f event_type=deploy \
+            -f "client_payload[service]=portfolio" \
+            -f "client_payload[tag]=$version"
+          echo "Déploiement de $version demandé à homelab-deploy" | tee -a "$GITHUB_STEP_SUMMARY"
