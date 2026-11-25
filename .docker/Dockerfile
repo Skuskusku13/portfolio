@@ -3,7 +3,7 @@
 # --platform=$BUILDPLATFORM : cette étape ne produit que des fichiers statiques, elle tourne
 # donc nativement sur la machine qui construit (amd64 en CI, arm64 sur le Pi) sans émulation ;
 # seule l'image finale est produite pour la plateforme cible (linux/arm64, le serveur).
-FROM --platform=$BUILDPLATFORM node:26-alpine@sha256:6f08a523443ddedf52941874c203475b0ad503e859ad70cb26ab8be9a517dbd5 AS builder
+FROM --platform=$BUILDPLATFORM node:26-alpine@sha256:6bd9ab43c0ec0190ca7b2d193906cb8b7edf6e7f4afa43ddeccd6452710bffb5 AS builder
 WORKDIR /app
 
 # Copier les fichiers de dépendances
